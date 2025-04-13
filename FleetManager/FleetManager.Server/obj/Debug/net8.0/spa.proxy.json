@@ -1,0 +1,10 @@
+{
+"SpaProxyServer": {
+"ServerUrl": "https://localhost:5173",
+"RedirectUrl": "",
+"LaunchCommand": "npm run dev",
+"WorkingDirectory": "G:\\Studia\\Projekt Tab\\2025_-TAB-DSA-_13_Klecha\\FleetManager\\FleetManager.Server\\..\\fleetmanager.client",
+"MaxTimeoutInSeconds": "120",
+"KeepRunning": "false"
+}
+}
