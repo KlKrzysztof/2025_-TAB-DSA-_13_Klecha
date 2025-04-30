@@ -22,13 +22,13 @@ const Employees: React.FC = () => {
             console.log(`Delete Employee with ID: ${selectedId}`);
         } else {
             console.log('No employee selected for deletion');
-        }
+}
     };
 
     return (
         <div className="container">
             <div className="card">
-                
+
 
                 {/* Employee Details Panel */}
                 <div className="details-panel">
