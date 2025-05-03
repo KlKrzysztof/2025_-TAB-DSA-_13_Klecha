@@ -1,4 +1,5 @@
 import React from "react"
+import { Link } from 'react-router-dom';
 
 
 function Navbar() {
@@ -50,11 +51,11 @@ function Navbar() {
         <h1 style={LogoStyle}>Fleet Manager</h1>
         <nav style={NavStyle}>
             <ul style={MenuStyles}>
-                <li style={LiStyles}> <a href="vehicles" style={LiStyles}>Vehicles</a> </li>
-                <li style={LiStyles}> <a href="employees" style={LiStyles}>Employees</a></li>
-                <li style={LiStyles}> <a href="#" style={LiStyles}>Service</a> </li>
-                <li style={LiStyles}> <a href="#" style={LiStyles}>Reservation</a> </li>
-                <li style={LiStyles}> <a href="#" style={LiStyles}>Costs</a> </li>
+                <li style={LiStyles}> <Link to="/vehicles" style={LiStyles}>Vehicles</Link> </li>
+                <li style={LiStyles}> <Link to="/employees" style={LiStyles}>Employees</Link></li>
+                <li style={LiStyles}> <Link to="/#" style={LiStyles}>Service</Link> </li>
+                <li style={LiStyles}> <Link to="/#" style={LiStyles}>Reservation</Link> </li>
+                <li style={LiStyles}> <Link to="/#" style={LiStyles}>Costs</Link> </li>
             </ul>
         </nav>
     </div>
