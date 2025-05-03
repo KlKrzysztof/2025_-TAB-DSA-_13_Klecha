@@ -12,6 +12,7 @@ th, td {
 table {
     margin: 0 auto;
 }
+/*
 nav {
     margin-bottom: 2rem;
     display: flex;
@@ -29,6 +30,7 @@ nav {
     
        
 }
+*/
 #navLinks {
     min-width: 50%;
     display: flex;
