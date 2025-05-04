@@ -7,6 +7,7 @@ interface ColumnDef {
 }
 interface TableProps {
     fetchURL: string;
+    idColumn: string;
     onRowSelect: (id: number | string) => void;
     visibleColumns?: ColumnDef[];
 }
@@ -17,7 +18,7 @@ interface DataItem {
     id: number | string;
 }
 
-export const SortableTable: React.FC<TableProps> = ({ fetchURL, onRowSelect, visibleColumns }) => {
+export const SortableTable: React.FC<TableProps> = ({ fetchURL, idColumn, onRowSelect, visibleColumns }) => {
     const [data, setData] = useState<DataItem[]>([]);
     const [sortedField, setSortedField] = useState<string | null>(null);
     const [sortDirection, setSortDirection] = useState<'asc' | 'desc'>('asc');
@@ -83,11 +84,11 @@ export const SortableTable: React.FC<TableProps> = ({ fetchURL, onRowSelect, vis
                 <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
                     <tbody>
                         {data.map((row) => {
-                            const isSelected = selectedId === row.id;
+                            const isSelected = selectedId === row[idColumn];
                             return (
                                 <tr
-                                    key={row.id}
-                                    onClick={() => handleRowClick(row.id)}
+                                    key={row[idColumn]}
+                                    onClick={() => handleRowClick(row[idColumn])}
                                     style={{
                                         backgroundColor: isSelected ? '#d0e7ff' : 'white',
                                         cursor: 'pointer',

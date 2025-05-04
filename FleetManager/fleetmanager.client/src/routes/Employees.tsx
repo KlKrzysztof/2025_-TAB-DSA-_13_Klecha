@@ -32,7 +32,7 @@ const Employees: React.FC = () => {
                 <div className="list-panel">
                     <h1 className="title">Employees List</h1>
                     <div className="employee-list" style={{maxHeight: "300px"} }>
-                        <SortableTable fetchURL="weatherforecast" visibleColumns={[{ key: "date", label: "Date" }, { key: "temperatureC", label: "Temperature C" }, { key: "summary", label: "Summary" }]} onRowSelect={handleEmplyeeSelect} />
+                        <SortableTable fetchURL="weatherforecast" idColumn="id" visibleColumns={[{ key: "date", label: "Date" }, { key: "temperatureC", label: "Temperature C" }, { key: "summary", label: "Summary" }]} onRowSelect={handleEmplyeeSelect} />
                     </div>
                 </div>
 
