@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
 public partial class Vehiclepurpose
 {
+    [Key]
     public uint VehiclePurposeId { get; set; }
 
     public string? Name { get; set; }

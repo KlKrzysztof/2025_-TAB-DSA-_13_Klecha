@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
-public partial class Employee
+public partial class EmployeeModel
 {
+    [Key]
     public uint EmployeeId { get; set; }
 
     public string FirstName { get; set; } = null!;

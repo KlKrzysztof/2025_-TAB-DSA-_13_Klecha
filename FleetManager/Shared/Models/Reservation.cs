@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
 public partial class Reservation
 {
+    [Key]
     public uint ReservationId { get; set; }
 
     public DateOnly FactualBeginDate { get; set; }

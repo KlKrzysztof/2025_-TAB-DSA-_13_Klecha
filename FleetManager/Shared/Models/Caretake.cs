@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
 public partial class Caretake
 {
+    [Key]
     public uint CaretakeId { get; set; }
 
     public uint VehicleId { get; set; }
@@ -15,7 +17,7 @@ public partial class Caretake
 
     public DateOnly? EndDate { get; set; }
 
-    public virtual Employee Employee { get; set; } = null!;
+    public virtual EmployeeModel Employee { get; set; } = null!;
 
     public virtual ICollection<Operationalactivity> Operationalactivities { get; set; } = new List<Operationalactivity>();
 

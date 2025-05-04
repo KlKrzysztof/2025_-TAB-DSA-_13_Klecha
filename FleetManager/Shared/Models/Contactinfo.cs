@@ -1,15 +1,17 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
 public partial class Contactinfo
 {
+    [Key]
     public uint ContactId { get; set; }
 
     public uint EmployeeId { get; set; }
 
     public string TelNumber { get; set; } = null!;
 
-    public virtual Employee Employee { get; set; } = null!;
+    public virtual EmployeeModel Employee { get; set; } = null!;
 }

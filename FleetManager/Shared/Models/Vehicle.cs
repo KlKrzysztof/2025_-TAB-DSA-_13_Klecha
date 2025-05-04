@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
 public partial class Vehicle
 {
+    [Key]
     public uint VehicleId { get; set; }
 
     public double? TotalMileage { get; set; }

@@ -1,17 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
-public partial class Refuel
+public partial class Operationalactivity
 {
-    public uint RefuelId { get; set; }
+    [Key]
+    public uint ActivityId { get; set; }
 
-    public double CurrentMileage { get; set; }
-
-    public DateOnly Date { get; set; }
+    public string Name { get; set; } = null!;
 
     public double Cost { get; set; }
+
+    public DateOnly Date { get; set; }
 
     public uint CaretakeId { get; set; }
 

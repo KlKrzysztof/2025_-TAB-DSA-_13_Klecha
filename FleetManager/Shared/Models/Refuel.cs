@@ -1,13 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
-public partial class Serviceoperation
+public partial class Refuel
 {
-    public uint ServiceOperationsId { get; set; }
+    [Key]
+    public uint RefuelId { get; set; }
 
-    public string Name { get; set; } = null!;
+    public double CurrentMileage { get; set; }
 
     public DateOnly Date { get; set; }
 

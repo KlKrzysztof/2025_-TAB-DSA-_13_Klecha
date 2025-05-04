@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
 public partial class Model
 {
+    [Key]
     public uint ModelId { get; set; }
 
     public uint ManufacturerId { get; set; }

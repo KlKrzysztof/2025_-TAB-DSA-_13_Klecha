@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
 public partial class Address
 {
+    [Key]
     public uint AddressId { get; set; }
 
     public string City { get; set; } = null!;
@@ -19,5 +21,5 @@ public partial class Address
 
     public uint? EmployeeId { get; set; }
 
-    public virtual Employee? Employee { get; set; }
+    public virtual EmployeeModel? Employee { get; set; }
 }

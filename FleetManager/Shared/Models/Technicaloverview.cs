@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
-namespace FleetManager.Server.Models;
+namespace Shared.Models;
 
 public partial class Technicaloverview
 {
+    [Key]
     public uint OverviewId { get; set; }
 
     public bool Passed { get; set; }
