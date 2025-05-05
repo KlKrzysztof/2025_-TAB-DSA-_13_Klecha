@@ -15,3 +15,7 @@ The following steps were used to generate this project:
 - Update proxy endpoint to be the backend server endpoint.
 - Add project to the startup projects list.
 - Write this file.
+
+@user-3141(Przemek)
+- added dependency package for multipage routing: `npm i react-router` & `npm i react-router-dom`
+- `npm install @types/react @types/react-dom --save-dev`

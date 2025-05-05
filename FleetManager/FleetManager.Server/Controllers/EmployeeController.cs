@@ -4,7 +4,7 @@ using Shared.Contracts.Query;
 namespace FleetManager.Server.Controllers;
 
 [ApiController]
-[Route("employees")]
+[Route("api/employees")]
 public class EmployeeController(IEmployeeQuery query) : ControllerBase
 {
 
