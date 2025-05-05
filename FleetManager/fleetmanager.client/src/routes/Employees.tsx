@@ -28,13 +28,7 @@ const Employees: React.FC = () => {
     return (
         <div className="container">
             <div className="card">
-                {/* Employees List Panel */}
-                <div className="list-panel">
-                    <h1 className="title">Employees List</h1>
-                    <div className="employee-list" style={{maxHeight: "300px"} }>
-                        <SortableTable fetchURL="weatherforecast" idColumn="id" visibleColumns={[{ key: "date", label: "Date" }, { key: "temperatureC", label: "Temperature C" }, { key: "summary", label: "Summary" }]} onRowSelect={handleEmplyeeSelect} />
-                    </div>
-                </div>
+                
 
                 {/* Employee Details Panel */}
                 <div className="details-panel">
@@ -56,6 +50,14 @@ const Employees: React.FC = () => {
                         <button className="delete" onClick={handleDeleteEmployee}>Delete Employee</button>
                     </div>
                 </div>
+                {/* Employees List Panel */}
+                <div className="list-panel">
+                    <h1 className="title">Employees List</h1>
+                    <div className="employee-list" style={{maxHeight: "300px"} }>
+                        <SortableTable fetchURL="api/employees/get/all" idColumn="employeeId" onRowSelect={handleEmplyeeSelect} />
+                    </div>
+                </div>
+
             </div>
         </div>
     );
