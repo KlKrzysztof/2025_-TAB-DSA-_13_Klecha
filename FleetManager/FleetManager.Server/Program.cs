@@ -1,12 +1,25 @@
+using FleetManager.Server.DataAccess.DbContexts;
+using FleetManager.Server.DataAccess.Query;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
+using MySqlConnector;
+using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
+using Shared.Contracts.Query;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+
+string connStr = builder.Configuration.GetConnectionString("mariadb") ?? string.Empty;
+builder.Services.AddMySqlDataSource(connStr);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddScoped<IEmployeeQuery, EmployeeQuery>();
 
+builder.Services.AddDbContext<EmployeeContext>(opt => opt.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
 var app = builder.Build();
 
 app.UseDefaultFiles();
