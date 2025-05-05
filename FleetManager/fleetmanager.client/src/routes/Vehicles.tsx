@@ -1,11 +1,20 @@
 
+import VehiclesList from './VehiclesList'
+import Navbar from "./Navbar"
 
 function Vehicles() {
 
+    const ContentStyle: React.CSSProperties = {
+        marginTop: '3vh', 
+        display: 'flex',
+        justifyContent: 'center'
+    }
+
     return (<>
-        <div>
-            Vehicles
-        </div>
+        <Navbar />
+        <main style={ContentStyle}>
+            <VehiclesList/>
+        </main>
     </>)
 }
 
