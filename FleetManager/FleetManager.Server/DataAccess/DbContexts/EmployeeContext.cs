@@ -1,21 +1,22 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Configuration;
-using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Shared.Models;
 
 namespace FleetManager.Server.DataAccess.DbContexts;
 
-public class EmployeeContext : DbContext
+public class EmployeeContext(DbContextOptions<EmployeeContext> opt) : DbContext(opt)
 {
-    public EmployeeContext(DbContextOptions<EmployeeContext> opt)
-         : base(opt)
-    {
-    }
-
     public virtual DbSet<EmployeeModel> Employees { get; set; }
+
+    public virtual DbSet<User> UsersInfo { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<EmployeeModel>().ToTable("Employee");
+        modelBuilder.Entity<EmployeeModel>().ToTable("Employee")
+            .HasOne(opt => opt.UserInfo)
+            .WithOne(opt => opt.Employee)
+            .HasForeignKey<User>(opt => opt.EmployeeId)
+            .IsRequired();
+
+        modelBuilder.Entity<User>().ToTable("User");
     }
 }

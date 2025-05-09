@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Models;
 
@@ -17,11 +15,11 @@ public partial class EmployeeModel
 
     public string Pesel { get; set; } = null!;
 
-    public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
+    public ICollection<Address> Addresses { get; set; } = [];
 
-    public virtual ICollection<Caretake> Caretakes { get; set; } = new List<Caretake>();
+    public Caretake? Caretake { get; set; }
 
-    public virtual ICollection<Contactinfo> Contactinfos { get; set; } = new List<Contactinfo>();
+    public ICollection<Contactinfo> Contactinfos { get; set; } = [];
 
-    public virtual ICollection<User> Users { get; set; } = new List<User>();
+    public required User UserInfo { get; set; }
 }

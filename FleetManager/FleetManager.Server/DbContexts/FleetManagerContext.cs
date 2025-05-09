@@ -39,7 +39,7 @@
 
 //    public virtual DbSet<Technicaloverview> Technicaloverviews { get; set; }
 
-//    public virtual DbSet<User> Users { get; set; }
+//    public virtual DbSet<User> UserInfo { get; set; }
 
 //    public virtual DbSet<Vehicle> Vehicles { get; set; }
 
@@ -421,7 +421,7 @@
 //                .HasMaxLength(100)
 //                .HasColumnName("username");
 
-//            entity.HasOne(d => d.Employee).WithMany(p => p.Users)
+//            entity.HasOne(d => d.Employee).WithMany(p => p.UserInfo)
 //                .HasForeignKey(d => d.EmployeeId)
 //                .HasConstraintName("user_employee_FK");
 //        });
