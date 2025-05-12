@@ -29,10 +29,18 @@ function VehiclesList() {
         flexDirection: 'column'
     }
 
+    const pStyle: React.CSSProperties = {
+        width: '200px',
+        margin: '0',
+        textAlign: 'center'
+    }
+
     return <div style={PanelStyles}>
         <h2>My Vehicles</h2>
         <div style={ListStyles}>
-            <ListElement>vctdd</ListElement>
+            <ListElement><p style={pStyle}>Fiat Ducato</p><p style={pStyle}>Dostawcze</p><p style={pStyle}>STA 2I376P</p></ListElement>
+            <ListElement><p style={pStyle}>Renault Master</p><p style={pStyle}>Laweta</p><p style={pStyle}>SG 420PR</p></ListElement>
+            <ListElement><p style={pStyle}>Ford Transit</p><p style={pStyle}>Dostawcze</p><p style={pStyle}>SY 6996I2</p></ListElement>
         </div>
     </div>
 }
