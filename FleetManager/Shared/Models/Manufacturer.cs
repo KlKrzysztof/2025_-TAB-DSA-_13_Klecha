@@ -11,5 +11,5 @@ public partial class Manufacturer
 
     public string Name { get; set; } = null!;
 
-    public virtual ICollection<Model> Models { get; set; } = new List<Model>();
+    public virtual ICollection<VehicleModel> Models { get; set; } = new List<VehicleModel>();
 }

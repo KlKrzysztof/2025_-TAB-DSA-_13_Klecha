@@ -4,7 +4,8 @@ using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Models;
 
-public partial class Model
+
+public partial class VehicleModel
 {
     [Key]
     public uint ModelId { get; set; }

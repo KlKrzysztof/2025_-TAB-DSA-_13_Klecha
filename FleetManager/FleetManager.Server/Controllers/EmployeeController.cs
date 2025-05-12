@@ -22,4 +22,5 @@ public class EmployeeController(IEmployeeQuery query) : ControllerBase
         var res = await query.GetEmployeeByIdAsync(id);
         return Ok(res);
     }
+
 }
