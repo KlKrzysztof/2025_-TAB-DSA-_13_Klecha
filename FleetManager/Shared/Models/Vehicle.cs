@@ -23,7 +23,7 @@ public partial class Vehicle
 
     public virtual ICollection<Caretake> Caretakes { get; set; } = new List<Caretake>();
 
-    public virtual Model Model { get; set; } = null!;
+    public virtual VehicleModel Model { get; set; } = null!;
 
     public virtual Vehiclepurpose VehiclePurpose { get; set; } = null!;
 }

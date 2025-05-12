@@ -11,7 +11,7 @@ public partial class Vehicleversion
 
     public string? Name { get; set; }
 
-    public virtual ICollection<Model> Models { get; set; } = new List<Model>();
+    public virtual ICollection<VehicleModel> Models { get; set; } = new List<VehicleModel>();
 
     public virtual ICollection<Vehicleoutfitting> Vehicleoutfittings { get; set; } = new List<Vehicleoutfitting>();
 }

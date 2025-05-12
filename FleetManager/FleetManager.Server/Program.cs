@@ -18,8 +18,16 @@ builder.Services.AddMySqlDataSource(connStr);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 builder.Services.AddScoped<IEmployeeQuery, EmployeeQuery>();
+builder.Services.AddScoped<IAddressQuery, AddressQuery>();
+builder.Services.AddScoped<IManufacturerQuery, ManufacturerQuery>();
+builder.Services.AddScoped<IVehicleModelQuery, VehicleModelQuery>();
+builder.Services.AddScoped<IVehicleOutfittingQuery, VehicleOutfittingQuery>();
+builder.Services.AddScoped<IVehiclePurposeQuery, VehiclePurposeQuery>();
+builder.Services.AddScoped<IVehicleQuery, VehicleQuery>();
+builder.Services.AddScoped<IVehicleVersionQuery, VehicleVersionQuery>();
 
 builder.Services.AddDbContext<EmployeeContext>(opt => opt.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
+builder.Services.AddDbContext<VehicleContext>(opt => opt.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
 var app = builder.Build();
 
 app.UseDefaultFiles();
