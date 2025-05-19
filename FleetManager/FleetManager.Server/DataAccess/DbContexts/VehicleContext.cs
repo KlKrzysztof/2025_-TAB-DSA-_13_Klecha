@@ -13,9 +13,21 @@ public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(op
 
     public DbSet<Vehicleoutfitting> VehicleOutfittings { get; set; }
 
-    public DbSet<Manufacturer> Manufacturers { get; set; }   
+    public DbSet<Manufacturer> Manufacturers { get; set; }
 
     public DbSet<Vehicle> Vehicles { get; set; }
+
+    public DbSet<Technicaloverview> Technicaloverviews { get; set; }
+
+    public DbSet<Serviceoperation> Serviceoperations { get; set; }
+
+    public DbSet<Refuel> Refuels { get; set; }
+
+    public DbSet<Operationalactivity> Operationalactivities { get; set; }
+
+    public DbSet<Reservation> Reservations { get; set; }
+
+    public DbSet<Caretake> Caretakes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -30,5 +42,17 @@ public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(op
         modelBuilder.Entity<Vehicle>().ToTable("vehicle");
 
         modelBuilder.Entity<Manufacturer>().ToTable("manufacturer");
+
+        modelBuilder.Entity<Technicaloverview>().ToTable("technicaloverview");
+
+        modelBuilder.Entity<Serviceoperation>().ToTable("serviceoperation");
+
+        modelBuilder.Entity<Refuel>().ToTable("refuel");
+
+        modelBuilder.Entity<Operationalactivity>().ToTable("operationalactivities");
+
+        modelBuilder.Entity<Reservation>().ToTable("reservations");
+
+        modelBuilder.Entity<Caretake>().ToTable("caretake");
     }
 }
