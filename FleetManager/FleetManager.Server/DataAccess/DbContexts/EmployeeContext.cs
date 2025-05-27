@@ -7,9 +7,11 @@ public class EmployeeContext(DbContextOptions<EmployeeContext> opt) : DbContext(
 {
     public virtual DbSet<EmployeeModel> Employees { get; set; }
 
-    public virtual DbSet<User> UsersInfo { get; set; }
+    public DbSet<User> UsersInfo { get; set; }
 
     public DbSet<Address> Addresses { get; set; }
+
+    public DbSet<Contactinfo> ContactInfos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -22,5 +24,7 @@ public class EmployeeContext(DbContextOptions<EmployeeContext> opt) : DbContext(
         modelBuilder.Entity<User>().ToTable("User");
 
         modelBuilder.Entity<Address>().ToTable("address");
+
+        modelBuilder.Entity<Contactinfo>().ToTable("contactinfo");
     }
 }
