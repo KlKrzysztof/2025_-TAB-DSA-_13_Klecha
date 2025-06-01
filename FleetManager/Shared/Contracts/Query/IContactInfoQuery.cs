@@ -2,11 +2,11 @@
 
 namespace Shared.Contracts.Query;
 
-public interface IContactInfo
+public interface IContactInfoQuery
 {
     public Task<List<Contactinfo>> GetContactInfosAsync();
 
-    public Task<Contactinfo> GetContactInfoByIdAscyn(int id);
+    public Task<Contactinfo> GetContactInfoByIdAsync(int id);
 
     public Task<List<Contactinfo>> GetEmployeesContactInfoAsync(int id);
 

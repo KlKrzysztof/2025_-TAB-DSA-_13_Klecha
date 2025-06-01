@@ -8,7 +8,7 @@ namespace FleetManager.Server.DataAccess.Query;
 public class UserQuery(EmployeeContext db) : IUserQuery
 {
 
-    public async Task<List<User>> GetUserAsync()
+    public async Task<List<User>> GetUsersAsync()
     {
         return await db.UsersInfo.ToListAsync();
     }
