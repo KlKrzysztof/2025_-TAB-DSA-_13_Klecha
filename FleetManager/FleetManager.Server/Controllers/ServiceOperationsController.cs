@@ -5,7 +5,7 @@ using Shared.Models;
 namespace FleetManager.Server.Controllers;
 
 [ApiController]
-[Route("api/serviceoperations")]
+[Route("api/serviceoperation")]
 public class ServiceOperationsController(IServiceOperationsQuery query) : ControllerBase
 {
     [HttpGet("get/all")]
