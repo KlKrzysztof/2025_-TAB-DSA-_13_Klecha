@@ -4,7 +4,7 @@ namespace Shared.Contracts.Query;
 
 public interface IUserQuery
 {
-    public Task<List<User>> GetUserAsync();
+    public Task<List<User>> GetUsersAsync();
 
     public Task<User?> GetUserByIdAsync(int id);
 
