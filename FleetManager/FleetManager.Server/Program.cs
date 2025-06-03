@@ -17,9 +17,17 @@ string connStr = builder.Configuration.GetConnectionString("mariadb") ?? string.
 builder.Services.AddMySqlDataSource(connStr);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IEmployeeQuery, EmployeeQuery>();
 builder.Services.AddScoped<IAddressQuery, AddressQuery>();
+builder.Services.AddScoped<ICaretakeQuery, CaretakeQuery>();
+builder.Services.AddScoped<IContactInfoQuery, ContactInfoQuery>();
+builder.Services.AddScoped<IEmployeeQuery, EmployeeQuery>();
 builder.Services.AddScoped<IManufacturerQuery, ManufacturerQuery>();
+builder.Services.AddScoped<IOperationalActivityQuery, OperationalActivityQuery>();
+builder.Services.AddScoped<IRefuelQuery, RefuelQuery>();
+builder.Services.AddScoped<IReservationQuery, ReservationQuery>();
+builder.Services.AddScoped<IServiceOperationsQuery, ServiceOperationsQuery>();
+builder.Services.AddScoped<ITechnicalOverviewQuery, TechnicalOverviewQuery>();
+builder.Services.AddScoped<IUserQuery, UserQuery>();
 builder.Services.AddScoped<IVehicleModelQuery, VehicleModelQuery>();
 builder.Services.AddScoped<IVehicleOutfittingQuery, VehicleOutfittingQuery>();
 builder.Services.AddScoped<IVehiclePurposeQuery, VehiclePurposeQuery>();
