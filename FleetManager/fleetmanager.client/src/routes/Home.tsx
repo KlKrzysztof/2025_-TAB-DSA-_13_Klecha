@@ -15,8 +15,7 @@ const Home: React.FC = () => {
         populateWeatherData();
     }, []);
 
-    const contents = forecasts === undefined
-        ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
+    const contents = forecasts === undefined ? <p><em>Loading... Please refresh once the ASP.NET backend has started. See <a href="https://aka.ms/jspsintegrationreact">https://aka.ms/jspsintegrationreact</a> for more details.</em></p>
         : <table className="table table-striped" aria-labelledby="tableLabel">
             <thead>
                 <tr>
@@ -38,13 +37,12 @@ const Home: React.FC = () => {
             </tbody>
         </table>;
 
-    return (
+    return(
         <div>
             <h1 id="tableLabel">Home page</h1>
             <p>This component demonstrates fetching data from the server.</p>
             {contents}
-        </div>
-    );
+        </div>);
 
     async function populateWeatherData(){
         const response = await fetch('api/weatherforecast');
