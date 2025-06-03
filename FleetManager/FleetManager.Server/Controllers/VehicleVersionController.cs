@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.Controllers;
 
@@ -23,7 +23,7 @@ public class VehicleVersionController(IVehicleVersionQuery query) : ControllerBa
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateVehicleVersionAsync(Vehicleversion model)
+    public async Task<IActionResult> CreateVehicleVersionAsync(VehicleVersion model)
     {
         try
         {
@@ -37,7 +37,7 @@ public class VehicleVersionController(IVehicleVersionQuery query) : ControllerBa
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateVehicleVersionAsync(Vehicleversion model)
+    public async Task<IActionResult> UpdateVehicleVersionAsync(VehicleVersion model)
     {
         try
         {

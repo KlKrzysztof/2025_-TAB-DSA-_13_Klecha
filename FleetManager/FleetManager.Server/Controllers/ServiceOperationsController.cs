@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.ServiceOperation;
 
 namespace FleetManager.Server.Controllers;
 
@@ -30,7 +30,7 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateServiceOperationAsync(Serviceoperation model)
+    public async Task<IActionResult> CreateServiceOperationAsync(ServiceOperation model)
     {
         try
         {
@@ -45,7 +45,7 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateServiceOperationAsync(Serviceoperation model)
+    public async Task<IActionResult> UpdateServiceOperationAsync(ServiceOperation model)
     {
         try
         {

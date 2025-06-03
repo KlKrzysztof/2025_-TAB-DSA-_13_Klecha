@@ -1,23 +1,23 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.DataAccess.Query;
 
 public class VehicleVersionQuery(VehicleContext db) : IVehicleVersionQuery
 {
-    public async Task<List<Vehicleversion>> GetVehicleVersionsAsync()
+    public async Task<List<VehicleVersion>> GetVehicleVersionsAsync()
     {
         return await db.VehicleVersions.ToListAsync();
     }
 
-    public async Task<Vehicleversion?> GetVehicleVersionByIdAsync(int id)
+    public async Task<VehicleVersion?> GetVehicleVersionByIdAsync(int id)
     {
         return await db.VehicleVersions.SingleOrDefaultAsync(opt => opt.VersionId == id);
     }
 
-    public async Task CreateVehicleVersionAsync(Vehicleversion model)
+    public async Task CreateVehicleVersionAsync(VehicleVersion model)
     {
         var v = await db.VehicleVersions.SingleOrDefaultAsync(opt => opt.VersionId == model.VersionId);
         if (v == null)
@@ -27,7 +27,7 @@ public class VehicleVersionQuery(VehicleContext db) : IVehicleVersionQuery
         }
     }
 
-    public async Task UpdateVehicleVersionAsync(Vehicleversion model)
+    public async Task UpdateVehicleVersionAsync(VehicleVersion model)
     {
         var v = await db.VehicleVersions.SingleOrDefaultAsync(opt => opt.VersionId == model.VersionId);
         if (v != null)

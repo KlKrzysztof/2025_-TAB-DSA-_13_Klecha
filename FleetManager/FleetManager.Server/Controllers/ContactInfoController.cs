@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.ContactInfo;
 
 namespace FleetManager.Server.Controllers;
 
@@ -30,7 +30,7 @@ public class ContactInfoController(IContactInfoQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateContactInfoAsync(Contactinfo model)
+    public async Task<IActionResult> CreateContactInfoAsync(ContactInfo model)
     {
         try
         {
@@ -44,7 +44,7 @@ public class ContactInfoController(IContactInfoQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateContactInfoAsync(Contactinfo model)
+    public async Task<IActionResult> UpdateContactInfoAsync(ContactInfo model)
     {
         try
         {

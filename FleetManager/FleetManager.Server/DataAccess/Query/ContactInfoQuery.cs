@@ -1,28 +1,28 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.ContactInfo;
 
 namespace FleetManager.Server.DataAccess.Query;
 
 public class ContactInfoQuery(EmployeeContext db) : IContactInfoQuery
 {
-    public async Task<List<Contactinfo>> GetContactInfosAsync()
+    public async Task<List<ContactInfo>> GetContactInfosAsync()
     {
         return await db.ContactInfos.ToListAsync();
     }
 
-    public async Task<Contactinfo?> GetContactInfoByIdAsync(int id)
+    public async Task<ContactInfo?> GetContactInfoByIdAsync(int id)
     {
         return await db.ContactInfos.SingleOrDefaultAsync(opt => opt.ContactId == id);
     }
 
-    public async Task<List<Contactinfo>?> GetEmployeesContactInfoAsync(int id)
+    public async Task<List<ContactInfo>?> GetEmployeesContactInfoAsync(int id)
     {
         return await db.ContactInfos.Where(opt => opt.EmployeeId == id).ToListAsync();
     }
    
-    public async Task CreateContactInfoAsync(Contactinfo contactinfo)
+    public async Task CreateContactInfoAsync(ContactInfo contactinfo)
     {
         var c = await db.ContactInfos.SingleOrDefaultAsync(opt => opt.ContactId == contactinfo.ContactId);
         if(c == null)
@@ -31,7 +31,7 @@ public class ContactInfoQuery(EmployeeContext db) : IContactInfoQuery
             await db.SaveChangesAsync();
         }
     }
-    public async Task UpdateContactInfoAsync(Contactinfo contactinfo)
+    public async Task UpdateContactInfoAsync(ContactInfo contactinfo)
     {
         var c = await db.ContactInfos.SingleOrDefaultAsync(opt => opt.ContactId == contactinfo.ContactId);
         if (c != null)

@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shared.Models;
+namespace Shared.Models.Vehicle;
 
-public partial class Vehicle
+public class Vehicle
 {
     [Key]
     public uint VehicleId { get; set; }

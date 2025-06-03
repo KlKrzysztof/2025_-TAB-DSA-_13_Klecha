@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.TechnicalOverview;
 
 namespace FleetManager.Server.Controllers;
 
@@ -30,7 +30,7 @@ public class TechnicalOverviewController(ITechnicalOverviewQuery query) : Contro
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateTechnicalOverviewAsync(Technicaloverview model)
+    public async Task<IActionResult> CreateTechnicalOverviewAsync(TechnicalOverview model)
     {
         try
         {
@@ -45,7 +45,7 @@ public class TechnicalOverviewController(ITechnicalOverviewQuery query) : Contro
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateTechnicalOverviewAsync(Technicaloverview model)
+    public async Task<IActionResult> UpdateTechnicalOverviewAsync(TechnicalOverview model)
     {
         try
         {
