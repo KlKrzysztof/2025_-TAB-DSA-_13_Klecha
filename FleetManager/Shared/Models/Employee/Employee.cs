@@ -1,8 +1,8 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shared.Models;
+namespace Shared.Models.Employee;
 
-public partial class EmployeeModel
+public class Employee
 {
     [Key]
     public uint EmployeeId { get; set; }
@@ -14,12 +14,4 @@ public partial class EmployeeModel
     public string Surname { get; set; } = null!;
 
     public string Pesel { get; set; } = null!;
-
-    public ICollection<Address> Addresses { get; set; } = [];
-
-    public Caretake? Caretake { get; set; }
-
-    public ICollection<Contactinfo> Contactinfos { get; set; } = [];
-
-    public required User UserInfo { get; set; }
 }

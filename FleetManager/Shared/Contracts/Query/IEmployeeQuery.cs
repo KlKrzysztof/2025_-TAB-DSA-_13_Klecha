@@ -1,16 +1,16 @@
-﻿using Shared.Models;
+﻿using Shared.Models.Employee;
 
 namespace Shared.Contracts.Query;
 
 public interface IEmployeeQuery
 {
-    public Task<List<EmployeeModel>> GetEmployeesAsync();
+    public Task<List<Employee>> GetEmployeesAsync();
 
-    public Task<EmployeeModel?> GetEmployeeByIdAsync(int id);
+    public Task<Employee?> GetEmployeeByIdAsync(int id);
 
-    public Task CreateEmployee(EmployeeModel model);
+    public Task CreateEmployee(Employee model);
 
-    public Task UpdateEmployee(EmployeeModel model);
+    public Task UpdateEmployee(Employee model);
 
     public Task DeleteEmployee(int id);
 }

@@ -1,7 +1,7 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Address;
 using System.Net;
 
 namespace FleetManager.Server.DataAccess.Query;

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.Controllers;
 
@@ -23,7 +23,7 @@ public class VehicleOutfittingController(IVehicleOutfittingQuery query) : Contro
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateVehicleOutfittingAsync(Vehicleoutfitting model)
+    public async Task<IActionResult> CreateVehicleOutfittingAsync(VehicleOutfitting model)
     {
         try
         {
@@ -37,7 +37,7 @@ public class VehicleOutfittingController(IVehicleOutfittingQuery query) : Contro
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateVehicleOutfittingAsync(Vehicleoutfitting model)
+    public async Task<IActionResult> UpdateVehicleOutfittingAsync(VehicleOutfitting model)
     {
         try
         {

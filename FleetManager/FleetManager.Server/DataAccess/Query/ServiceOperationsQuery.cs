@@ -1,23 +1,23 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.ServiceOperation;
 
 namespace FleetManager.Server.DataAccess.Query;
 
 public class ServiceOperationsQuery(VehicleContext db) : IServiceOperationsQuery
 {
-    public async Task<List<Serviceoperation>> GetServiceOperationsAsync()
+    public async Task<List<ServiceOperation>> GetServiceOperationsAsync()
     {
         return await db.Serviceoperations.ToListAsync();
     }
 
-    public async Task<Serviceoperation?> GetServiceOperationByIdAsync(int id)
+    public async Task<ServiceOperation?> GetServiceOperationByIdAsync(int id)
     {
         return await db.Serviceoperations.SingleOrDefaultAsync(o => o.ServiceOperationsId == id);
     }
 
-    public async Task<List<Serviceoperation>?> GetServiceOperationsForVehicleAsync(int id)
+    public async Task<List<ServiceOperation>?> GetServiceOperationsForVehicleAsync(int id)
     {
         var caretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == id);
         if (caretake == null)
@@ -30,7 +30,7 @@ public class ServiceOperationsQuery(VehicleContext db) : IServiceOperationsQuery
         }
     }
 
-    public async Task CreateServiceOperationAsync(Serviceoperation model)
+    public async Task CreateServiceOperationAsync(ServiceOperation model)
     {
         var s = await db.Serviceoperations.SingleOrDefaultAsync(o => o.ServiceOperationsId == model.ServiceOperationsId);
         if (s == null)
@@ -40,7 +40,7 @@ public class ServiceOperationsQuery(VehicleContext db) : IServiceOperationsQuery
         }
     }
 
-    public async Task UpdateServiceOperationAsync(Serviceoperation model)
+    public async Task UpdateServiceOperationAsync(ServiceOperation model)
     {
         var s = await db.Serviceoperations.SingleOrDefaultAsync(o => o.ServiceOperationsId == model.ServiceOperationsId);
         if (s != null)

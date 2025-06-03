@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using Shared.Models.Refuel;
 
 namespace Shared.Contracts.Query;
 

@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.Controllers;
 
@@ -30,7 +30,7 @@ public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBa
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateVehiclePurposeAsync(Vehiclepurpose model)
+    public async Task<IActionResult> CreateVehiclePurposeAsync(VehiclePurpose model)
     {
         try
         {
@@ -44,7 +44,7 @@ public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBa
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateVehiclePurposeAsync(Vehiclepurpose model)
+    public async Task<IActionResult> UpdateVehiclePurposeAsync(VehiclePurpose model)
     {
         try
         {

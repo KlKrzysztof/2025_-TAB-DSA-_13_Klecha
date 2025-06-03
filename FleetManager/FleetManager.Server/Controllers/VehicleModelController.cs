@@ -1,6 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.Controllers;
 

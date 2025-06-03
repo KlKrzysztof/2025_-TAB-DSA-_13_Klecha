@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using Shared.Models.User;
 
 namespace Shared.Contracts.Query;
 

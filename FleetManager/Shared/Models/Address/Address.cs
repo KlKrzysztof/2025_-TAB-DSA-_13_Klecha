@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shared.Models;
+namespace Shared.Models.Address;
 
-public partial class Address
+public class Address
 {
     [Key]
     public uint AddressId { get; set; }
@@ -20,6 +18,4 @@ public partial class Address
     public uint? AccommodationNumber { get; set; }
 
     public uint? EmployeeId { get; set; }
-
-    public virtual EmployeeModel? Employee { get; set; }
 }
