@@ -20,10 +20,4 @@ public partial class Vehicle
     public uint ModelId { get; set; }
 
     public string Vin { get; set; } = null!;
-
-    public virtual ICollection<Caretake> Caretakes { get; set; } = new List<Caretake>();
-
-    public virtual VehicleModel Model { get; set; } = null!;
-
-    public virtual Vehiclepurpose VehiclePurpose { get; set; } = null!;
 }
