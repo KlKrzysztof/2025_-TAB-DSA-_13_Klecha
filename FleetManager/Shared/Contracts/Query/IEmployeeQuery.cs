@@ -4,11 +4,11 @@ namespace Shared.Contracts.Query;
 
 public interface IEmployeeQuery
 {
-    public Task<List<EmployeeModel>> GetEmployeesAsync();
+    public Task<List<Employee>> GetEmployeesAsync();
 
-    public Task<EmployeeModel?> GetEmployeeByIdAsync(int id);
+    public Task<Employee?> GetEmployeeByIdAsync(int id);
 
-    public Task CreateEmployee(EmployeeModel model);
+    public Task CreateEmployee(Employee model);
 
     public Task CreateEmployeeWithContactInfo(EmployeeModel model, string contact1, string contact2);
 

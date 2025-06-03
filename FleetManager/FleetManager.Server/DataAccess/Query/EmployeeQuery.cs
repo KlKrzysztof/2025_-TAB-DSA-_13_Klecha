@@ -8,17 +8,17 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class EmployeeQuery(EmployeeContext db) : IEmployeeQuery
 {
-    public async Task<List<EmployeeModel>> GetEmployeesAsync()
+    public async Task<List<Employee>> GetEmployeesAsync()
     {
         return await db.Employees.ToListAsync();
     }
 
-    public async Task<EmployeeModel?> GetEmployeeByIdAsync(int id)
+    public async Task<Employee?> GetEmployeeByIdAsync(int id)
     {
-        return await db.Employees.SingleOrDefaultAsync<EmployeeModel>(opt => opt.EmployeeId == id);
+        return await db.Employees.SingleOrDefaultAsync<Employee>(opt => opt.EmployeeId == id);
     }
 
-    public async Task CreateEmployee(EmployeeModel model)
+    public async Task CreateEmployee(Employee model)
     {
         var emp = await db.Employees.SingleOrDefaultAsync(o => o.EmployeeId == model.EmployeeId);
         if (emp == null)

@@ -28,7 +28,7 @@ public class EmployeeController(IEmployeeQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateEmployee(EmployeeModel model)
+    public async Task<IActionResult> CreateEmployee(Employee model)
     {
         try
         {
@@ -60,7 +60,7 @@ public class EmployeeController(IEmployeeQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateEmployee(EmployeeModel model)
+    public async Task<IActionResult> UpdateEmployee(Employee model)
     {
         try
         {

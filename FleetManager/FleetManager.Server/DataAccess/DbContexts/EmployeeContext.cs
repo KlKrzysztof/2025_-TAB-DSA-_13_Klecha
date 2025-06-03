@@ -8,7 +8,7 @@ namespace FleetManager.Server.DataAccess.DbContexts;
 
 public class EmployeeContext(DbContextOptions<EmployeeContext> opt) : DbContext(opt)
 {
-    public virtual DbSet<EmployeeModel> Employees { get; set; }
+    public virtual DbSet<Employee> Employees { get; set; }
 
     public DbSet<UserModel> UsersInfo { get; set; }
 
