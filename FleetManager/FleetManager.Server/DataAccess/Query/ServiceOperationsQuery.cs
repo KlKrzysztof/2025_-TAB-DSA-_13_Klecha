@@ -35,18 +35,17 @@ public class ServiceOperationsQuery(VehicleContext db) : IServiceOperationsQuery
         var s = await db.Serviceoperations.SingleOrDefaultAsync(o => o.ServiceOperationsId == model.ServiceOperationsId);
         if (s == null)
         {
-            await db.AddAsync(model);
+            await db.Serviceoperations.AddAsync(model);
             await db.SaveChangesAsync();
         }
     }
 
     public async Task UpdateServiceOperationAsync(ServiceOperation model)
     {
-        var s = await db.Serviceoperations.SingleOrDefaultAsync(o => o.ServiceOperationsId == model.ServiceOperationsId);
+        var s = await db.Serviceoperations.AsNoTracking().SingleOrDefaultAsync(o => o.ServiceOperationsId == model.ServiceOperationsId);
         if (s != null)
         {
-            s = model;
-            db.Update(s);
+            db.Serviceoperations.Update(model);
             await db.SaveChangesAsync();
         }
     }
@@ -56,7 +55,7 @@ public class ServiceOperationsQuery(VehicleContext db) : IServiceOperationsQuery
         var s = await db.Serviceoperations.SingleOrDefaultAsync(o => o.ServiceOperationsId == id);
         if (s != null)
         {
-            db.Remove(s);
+            db.Serviceoperations.Remove(s);
             await db.SaveChangesAsync();
         }
     }

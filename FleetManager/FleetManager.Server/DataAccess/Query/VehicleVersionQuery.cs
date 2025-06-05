@@ -29,11 +29,10 @@ public class VehicleVersionQuery(VehicleContext db) : IVehicleVersionQuery
 
     public async Task UpdateVehicleVersionAsync(VehicleVersion model)
     {
-        var v = await db.VehicleVersions.SingleOrDefaultAsync(opt => opt.VersionId == model.VersionId);
+        var v = await db.VehicleVersions.AsNoTracking().SingleOrDefaultAsync(opt => opt.VersionId == model.VersionId);
         if (v != null)
         {
-            v = model;
-            db.VehicleVersions.Update(v);
+            db.VehicleVersions.Update(model);
             await db.SaveChangesAsync();
         }
     }

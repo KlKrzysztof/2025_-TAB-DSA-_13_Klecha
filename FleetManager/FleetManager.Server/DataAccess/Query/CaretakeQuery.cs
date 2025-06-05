@@ -32,18 +32,17 @@ public class CaretakeQuery(VehicleContext db) : ICaretakeQuery
         var c = await db.Caretakes.SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
         if(c == null)
         {
-            await db.AddAsync(model);
+            await db.Caretakes.AddAsync(model);
             await db.SaveChangesAsync();
         }
     }
 
     public async Task UpdateCaretakeAsync(Caretake model)
     {
-        var c = await db.Caretakes.SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
+        var c = await db.Caretakes.AsNoTracking().SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
         if (c != null)
         {
-            c = model;
-            db.Update(c);
+            db.Caretakes.Update(model);
             await db.SaveChangesAsync();
         }
     }
@@ -53,7 +52,7 @@ public class CaretakeQuery(VehicleContext db) : ICaretakeQuery
         var c = await db.Caretakes.SingleOrDefaultAsync(o => o.CaretakeId == id);
         if (c != null)
         {
-            db.Remove(c);
+            db.Caretakes.Remove(c);
             await db.SaveChangesAsync();
         }
     }

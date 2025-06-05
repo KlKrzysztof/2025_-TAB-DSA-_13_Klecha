@@ -35,18 +35,17 @@ public class OperationalActivityQuery(VehicleContext db) : IOperationalActivityQ
         var o = await db.Operationalactivities.SingleOrDefaultAsync(o => o.ActivityId == model.ActivityId);
         if (o == null)
         {
-            await db.AddAsync(model);
+            await db.Operationalactivities.AddAsync(model);
             await db.SaveChangesAsync();
         }
     }
 
     public async Task UpdateOperationalActivityAsync(Operationalactivity model)
     {
-        var o = await db.Operationalactivities.SingleOrDefaultAsync(o => o.ActivityId == model.ActivityId);
+        var o = await db.Operationalactivities.AsNoTracking().SingleOrDefaultAsync(o => o.ActivityId == model.ActivityId);
         if (o != null)
         {
-            o = model;
-            db.Update(o);
+            db.Operationalactivities.Update(model);
             await db.SaveChangesAsync();
         }
     }
@@ -56,7 +55,7 @@ public class OperationalActivityQuery(VehicleContext db) : IOperationalActivityQ
         var o = await db.Operationalactivities.SingleOrDefaultAsync(o => o.ActivityId == id);
         if (o != null)
         {
-            db.Remove(o);
+            db.Operationalactivities.Remove(o);
             await db.SaveChangesAsync();
         }
     }

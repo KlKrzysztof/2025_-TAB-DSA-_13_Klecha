@@ -4,6 +4,21 @@ namespace Shared.Models.Address;
 
 public class Address
 {
+    public Address()
+    {
+    }
+
+    public Address(Address other)
+    {
+        AddressId = other.AddressId;
+        City = other.City;
+        Street = other.Street;
+        PostalCode = other.PostalCode;
+        HouseNumber = other.HouseNumber;
+        AccommodationNumber = other.AccommodationNumber;
+        EmployeeId = other.EmployeeId;
+    }
+
     [Key]
     public uint AddressId { get; set; }
 

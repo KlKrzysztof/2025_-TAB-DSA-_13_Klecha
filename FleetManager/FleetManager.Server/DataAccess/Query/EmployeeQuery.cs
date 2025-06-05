@@ -29,11 +29,10 @@ public class EmployeeQuery(EmployeeContext db) : IEmployeeQuery
 
     public async Task UpdateEmployee(Employee model)
     {
-        var emp = await db.Employees.SingleOrDefaultAsync(o => o.EmployeeId == model.EmployeeId);
+        var emp = await db.Employees.AsNoTracking().SingleOrDefaultAsync(o => o.EmployeeId == model.EmployeeId);
         if (emp != null)
         {
-            emp = model;
-            db.Employees.Update(emp);
+            db.Employees.Update(model);
             await db.SaveChangesAsync();
         }
     }

@@ -35,18 +35,17 @@ public class TechnicalOverviewQuery(VehicleContext db) : ITechnicalOverviewQuery
         var t = await db.Technicaloverviews.SingleOrDefaultAsync(o => o.OverviewId == model.OverviewId);
         if (t == null)
         {
-            await db.AddAsync(model);
+            await db.Technicaloverviews.AddAsync(model);
             await db.SaveChangesAsync();
         }
     }
 
     public async Task UpdateTechnicalOverviewAsync(TechnicalOverview model)
     {
-        var t = await db.Technicaloverviews.SingleOrDefaultAsync(o => o.OverviewId == model.OverviewId);
+        var t = await db.Technicaloverviews.AsNoTracking().SingleOrDefaultAsync(o => o.OverviewId == model.OverviewId);
         if (t != null)
         {
-            t = model;
-            db.Update(t);
+            db.Technicaloverviews.Update(model);
             await db.SaveChangesAsync();
         }
     }
@@ -56,7 +55,7 @@ public class TechnicalOverviewQuery(VehicleContext db) : ITechnicalOverviewQuery
         var t = await db.Technicaloverviews.SingleOrDefaultAsync(o => o.OverviewId == id);
         if (t != null)
         {
-            db.Remove(t);
+            db.Technicaloverviews.Remove(t);
             await db.SaveChangesAsync();
         }
     }
