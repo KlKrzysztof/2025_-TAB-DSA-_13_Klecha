@@ -13,6 +13,7 @@ using Microsoft.Extensions.DependencyInjection.Extensions;
 //piotrek begin
 using System.Text.Json.Serialization;
 //piotrek end
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 //piotrek begin
