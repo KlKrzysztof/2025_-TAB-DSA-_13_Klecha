@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetManager.Server.Controllers.Creator;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
 using Shared.Models.Vehicle;
 
@@ -8,6 +9,10 @@ namespace FleetManager.Server.Controllers;
 [Route("api/vehicle/version")]
 public class VehicleVersionController(IVehicleVersionQuery query) : ControllerBase
 {
+    private readonly ErrorStringsCreator<VehicleVersion> exCreator = new();
+
+    private readonly ErrorStringsCreator<int> exCreatorInt = new();
+
     [HttpGet("all")]
     public async Task<IActionResult> GetVehicleVersionsAsync()
     {
@@ -30,9 +35,11 @@ public class VehicleVersionController(IVehicleVersionQuery query) : ControllerBa
             await query.CreateVehicleVersionAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 
@@ -44,9 +51,11 @@ public class VehicleVersionController(IVehicleVersionQuery query) : ControllerBa
             await query.UpdateVehicleVersionAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("post", model, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 
@@ -58,9 +67,11 @@ public class VehicleVersionController(IVehicleVersionQuery query) : ControllerBa
             await query.DeleteVehicleVersionAsync(id);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreatorInt.ConstructErrorMessage("delete", id, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 }

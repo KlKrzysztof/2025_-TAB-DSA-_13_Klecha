@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetManager.Server.Controllers.Creator;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
 using Shared.Models.Vehicle;
 
@@ -8,6 +9,10 @@ namespace FleetManager.Server.Controllers;
 [Route("api/vehicle/purpose")]
 public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBase
 {
+    private readonly ErrorStringsCreator<VehiclePurpose> exCreator = new();
+
+    private readonly ErrorStringsCreator<int> exCreatorInt = new();
+
     [HttpGet("all")]
     public async Task<IActionResult> GetVehiclePurposesAsync()
     {
@@ -37,9 +42,11 @@ public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBa
             await query.CreateVehiclePurposeAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 
@@ -51,9 +58,11 @@ public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBa
             await query.UpdateVehiclePurposeAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("post", model, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 
@@ -65,9 +74,11 @@ public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBa
             await query.DeleteVehiclePurposeAsync(id);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreatorInt.ConstructErrorMessage("delete", id, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetManager.Server.Controllers.Creator;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
 using Shared.Models.Refuel;
 
@@ -8,6 +9,10 @@ namespace FleetManager.Server.Controllers;
 [Route("api/refuel")]
 public class RefuelController(IRefuelQuery query) : ControllerBase
 {
+    private readonly ErrorStringsCreator<Refuel> exCreator = new();
+
+    private readonly ErrorStringsCreator<int> exCreatorInt = new();
+
     [HttpGet("get/all")]
     public async Task<IActionResult> GetRefuelsAsync()
     {
@@ -37,9 +42,10 @@ public class RefuelController(IRefuelQuery query) : ControllerBase
             await query.CreateRefuelAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
@@ -52,9 +58,10 @@ public class RefuelController(IRefuelQuery query) : ControllerBase
             await query.UpdateRefuelAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("post", model, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
@@ -67,9 +74,10 @@ public class RefuelController(IRefuelQuery query) : ControllerBase
             await query.DeleteRefuelAsync(id);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreatorInt.ConstructErrorMessage("delete", id, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
