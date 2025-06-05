@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetManager.Server.Controllers.Creator;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
 using Shared.Models.ServiceOperation;
 
@@ -8,6 +9,10 @@ namespace FleetManager.Server.Controllers;
 [Route("api/serviceoperation")]
 public class ServiceOperationsController(IServiceOperationsQuery query) : ControllerBase
 {
+    private readonly ErrorStringsCreator<ServiceOperation> exCreator = new();
+
+    private readonly ErrorStringsCreator<int> exCreatorInt = new();
+
     [HttpGet("get/all")]
     public async Task<IActionResult> GetServiceOperationsAsync()
     {
@@ -37,9 +42,10 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
             await query.CreateServiceOperationAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
@@ -52,9 +58,10 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
             await query.UpdateServiceOperationAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("post", model, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
@@ -67,9 +74,10 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
             await query.DeleteServiceOperationsAsync(id);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreatorInt.ConstructErrorMessage("delete", id, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }

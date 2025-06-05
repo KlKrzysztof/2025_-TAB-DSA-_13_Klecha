@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetManager.Server.Controllers.Creator;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
 using Shared.Models.Address;
 
@@ -8,6 +9,10 @@ namespace FleetManager.Server.Controllers;
 [Route("api/address")]
 public class AddressController(IAddressQuery query) : ControllerBase
 {
+    private readonly ErrorStringsCreator<Address> exCreator = new();
+
+    private readonly ErrorStringsCreator<int> exCreatorInt = new();
+
     [HttpGet("get/all")]
     public async Task<IActionResult> GetAddressesAsync()
     {
@@ -37,9 +42,10 @@ public class AddressController(IAddressQuery query) : ControllerBase
             await query.CreateAddressAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
@@ -52,9 +58,10 @@ public class AddressController(IAddressQuery query) : ControllerBase
             await query.UpdateAddressAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("post", model, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
@@ -67,9 +74,10 @@ public class AddressController(IAddressQuery query) : ControllerBase
             await query.DeleteAddressAsync(id);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreatorInt.ConstructErrorMessage("delete", id, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
