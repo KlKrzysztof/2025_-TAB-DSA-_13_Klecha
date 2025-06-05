@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shared.Models;
+namespace Shared.Models.User;
 
-public partial class User
+public class User
 {
     [Key]
     public uint UserId { get; set; }
@@ -18,6 +16,4 @@ public partial class User
     public DateOnly LastLogin { get; set; }
 
     public uint EmployeeId { get; set; }
-
-    public virtual EmployeeModel Employee { get; set; } = null!;
 }

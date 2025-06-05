@@ -1,25 +1,32 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shared.Models;
+using Shared.Models.Caretake;
+using Shared.Models.Manufacturer;
+using Shared.Models.OperationalActivity;
+using Shared.Models.Refuel;
+using Shared.Models.Reservation;
+using Shared.Models.ServiceOperation;
+using Shared.Models.TechnicalOverview;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.DataAccess.DbContexts;
 
 public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(opt)
 {
-    public DbSet<Vehicleversion> VehicleVersions { get; set; }
+    public DbSet<VehicleVersion> VehicleVersions { get; set; }
 
     public DbSet<VehicleModel> VehicleModels { get; set; }
 
-    public DbSet<Vehiclepurpose> VehiclePurposes { get; set; }
+    public DbSet<VehiclePurpose> VehiclePurposes { get; set; }
 
-    public DbSet<Vehicleoutfitting> VehicleOutfittings { get; set; }
+    public DbSet<VehicleOutfitting> VehicleOutfittings { get; set; }
 
     public DbSet<Manufacturer> Manufacturers { get; set; }
 
-    public DbSet<Vehicle> Vehicles { get; set; }
+    public DbSet<Shared.Models.Vehicle.Vehicle> Vehicles { get; set; }
 
-    public DbSet<Technicaloverview> Technicaloverviews { get; set; }
+    public DbSet<TechnicalOverview> Technicaloverviews { get; set; }
 
-    public DbSet<Serviceoperation> Serviceoperations { get; set; }
+    public DbSet<ServiceOperation> Serviceoperations { get; set; }
 
     public DbSet<Refuel> Refuels { get; set; }
 
@@ -31,21 +38,21 @@ public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(op
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Vehicleversion>().ToTable("vehicleversion");
+        modelBuilder.Entity<VehicleVersion>().ToTable("vehicleversion");
 
         modelBuilder.Entity<VehicleModel>().ToTable("model");
 
-        modelBuilder.Entity<Vehiclepurpose>().ToTable("vehiclepurpose");
+        modelBuilder.Entity<VehiclePurpose>().ToTable("vehiclepurpose");
 
-        modelBuilder.Entity<Vehicleoutfitting>().ToTable("vehicleoutfitting");
+        modelBuilder.Entity<VehicleOutfitting>().ToTable("vehicleoutfitting");
 
-        modelBuilder.Entity<Vehicle>().ToTable("vehicle");
+        modelBuilder.Entity<VehicleModel>().ToTable("vehicle");
 
         modelBuilder.Entity<Manufacturer>().ToTable("manufacturer");
 
-        modelBuilder.Entity<Technicaloverview>().ToTable("technicaloverview");
+        modelBuilder.Entity<TechnicalOverview>().ToTable("technicaloverview");
 
-        modelBuilder.Entity<Serviceoperation>().ToTable("serviceoperation");
+        modelBuilder.Entity<ServiceOperation>().ToTable("serviceoperation");
 
         modelBuilder.Entity<Refuel>().ToTable("refuel");
 

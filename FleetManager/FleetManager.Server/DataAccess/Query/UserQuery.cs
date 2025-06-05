@@ -1,14 +1,14 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.User;
 
 namespace FleetManager.Server.DataAccess.Query;
 
 public class UserQuery(EmployeeContext db) : IUserQuery
 {
 
-    public async Task<List<User>> GetUserAsync()
+    public async Task<List<User>> GetUsersAsync()
     {
         return await db.UsersInfo.ToListAsync();
     }
@@ -34,11 +34,10 @@ public class UserQuery(EmployeeContext db) : IUserQuery
     }
     public async Task UpdateUserAsync(User user)
     {
-        var u = await db.UsersInfo.SingleOrDefaultAsync(o => o.UserId == user.UserId);
+        var u = await db.UsersInfo.AsNoTracking().SingleOrDefaultAsync(o => o.UserId == user.UserId);
         if (u != null)
         {
-            u = user;
-            db.UsersInfo.Update(u);
+            db.UsersInfo.Update(user);
             await db.SaveChangesAsync();
         }
     }

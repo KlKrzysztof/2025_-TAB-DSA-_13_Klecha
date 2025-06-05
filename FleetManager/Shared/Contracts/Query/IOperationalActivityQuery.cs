@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using Shared.Models.OperationalActivity;
 
 namespace Shared.Contracts.Query;
 

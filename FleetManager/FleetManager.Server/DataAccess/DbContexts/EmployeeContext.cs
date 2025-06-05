@@ -1,30 +1,29 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Shared.Models;
+using Shared.Models.Address;
+using Shared.Models.ContactInfo;
+using Shared.Models.Employee;
+using Shared.Models.User;
 
 namespace FleetManager.Server.DataAccess.DbContexts;
 
 public class EmployeeContext(DbContextOptions<EmployeeContext> opt) : DbContext(opt)
 {
-    public virtual DbSet<EmployeeModel> Employees { get; set; }
+    public virtual DbSet<Employee> Employees { get; set; }
 
     public DbSet<User> UsersInfo { get; set; }
 
     public DbSet<Address> Addresses { get; set; }
 
-    public DbSet<Contactinfo> ContactInfos { get; set; }
+    public DbSet<ContactInfo> ContactInfos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<EmployeeModel>().ToTable("Employee")
-            .HasOne(opt => opt.UserInfo)
-            .WithOne(opt => opt.Employee)
-            .HasForeignKey<User>(opt => opt.EmployeeId)
-            .IsRequired();
+        modelBuilder.Entity<Employee>().ToTable("Employee");
 
         modelBuilder.Entity<User>().ToTable("User");
 
         modelBuilder.Entity<Address>().ToTable("address");
 
-        modelBuilder.Entity<Contactinfo>().ToTable("contactinfo");
+        modelBuilder.Entity<ContactInfo>().ToTable("contactinfo");
     }
 }

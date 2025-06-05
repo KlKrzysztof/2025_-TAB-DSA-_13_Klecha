@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 
-namespace Shared.Models;
+namespace Shared.Models.TechnicalOverview;
 
-public partial class Technicaloverview
+public class TechnicalOverview
 {
     [Key]
     public uint OverviewId { get; set; }
@@ -20,8 +18,4 @@ public partial class Technicaloverview
     public uint CaretakeId { get; set; }
 
     public uint? ReservationId { get; set; }
-
-    public virtual Caretake Caretake { get; set; } = null!;
-
-    public virtual Reservation? Reservation { get; set; }
 }

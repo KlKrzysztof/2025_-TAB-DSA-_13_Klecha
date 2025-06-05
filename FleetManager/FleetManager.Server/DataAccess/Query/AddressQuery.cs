@@ -1,7 +1,7 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Address;
 using System.Net;
 
 namespace FleetManager.Server.DataAccess.Query;
@@ -35,11 +35,10 @@ public class AddressQuery(EmployeeContext db) : IAddressQuery
 
     public async Task UpdateAddressAsync(Address address)
     {
-        var e = await db.Addresses.SingleOrDefaultAsync(opt => opt.AddressId == address.AddressId);
+        var e = await db.Addresses.AsNoTracking().SingleOrDefaultAsync(opt => opt.AddressId == address.AddressId);
         if (e != null)
         {
-            e = address;
-            db.Addresses.Update(e);
+            db.Addresses.Update(address);
             await db.SaveChangesAsync();
         }
     }

@@ -1,18 +1,18 @@
-﻿using Shared.Models;
+﻿using Shared.Models.ServiceOperation;
 
 namespace Shared.Contracts.Query;
 
  public interface IServiceOperationsQuery
 {
-    public Task<List<Serviceoperation>> GetServiceOperationsAsync();
+    public Task<List<ServiceOperation>> GetServiceOperationsAsync();
 
-    public Task<List<Serviceoperation>?> GetServiceOperationsForVehicleAsync(int id);
+    public Task<List<ServiceOperation>?> GetServiceOperationsForVehicleAsync(int id);
 
-    public Task<Serviceoperation?> GetServiceOperationByIdAsync(int id);
+    public Task<ServiceOperation?> GetServiceOperationByIdAsync(int id);
 
-    public Task CreateServiceOperationAsync(Serviceoperation model);
+    public Task CreateServiceOperationAsync(ServiceOperation model);
 
-    public Task UpdateServiceOperationAsync(Serviceoperation model);
+    public Task UpdateServiceOperationAsync(ServiceOperation model);
 
     public Task DeleteServiceOperationsAsync(int id);
 }

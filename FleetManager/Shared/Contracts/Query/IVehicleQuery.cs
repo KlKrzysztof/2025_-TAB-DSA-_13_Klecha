@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using Shared.Models.Vehicle;
 
 namespace Shared.Contracts.Query;
 

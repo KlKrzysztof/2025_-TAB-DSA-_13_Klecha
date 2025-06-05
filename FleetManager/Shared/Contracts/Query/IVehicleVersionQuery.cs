@@ -1,16 +1,16 @@
-﻿using Shared.Models;
+﻿using Shared.Models.Vehicle;
 
 namespace Shared.Contracts.Query;
 
 public interface IVehicleVersionQuery
 {
-    public Task<List<Vehicleversion>> GetVehicleVersionsAsync();
+    public Task<List<VehicleVersion>> GetVehicleVersionsAsync();
 
-    public Task<Vehicleversion?> GetVehicleVersionByIdAsync(int id);
+    public Task<VehicleVersion?> GetVehicleVersionByIdAsync(int id);
 
-    public Task CreateVehicleVersionAsync(Vehicleversion model);
+    public Task CreateVehicleVersionAsync(VehicleVersion model);
 
-    public Task UpdateVehicleVersionAsync(Vehicleversion model);
+    public Task UpdateVehicleVersionAsync(VehicleVersion model);
 
     public Task DeleteVehicleVersionAsync(int id);
 }

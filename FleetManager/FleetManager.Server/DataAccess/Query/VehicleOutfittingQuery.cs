@@ -1,23 +1,23 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.DataAccess.Query;
 
 public class VehicleOutfittingQuery(VehicleContext db) : IVehicleOutfittingQuery
 {
-    public async Task<List<Vehicleoutfitting>> GetVehicleoutfittingsAsync()
+    public async Task<List<VehicleOutfitting>> GetVehicleoutfittingsAsync()
     {
         return await db.VehicleOutfittings.ToListAsync();
     }
 
-    public async Task<Vehicleoutfitting?> GetVehicleoutfittingByIdAsync(int id)
+    public async Task<VehicleOutfitting?> GetVehicleoutfittingByIdAsync(int id)
     {
         return await db.VehicleOutfittings.SingleOrDefaultAsync(o => o.OutfittingId == id);
     }
 
-    public async Task CreateVehicleOutfittingAsync(Vehicleoutfitting model)
+    public async Task CreateVehicleOutfittingAsync(VehicleOutfitting model)
     {
         var v = await db.VehicleOutfittings.SingleOrDefaultAsync(opt => opt.OutfittingId == model.OutfittingId);
         if (v == null)
@@ -27,13 +27,12 @@ public class VehicleOutfittingQuery(VehicleContext db) : IVehicleOutfittingQuery
         }
     }
 
-    public async Task UpdateVehicleOutfittingAsync(Vehicleoutfitting model)
+    public async Task UpdateVehicleOutfittingAsync(VehicleOutfitting model)
     {
-        var v = await db.VehicleOutfittings.SingleOrDefaultAsync(opt => opt.OutfittingId == model.OutfittingId);
+        var v = await db.VehicleOutfittings.AsNoTracking().SingleOrDefaultAsync(opt => opt.OutfittingId == model.OutfittingId);
         if (v != null)
         {
-            v = model;
-            db.VehicleOutfittings.Update(v);
+            db.VehicleOutfittings.Update(model);
             await db.SaveChangesAsync();
         }
     }
