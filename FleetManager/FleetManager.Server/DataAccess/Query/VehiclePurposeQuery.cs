@@ -34,11 +34,10 @@ public class VehiclePurposeQuery(VehicleContext db) : IVehiclePurposeQuery
 
     public async Task UpdateVehiclePurposeAsync(VehiclePurpose model)
     {
-        var v = await db.VehiclePurposes.SingleOrDefaultAsync(opt => opt.VehiclePurposeId == model.VehiclePurposeId);
+        var v = await db.VehiclePurposes.AsNoTracking().SingleOrDefaultAsync(opt => opt.VehiclePurposeId == model.VehiclePurposeId);
         if (v != null)
         {
-            v = model;
-            db.VehiclePurposes.Update(v);
+            db.VehiclePurposes.Update(model);
             await db.SaveChangesAsync();
         }
     }

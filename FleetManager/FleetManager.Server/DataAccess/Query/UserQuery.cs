@@ -34,11 +34,10 @@ public class UserQuery(EmployeeContext db) : IUserQuery
     }
     public async Task UpdateUserAsync(User user)
     {
-        var u = await db.UsersInfo.SingleOrDefaultAsync(o => o.UserId == user.UserId);
+        var u = await db.UsersInfo.AsNoTracking().SingleOrDefaultAsync(o => o.UserId == user.UserId);
         if (u != null)
         {
-            u = user;
-            db.UsersInfo.Update(u);
+            db.UsersInfo.Update(user);
             await db.SaveChangesAsync();
         }
     }

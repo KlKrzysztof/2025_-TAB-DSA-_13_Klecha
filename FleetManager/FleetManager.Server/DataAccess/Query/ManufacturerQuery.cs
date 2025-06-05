@@ -34,11 +34,10 @@ public class ManufacturerQuery(VehicleContext db) : IManufacturerQuery
 
     public async Task UpdateManufacturerAsync(Manufacturer manufacturer)
     {
-        var v = await db.Manufacturers.SingleOrDefaultAsync(opt => opt.ManufacturerId == manufacturer.ManufacturerId);
+        var v = await db.Manufacturers.AsNoTracking().SingleOrDefaultAsync(opt => opt.ManufacturerId == manufacturer.ManufacturerId);
         if (v != null)
         {
-            v = manufacturer;
-            db.Manufacturers.Update(v);
+            db.Manufacturers.Update(manufacturer);
             await db.SaveChangesAsync();
         }
     }

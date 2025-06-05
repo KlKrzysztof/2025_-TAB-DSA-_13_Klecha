@@ -33,10 +33,9 @@ public class ContactInfoQuery(EmployeeContext db) : IContactInfoQuery
     }
     public async Task UpdateContactInfoAsync(ContactInfo contactinfo)
     {
-        var c = await db.ContactInfos.SingleOrDefaultAsync(opt => opt.ContactId == contactinfo.ContactId);
+        var c = await db.ContactInfos.AsNoTracking().SingleOrDefaultAsync(opt => opt.ContactId == contactinfo.ContactId);
         if (c != null)
         {
-            c = contactinfo;
             db.ContactInfos.Update(contactinfo);
             await db.SaveChangesAsync();
         }

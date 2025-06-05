@@ -40,10 +40,9 @@ public class ReservationQuery(VehicleContext db) : IReservationQuery
 
     public async Task UpdateReservationAsync(Reservation model)
     {
-        var r = await db.Reservations.SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
+        var r = await db.Reservations.AsNoTracking().SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
         if(r != null)
         {
-            r = model;
             db.Reservations.Update(r);
             await db.SaveChangesAsync();
         }

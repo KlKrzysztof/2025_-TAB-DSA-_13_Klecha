@@ -29,11 +29,10 @@ public class VehicleOutfittingQuery(VehicleContext db) : IVehicleOutfittingQuery
 
     public async Task UpdateVehicleOutfittingAsync(VehicleOutfitting model)
     {
-        var v = await db.VehicleOutfittings.SingleOrDefaultAsync(opt => opt.OutfittingId == model.OutfittingId);
+        var v = await db.VehicleOutfittings.AsNoTracking().SingleOrDefaultAsync(opt => opt.OutfittingId == model.OutfittingId);
         if (v != null)
         {
-            v = model;
-            db.VehicleOutfittings.Update(v);
+            db.VehicleOutfittings.Update(model);
             await db.SaveChangesAsync();
         }
     }

@@ -66,10 +66,9 @@ public class VehicleQuery(VehicleContext db) : IVehicleQuery
 
     public async Task UpdateVehicleAsync(Vehicle model)
     {
-        var v = await db.Vehicles.SingleOrDefaultAsync(opt => opt.VehicleId == model.VehicleId);
+        var v = await db.Vehicles.AsNoTracking().SingleOrDefaultAsync(opt => opt.VehicleId == model.VehicleId);
         if (v != null)
         {
-            v = model;
             db.Vehicles.Update(model);
             await db.SaveChangesAsync();
         }
