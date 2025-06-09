@@ -1,16 +1,16 @@
-﻿using Shared.Models;
+﻿using Shared.Models.Vehicle;
 
 namespace Shared.Contracts.Query;
 
 public interface IVehicleOutfittingQuery
 {
-    public Task<List<Vehicleoutfitting>> GetVehicleoutfittingsAsync();
+    public Task<List<VehicleOutfitting>> GetVehicleoutfittingsAsync();
 
-    public Task<Vehicleoutfitting?> GetVehicleoutfittingByIdAsync(int id);
+    public Task<VehicleOutfitting?> GetVehicleoutfittingByIdAsync(int id);
 
-    public Task CreateVehicleOutfittingAsync(Vehicleoutfitting model);
+    public Task CreateVehicleOutfittingAsync(VehicleOutfitting model);
 
-    public Task UpdateVehicleOutfittingAsync(Vehicleoutfitting model);
+    public Task UpdateVehicleOutfittingAsync(VehicleOutfitting model);
 
     public Task DeleteVehicleOutfittingAsync(int id);
 }

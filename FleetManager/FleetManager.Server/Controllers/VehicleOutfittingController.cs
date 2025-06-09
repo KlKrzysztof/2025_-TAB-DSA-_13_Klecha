@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetManager.Server.Controllers.Creator;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.Controllers;
 
@@ -8,6 +9,10 @@ namespace FleetManager.Server.Controllers;
 [Route("api/vehicle/outfitting")]
 public class VehicleOutfittingController(IVehicleOutfittingQuery query) : ControllerBase
 {
+    private readonly ErrorStringsCreator<VehicleOutfitting> exCreator = new();
+
+    private readonly ErrorStringsCreator<int> exCreatorInt = new();
+
     [HttpGet("all")]
     public async Task<IActionResult> GetVehicleoutfittingsAsync()
     {
@@ -23,30 +28,34 @@ public class VehicleOutfittingController(IVehicleOutfittingQuery query) : Contro
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateVehicleOutfittingAsync(Vehicleoutfitting model)
+    public async Task<IActionResult> CreateVehicleOutfittingAsync(VehicleOutfitting model)
     {
         try
         {
             await query.CreateVehicleOutfittingAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateVehicleOutfittingAsync(Vehicleoutfitting model)
+    public async Task<IActionResult> UpdateVehicleOutfittingAsync(VehicleOutfitting model)
     {
         try
         {
             await query.UpdateVehicleOutfittingAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("post", model, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 
@@ -58,9 +67,11 @@ public class VehicleOutfittingController(IVehicleOutfittingQuery query) : Contro
             await query.DeleteVehicleOutfittingAsync(id);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreatorInt.ConstructErrorMessage("delete", id, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 }

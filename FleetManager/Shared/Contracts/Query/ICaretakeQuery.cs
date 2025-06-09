@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using Shared.Models.Caretake;
 
 namespace Shared.Contracts.Query;
 

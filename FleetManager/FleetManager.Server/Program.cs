@@ -1,3 +1,4 @@
+using FleetManager.Server.Controllers.Creator;
 using FleetManager.Server.DataAccess.DbContexts;
 using FleetManager.Server.DataAccess.Query;
 using Microsoft.EntityFrameworkCore;
@@ -5,6 +6,7 @@ using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Shared.Contracts.Query;
+using Microsoft.Extensions.DependencyInjection.Extensions;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -17,9 +19,17 @@ string connStr = builder.Configuration.GetConnectionString("mariadb") ?? string.
 builder.Services.AddMySqlDataSource(connStr);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddScoped<IEmployeeQuery, EmployeeQuery>();
 builder.Services.AddScoped<IAddressQuery, AddressQuery>();
+builder.Services.AddScoped<ICaretakeQuery, CaretakeQuery>();
+builder.Services.AddScoped<IContactInfoQuery, ContactInfoQuery>();
+builder.Services.AddScoped<IEmployeeQuery, EmployeeQuery>();
 builder.Services.AddScoped<IManufacturerQuery, ManufacturerQuery>();
+builder.Services.AddScoped<IOperationalActivityQuery, OperationalActivityQuery>();
+builder.Services.AddScoped<IRefuelQuery, RefuelQuery>();
+builder.Services.AddScoped<IReservationQuery, ReservationQuery>();
+builder.Services.AddScoped<IServiceOperationsQuery, ServiceOperationsQuery>();
+builder.Services.AddScoped<ITechnicalOverviewQuery, TechnicalOverviewQuery>();
+builder.Services.AddScoped<IUserQuery, UserQuery>();
 builder.Services.AddScoped<IVehicleModelQuery, VehicleModelQuery>();
 builder.Services.AddScoped<IVehicleOutfittingQuery, VehicleOutfittingQuery>();
 builder.Services.AddScoped<IVehiclePurposeQuery, VehiclePurposeQuery>();

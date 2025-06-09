@@ -1,7 +1,7 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.DataAccess.Query;
 
@@ -29,11 +29,10 @@ public class VehicleModelQuery(VehicleContext db) : IVehicleModelQuery
 
     public async Task UpdateVehicleModelAsync(VehicleModel model)
     {
-        var v = await db.VehicleModels.SingleOrDefaultAsync(opt => opt.ModelId == model.ModelId);
+        var v = await db.VehicleModels.AsNoTracking().SingleOrDefaultAsync(opt => opt.ModelId == model.ModelId);
         if (v != null)
         {
-            v = model;
-            db.VehicleModels.Update(v);
+            db.VehicleModels.Update(model);
             await db.SaveChangesAsync();
         }
     }

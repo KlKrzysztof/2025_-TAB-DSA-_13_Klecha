@@ -1,7 +1,7 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Refuel;
 
 namespace FleetManager.Server.DataAccess.Query;
 
@@ -35,18 +35,17 @@ public class RefuelQuery(VehicleContext db) : IRefuelQuery
         var r = await db.Refuels.SingleOrDefaultAsync(o => o.RefuelId == model.RefuelId);
         if (r == null)
         {
-            await db.AddAsync(model);
+            await db.Refuels.AddAsync(model);
             await db.SaveChangesAsync();
         }
     }
 
     public async Task UpdateRefuelAsync(Refuel model)
     {
-        var r = await db.Refuels.SingleOrDefaultAsync(o => o.RefuelId == model.RefuelId);
+        var r = await db.Refuels.AsNoTracking().SingleOrDefaultAsync(o => o.RefuelId == model.RefuelId);
         if (r != null)
         {
-            r = model;
-            db.Update(model);
+            db.Refuels.Update(model);
             await db.SaveChangesAsync();
         }
     }
@@ -56,7 +55,7 @@ public class RefuelQuery(VehicleContext db) : IRefuelQuery
         var r = await db.Refuels.SingleOrDefaultAsync(o => o.RefuelId == id);
         if (r != null)
         {
-            db.Update(r);
+            db.Refuels.Remove(r);
             await db.SaveChangesAsync();
         }
     }
