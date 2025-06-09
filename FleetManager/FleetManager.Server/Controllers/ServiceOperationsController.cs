@@ -1,13 +1,18 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetManager.Server.Controllers.Creator;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.ServiceOperation;
 
 namespace FleetManager.Server.Controllers;
 
 [ApiController]
-[Route("api/serviceoperations")]
+[Route("api/serviceoperation")]
 public class ServiceOperationsController(IServiceOperationsQuery query) : ControllerBase
 {
+    private readonly ErrorStringsCreator<ServiceOperation> exCreator = new();
+
+    private readonly ErrorStringsCreator<int> exCreatorInt = new();
+
     [HttpGet("get/all")]
     public async Task<IActionResult> GetServiceOperationsAsync()
     {
@@ -30,31 +35,33 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateServiceOperationAsync(Serviceoperation model)
+    public async Task<IActionResult> CreateServiceOperationAsync(ServiceOperation model)
     {
         try
         {
             await query.CreateServiceOperationAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateServiceOperationAsync(Serviceoperation model)
+    public async Task<IActionResult> UpdateServiceOperationAsync(ServiceOperation model)
     {
         try
         {
             await query.UpdateServiceOperationAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("post", model, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }
@@ -67,9 +74,10 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
             await query.DeleteServiceOperationsAsync(id);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreatorInt.ConstructErrorMessage("delete", id, ex);
+            return StatusCode(500, msg);
             throw;
         }
     }

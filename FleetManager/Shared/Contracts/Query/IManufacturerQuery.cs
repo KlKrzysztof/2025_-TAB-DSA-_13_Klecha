@@ -1,4 +1,4 @@
-﻿using Shared.Models;
+﻿using Shared.Models.Manufacturer;
 
 namespace Shared.Contracts.Query;
 

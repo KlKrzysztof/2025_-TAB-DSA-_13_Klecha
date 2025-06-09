@@ -1,6 +1,7 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using FleetManager.Server.Controllers.Creator;
+using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
-using Shared.Models;
+using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.Controllers;
 
@@ -8,6 +9,10 @@ namespace FleetManager.Server.Controllers;
 [Route("api/vehicle/purpose")]
 public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBase
 {
+    private readonly ErrorStringsCreator<VehiclePurpose> exCreator = new();
+
+    private readonly ErrorStringsCreator<int> exCreatorInt = new();
+
     [HttpGet("all")]
     public async Task<IActionResult> GetVehiclePurposesAsync()
     {
@@ -30,30 +35,34 @@ public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBa
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateVehiclePurposeAsync(Vehiclepurpose model)
+    public async Task<IActionResult> CreateVehiclePurposeAsync(VehiclePurpose model)
     {
         try
         {
             await query.CreateVehiclePurposeAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateVehiclePurposeAsync(Vehiclepurpose model)
+    public async Task<IActionResult> UpdateVehiclePurposeAsync(VehiclePurpose model)
     {
         try
         {
             await query.UpdateVehiclePurposeAsync(model);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreator.ConstructErrorMessage("post", model, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 
@@ -65,9 +74,11 @@ public class VehiclePurposeController(IVehiclePurposeQuery query) : ControllerBa
             await query.DeleteVehiclePurposeAsync(id);
             return Ok();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            return BadRequest();
+            var msg = exCreatorInt.ConstructErrorMessage("delete", id, ex);
+            return StatusCode(500, msg);
+            throw;
         }
     }
 }
