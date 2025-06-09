@@ -16,11 +16,11 @@ interface Address {
     street: string;
     postalCode: string;
     houseNumber: number;
-    accomodationNumber: number;
+    accommodationNumber: number;
     employeeId: number;
 }
 
-const Employees: React.FC = () => {
+export const Employees: React.FC = () => {
     const [selectedEmployee, setSelectedEmployee] = useState<Employee>();
     const [address, setAddress] = useState<Address>();
     const [selectedId, setSelectedId] = useState<number | string | null>(null);
@@ -65,17 +65,17 @@ const Employees: React.FC = () => {
 
                 {/* Employee Details Panel */}
                 <div className="details-panel">
-        <input type="text" value = { selectedEmployee?.firstName +" "+ selectedEmployee?.secondName +" "+ selectedEmployee?.surname } readOnly className="name-heading" />
+        <input type="text" value = { (selectedEmployee?.firstName ?? "") + (selectedEmployee?.secondName ? " "+selectedEmployee?.secondName+" " : " ") + (selectedEmployee?.surname ?? "") } readOnly className="name-heading" />
 
                     <div className="form-grid">
-                        <input type="text" placeholder = "PESEL" value = { selectedEmployee?.pesel} />
-                        <input type="text" placeholder = "City" value = { address === null ? "" : address?.city } />
+                        <input type="text" placeholder = "PESEL" value = { selectedEmployee?.pesel ?? ""} />
+                        <input type="text" placeholder = "City" value = { address?.city ?? ""} />
                         <input type="text" placeholder="Tel." />
-                        <input type="text" placeholder = "Postal Code" value = { address === null ? "" : address?.postalCode } />
+                        <input type="text" placeholder = "Postal Code" value = { address?.postalCode ?? ""} />
                         <input type="text" placeholder="Tel. alt" />
-                        <input type="text" placeholder = "Street" value = { address === null ? "" : address?.street } />
-                        < input type = "text" placeholder = "House no." value = { address === null ? "" : address?.houseNumber } />
-                        < input type = "text" placeholder = "Accomodation no." value = { address === null ? "" : address?.accomodationNumber } />
+                        <input type="text" placeholder = "Street" value = { address?.street ?? ""} />
+                        <input type = "text" placeholder = "House no." value = { address?.houseNumber ?? ""} />
+                        < input type = "text" placeholder = "Accomodation no." value = {address?.accommodationNumber ?? ""} />
                     </div>
 
                     <div className="button-group">
