@@ -4,6 +4,7 @@ import Navbar from './Navbar';
 import Home from './routes/Home';
 import Employees from './routes/Employees';
 import Vehicles from './routes/Vehicles';
+import { Addresses } from './Addresses';
 
 
 function App() {
@@ -14,7 +15,8 @@ function App() {
                 <Routes>
                     <Route path="/" element={<Home />} />
                     <Route path="/employees" element={<Employees />} />
-                    <Route path="/vehicles" element={<Vehicles />} />
+                    < Route path = "/vehicles" element = {< Vehicles />} />
+                    < Route path = "/addresses" element = {< Addresses />} />
                 </Routes>
             </div>
         </>
