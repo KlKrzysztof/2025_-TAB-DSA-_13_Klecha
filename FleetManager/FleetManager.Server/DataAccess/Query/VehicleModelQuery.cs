@@ -14,7 +14,7 @@ public class VehicleModelQuery(VehicleContext db) : IVehicleModelQuery
 
     public async Task<VehicleModel?> GetVehicleModelByIdAsync(int id)
     {
-        return await db.VehicleModels.SingleOrDefaultAsync(o => o.VehicleVersionId == id);
+        return await db.VehicleModels.SingleOrDefaultAsync(o => o.ModelId == id);
     }
 
     public async Task CreateVehicleModelAsync(VehicleModel model)
