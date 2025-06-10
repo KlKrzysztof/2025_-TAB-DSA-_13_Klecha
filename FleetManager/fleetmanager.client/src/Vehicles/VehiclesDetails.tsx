@@ -274,6 +274,41 @@ function VehiclesDetails({ id }: getVehicle) {
         handleGetData(id)
     }, [id])
 
+    useEffect(() => {
+        const handleGetData = async (id: Number | null | undefined) => {
+            if (id == null || id == undefined)
+                return
+
+            const response = await fetch("/api/vehicle/vehicle/id/" + id)
+            const json: JSON = await response.json()
+
+            const {
+                vehicleId,
+                totalMileage,
+                isInService,
+                vehiclePurposeId,
+                plateNumber,
+                modelId,
+                vin,
+                caretakes,
+                model,
+                vehiclePurpose
+            } = json;
+
+            setPlateNr(plateNumber)
+            setOutfit("")
+
+            if (caretakes.id != null)
+                await fetch("/api/employees/get/id/" + caretakes.id).then(res => res.json()).then(data => setOverseerer(data.firstName + data.surname))
+
+            setPurpose(vehiclePurpose)
+            setTotalMilage(totalMileage)
+            setVehicle(model)
+            setServiced(isInService)
+        }
+        handleGetData(id)
+    }, [id])
+
     const panelStyle: React.CSSProperties = {
         height: '45vh',
         width: '30vw',
