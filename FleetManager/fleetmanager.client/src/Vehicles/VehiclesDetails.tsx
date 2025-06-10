@@ -5,8 +5,6 @@ interface getVehicle {
     id: Number | null | undefined
 }
 
-function VehiclesDetails({ id }: getVehicle) {
-
     var [MouseAddButton, setMouseAddButton] = useState(false)
     var [MouseDelButton, setMouseDelButton] = useState(false)
 
