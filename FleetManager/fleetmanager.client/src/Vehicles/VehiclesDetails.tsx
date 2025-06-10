@@ -1,10 +1,22 @@
-import { useState} from "react"
+import { useEffect, useState} from "react"
 
 
-function VehiclesDetails() {
+interface getVehicle {
+    id: Number | null | undefined
+}
+
+function VehiclesDetails({ id }: getVehicle) {
 
     var [MouseAddButton, setMouseAddButton] = useState(false)
     var [MouseDelButton, setMouseDelButton] = useState(false)
+
+    var [PlateNr, setPlateNr] = useState("")
+    var [Purpose, setPurpose] = useState("")
+    var [TotalMilage, setTotalMilage] = useState("")
+    var [Outfit, setOutfit] = useState("")
+    var [Overseerer, setOverseerer] = useState("")
+    var [Serviced, setServiced] = useState(false)
+    var [Vehicle, setVehicle] = useState("")
 
     const handleAddVehicle = async () => {
         //const data = new FormData()
@@ -30,6 +42,41 @@ function VehiclesDetails() {
     const handleDeleteVehicle = async (id: number) => {
         await fetch("/api/vehicle/vehicle/delete/id/" + {id})
     }
+
+    useEffect(() => {
+        const handleGetData = async (id: Number | null | undefined) => {
+            if (id == null || id == undefined)
+                return
+
+            const response = await fetch("/api/vehicle/vehicle/id/" + id)
+            const json: JSON = await response.json()
+
+            const {
+                vehicleId,
+                totalMileage,
+                isInService,
+                vehiclePurposeId,
+                plateNumber,
+                modelId,
+                vin,
+                caretakes,
+                model,
+                vehiclePurpose
+            } = json;
+
+            setPlateNr(plateNumber)
+            setOutfit("")
+
+            if (caretakes.id != null)
+                await fetch("/api/employees/get/id/" + caretakes.id).then(res => res.json()).then(data => setOverseerer(data.firstName + data.surname))
+
+            setPurpose(vehiclePurpose)
+            setTotalMilage(totalMileage)
+            setVehicle(model)
+            setServiced(isInService)
+        }
+        handleGetData(id)
+    }, [id])
 
     const panelStyle: React.CSSProperties = {
         height: '45vh',
@@ -130,34 +177,34 @@ function VehiclesDetails() {
     }
 
     return <div style={panelStyle} >
-        <input style={nameInputStyle} type="text"></input>
+        <input style={nameInputStyle} type="text" value={Vehicle}></input>
         <div style={wraperStyle }>
             <div style={rowStyle}>
                 <div style={inputWraperStyle}>
                     Plate number
-                    <input type="text" style={inputStyle}></input>
+                    <input type="text" style={inputStyle} value={PlateNr}></input>
                 </div>
                 <div style={inputWraperStyle}>
                     Puropse
-                    <input type="text" style={inputStyle}></input>
+                    <input type="text" style={inputStyle} value={Purpose}></input>
                 </div>
                 <div style={inputWraperStyle}>
                     Total mileage
-                    <input type="text" style={inputStyle}></input>
+                    <input type="text" style={inputStyle} value={TotalMilage}></input>
                 </div>
             </div>
             <div style={rowStyle}>
                 <div style={inputWraperStyle}>
                     Outfit
-                    <input type="text" style={inputStyle}></input>
+                    <input type="text" style={inputStyle} value={Outfit}></input>
                 </div>
                 <div style={inputWraperStyle}>
                     Overseerer
-                    <input type="text" style={inputStyle}></input>
+                    <input type="text" style={inputStyle} value={Overseerer}></input>
                 </div>
                 <div style={inputWraperStyle}>
                     Serviced
-                    <input type="checkbox" style={checkboxStyle}></input>
+                    <input type="checkbox" style={checkboxStyle} checked={Serviced}></input>
                 </div>
             </div>
         </div>
