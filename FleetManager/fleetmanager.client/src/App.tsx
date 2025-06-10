@@ -7,6 +7,7 @@ import Vehicles from './routes/Vehicles';
 import Service from './routes/Service';
 import ServiceHistory from './routes/ServiceHistory';
 
+import CostsList from './Costs/CostsList';
 
 function App() {
     return (
@@ -19,6 +20,7 @@ function App() {
                     <Route path="/vehicles" element={<Vehicles />} />
                     <Route path="/service" element={<Service />} />
                     <Route path="/serviceHistory/:vehicleId" element={<ServiceHistory />} />
+                    <Route path="/costs" element={<CostsList /> } />
                 </Routes>
             </div>
         </>
