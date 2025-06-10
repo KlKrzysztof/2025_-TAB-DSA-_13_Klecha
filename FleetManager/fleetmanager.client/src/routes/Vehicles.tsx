@@ -1,6 +1,5 @@
 
 import React from 'react'
-import VehiclesDetails from '../Vehicles/VehiclesDetails'
 import VehiclesList from '../Vehicles/VehiclesList'
 import VehiclesHistory from '../Vehicles/vehiclesHistory'
 import VehiclesRequests from '../Vehicles/VehiclesRequests'
@@ -31,7 +30,7 @@ function Vehicles() {
             <div style={ContentColumn}>
                 <div style={VehiclesRow}>
                     <VehiclesList />
-                    <VehiclesDetails />
+                    
                 </div>
                 <VehiclesRequests />
             </div>
