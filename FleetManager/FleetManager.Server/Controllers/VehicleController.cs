@@ -78,10 +78,10 @@ public class VehicleController(IVehicleQuery query) : ControllerBase
         return res != null ? Ok(res) : BadRequest();
     }
 
-    [HttpGet("plate/{platenumber}")]
-    public async Task<IActionResult> GetVehicleByPlateNumber(string plateNumber)
+    [HttpGet("plate/{number}")]
+    public async Task<IActionResult> GetVehicleByPlateNumber(string number)
     {
-        var res = await query.GetVehicleByPlateNumber(plateNumber);
+        var res = await query.GetVehicleByPlateNumber(number);
         return res != null ? Ok(res) : BadRequest();
     }
 
