@@ -12,7 +12,7 @@ function VehiclesDetails({ id }: getVehicle) {
 
     var [PlateNr, setPlateNr] = useState("")
     var [Purpose, setPurpose] = useState("")
-    var [TotalMilage, setTotalMilage] = useState("")
+    var [TotalMileage, setTotalMileage] = useState("")
     var [Outfit, setOutfit] = useState("")
     var [Overseerer, setOverseerer] = useState("")
     var [Serviced, setServiced] = useState(false)
@@ -31,16 +31,18 @@ function VehiclesDetails({ id }: getVehicle) {
                 vehicleId: 10,
                 totalMileage: 0,
                 isInService: false,
-                vehiclePurposeId: 0,
+                vehiclePurposeId: 1,
                 plateNumber: "string",
-                modelId: 0,
+                modelId: 1,
                 vin: "string"
             })
         })
     }
 
     const handleDeleteVehicle = async (id: number) => {
-        await fetch("/api/vehicle/vehicle/delete/id/" + {id})
+        await fetch(`/api/vehicle/vehicle/delete/id/${id}`, {
+            method: "DELETE"
+        })
     }
 
     useEffect(() => {
@@ -58,21 +60,37 @@ function VehiclesDetails({ id }: getVehicle) {
                 vehiclePurposeId,
                 plateNumber,
                 modelId,
-                vin,
-                caretakes,
-                model,
-                vehiclePurpose
+                vin
             } = json;
 
             setPlateNr(plateNumber)
             setOutfit("")
 
-            if (caretakes.id != null)
-                await fetch("/api/employees/get/id/" + caretakes.id).then(res => res.json()).then(data => setOverseerer(data.firstName + data.surname))
+            try {
+                await fetch("/api/vehicle/purpose/id/" + vehiclePurposeId).then(res => res.json()).then(data => setPurpose(data.name))
+            }
+            catch (ex) {
+                setPurpose("Not available")
+            }
+            try {
+                await fetch("/api/vehicle/model/id/" + modelId).then(res => res.json()).then(async data => {
+                    const Manufacturer = await fetch("/api/vehicle/manufacturer/id/" + data.manufacturerId).then(res => res.json())
+                    const Version = await fetch("/api/vehicle/version/id/" + data.vehicleVersionId).then(res => res.json())
 
-            setPurpose(vehiclePurpose)
-            setTotalMilage(totalMileage)
-            setVehicle(model)
+                    const Outfits = await fetch("/api/vehicle/outfitting/all" + data.vehicleVersionId).then(res => res.json())
+                    /*const OutfitsArray
+                    Outfits*/
+
+                    setVehicle(String(Manufacturer.name + Version.name))
+                    setOutfit(Outfit)
+                })
+            }
+            catch (ex) {
+                setVehicle("Not available")
+            }
+            
+            setTotalMileage(totalMileage)
+            
             setServiced(isInService)
         }
         handleGetData(id)
@@ -173,7 +191,8 @@ function VehiclesDetails({ id }: getVehicle) {
         backgroundColor: '#a02626',
         color: '#FFF',
         border: 'none',
-        fontSize: '20px'
+        fontSize: '20px',
+        cursor: "pointer"
     }
 
     return <div style={panelStyle} >
@@ -190,7 +209,7 @@ function VehiclesDetails({ id }: getVehicle) {
                 </div>
                 <div style={inputWraperStyle}>
                     Total mileage
-                    <input type="text" style={inputStyle} value={TotalMilage}></input>
+                    <input type="text" style={inputStyle} value={TotalMileage}></input>
                 </div>
             </div>
             <div style={rowStyle}>
