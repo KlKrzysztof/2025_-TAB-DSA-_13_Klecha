@@ -152,21 +152,37 @@ function VehiclesDetails({ id }: getVehicle) {
                 vehiclePurposeId,
                 plateNumber,
                 modelId,
-                vin,
-                caretakes,
-                model,
-                vehiclePurpose
+                vin
             } = json;
 
             setPlateNr(plateNumber)
             setOutfit("")
 
-            if (caretakes.id != null)
-                await fetch("/api/employees/get/id/" + caretakes.id).then(res => res.json()).then(data => setOverseerer(data.firstName + data.surname))
+            try {
+                await fetch("/api/vehicle/purpose/id/" + vehiclePurposeId).then(res => res.json()).then(data => setPurpose(data.name))
+            }
+            catch (ex) {
+                setPurpose("Not available")
+            }
+            try {
+                await fetch("/api/vehicle/model/id/" + modelId).then(res => res.json()).then(async data => {
+                    const Manufacturer = await fetch("/api/vehicle/manufacturer/id/" + data.manufacturerId).then(res => res.json())
+                    const Version = await fetch("/api/vehicle/version/id/" + data.vehicleVersionId).then(res => res.json())
 
-            setPurpose(vehiclePurpose)
-            setTotalMilage(totalMileage)
-            setVehicle(model)
+                    const Outfits = await fetch("/api/vehicle/outfitting/all" + data.vehicleVersionId).then(res => res.json())
+                    /*const OutfitsArray
+                    Outfits*/
+
+                    setVehicle(String(Manufacturer.name + Version.name))
+                    setOutfit(Outfit)
+                })
+            }
+            catch (ex) {
+                setVehicle("Not available")
+            }
+            
+            setTotalMileage(totalMileage)
+            
             setServiced(isInService)
         }
         handleGetData(id)
