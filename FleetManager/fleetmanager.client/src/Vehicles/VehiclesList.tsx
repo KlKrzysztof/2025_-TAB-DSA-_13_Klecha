@@ -10,13 +10,18 @@ import VehiclesDetails from '../Vehicles/VehiclesDetails'
     plate: "STA 2I376P"
 }*/
 
-function VehiclesList() {
+interface props {
+    onSelect: (id: number) => void
+}
+
+function VehiclesList({ onSelect } : props) {
 
     //const [vehiclesName] = useState('');
     const [selectedId, setSelectedId] = useState<number | null>(null);
 
     const handleVehicleSelect = (id: number | String) => {
         setSelectedId(Number(id));
+        onSelect(Number(id))
         console.log(`Employee with ID: ${id} selected`);
     };
 
