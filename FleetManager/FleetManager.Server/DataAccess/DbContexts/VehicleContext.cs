@@ -52,7 +52,7 @@ public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(op
 
         modelBuilder.Entity<TechnicalOverview>().ToTable("technicaloverview");
 
-        modelBuilder.Entity<ServiceOperation>().ToTable("serviceoperation");
+        modelBuilder.Entity<ServiceOperation>().ToTable("serviceoperations");
 
         modelBuilder.Entity<Refuel>().ToTable("refuel");
 
