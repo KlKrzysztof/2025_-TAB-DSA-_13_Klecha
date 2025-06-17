@@ -22,7 +22,7 @@ public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(op
 
     public DbSet<Manufacturer> Manufacturers { get; set; }
 
-    public DbSet<Shared.Models.Vehicle.Vehicle> Vehicles { get; set; }
+    public DbSet<Vehicle> Vehicles { get; set; }
 
     public DbSet<TechnicalOverview> Technicaloverviews { get; set; }
 
@@ -46,13 +46,13 @@ public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(op
 
         modelBuilder.Entity<VehicleOutfitting>().ToTable("vehicleoutfitting");
 
-        modelBuilder.Entity<VehicleModel>().ToTable("vehicle");
+        modelBuilder.Entity<Vehicle>().ToTable("vehicle");
 
         modelBuilder.Entity<Manufacturer>().ToTable("manufacturer");
 
         modelBuilder.Entity<TechnicalOverview>().ToTable("technicaloverview");
 
-        modelBuilder.Entity<ServiceOperation>().ToTable("serviceoperation");
+        modelBuilder.Entity<ServiceOperation>().ToTable("serviceoperations");
 
         modelBuilder.Entity<Refuel>().ToTable("refuel");
 

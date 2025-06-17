@@ -20,7 +20,7 @@ public class EmployeeContext(DbContextOptions<EmployeeContext> opt) : DbContext(
     {
         modelBuilder.Entity<Employee>().ToTable("Employee");
 
-        modelBuilder.Entity<User>().ToTable("User");
+        modelBuilder.Entity<User>().ToTable("user");
 
         modelBuilder.Entity<Address>().ToTable("address");
 
