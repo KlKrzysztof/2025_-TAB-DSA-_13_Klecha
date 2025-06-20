@@ -7,6 +7,33 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class VehicleQuery(VehicleContext db) : IVehicleQuery
 {
+
+    //piotrek service begin
+    public async Task<List<Vehicle>> GetVehiclesInServiceAsync()
+    {
+        return await db.Vehicles
+            .Where(v => v.IsInService)
+            .ToListAsync();
+    }
+    public async Task<List<Vehicle>> GetVehiclesNotInServiceAsync()
+    {
+        return await db.Vehicles
+            .Where(v => !(v.IsInService))
+            .ToListAsync();
+    }
+    public async Task UpdateSendToService(int id)
+    {
+        Vehicle vehicleToSend = await GetVehicleByIdAsync(id);
+        vehicleToSend.IsInService = true;
+        await UpdateVehicleAsync(vehicleToSend);
+    }
+    public async Task UpdateReturnFromService(int id)
+    {
+        Vehicle vehicleToSend = await GetVehicleByIdAsync(id);
+        vehicleToSend.IsInService = false;
+        await UpdateVehicleAsync(vehicleToSend);
+    }
+    //piotrek service end
     public async Task<List<Vehicle>> GetVehiclesAsync()
     {
         return await db.Vehicles.ToListAsync();

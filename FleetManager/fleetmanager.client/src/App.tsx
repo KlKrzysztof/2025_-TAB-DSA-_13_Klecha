@@ -4,6 +4,8 @@ import Navbar from './Navbar';
 import Home from './routes/Home';
 import Employees from './routes/Employees';
 import Vehicles from './routes/Vehicles';
+import Service from './routes/Service';
+import ServiceHistory from './routes/ServiceHistory';
 
 
 function App() {
@@ -15,6 +17,8 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/employees" element={<Employees />} />
                     <Route path="/vehicles" element={<Vehicles />} />
+                    <Route path="/service" element={<Service />} />
+                    <Route path="/serviceHistory/:vehicleId" element={<ServiceHistory />} />
                 </Routes>
             </div>
         </>

@@ -8,6 +8,50 @@ namespace FleetManager.Server.Controllers;
 [Route("api/vehicle/vehicle")]
 public class VehicleController(IVehicleQuery query) : ControllerBase
 {
+    //piotrek service begin
+    [HttpGet("inService")]
+    public async Task<IActionResult> GetVehiclesInServiceAsync()
+    {
+        var res = await query.GetVehiclesInServiceAsync();
+        return res != null ? Ok(res) : NotFound();
+    }
+
+    [HttpGet("notInService")]
+    public async Task<IActionResult> GetVehiclesNotInServiceAsync()
+    {
+        var res = await query.GetVehiclesNotInServiceAsync();
+        return res != null ? Ok(res) : NotFound();
+    }
+
+    [HttpPost("sendToService/{id:int}")]
+    public async Task<IActionResult> UpdateSendToService(int id)
+    {
+        try
+        {
+            await query.UpdateSendToService(id);
+            return Ok();
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
+    }
+
+    [HttpPost("returnFromService/{id:int}")]
+    public async Task<IActionResult> UpdateReturnFromService(int id)
+    {
+        try
+        {
+            await query.UpdateReturnFromService(id);
+            return Ok();
+        }
+        catch (Exception)
+        {
+            return BadRequest();
+        }
+    }
+    //piotrek service end
+
     [HttpGet("all")]
     public async Task<IActionResult> GetVehiclesAsync()
     {

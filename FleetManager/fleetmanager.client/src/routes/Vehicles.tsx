@@ -35,7 +35,7 @@ function Vehicles() {
                 </div>
                 <VehiclesRequests />
             </div>
-            <VehiclesHistory/>
+           <VehiclesHistory/>
         </main>
     )
 }

@@ -25,6 +25,7 @@ builder.Services.AddScoped<IVehicleOutfittingQuery, VehicleOutfittingQuery>();
 builder.Services.AddScoped<IVehiclePurposeQuery, VehiclePurposeQuery>();
 builder.Services.AddScoped<IVehicleQuery, VehicleQuery>();
 builder.Services.AddScoped<IVehicleVersionQuery, VehicleVersionQuery>();
+builder.Services.AddScoped<IServiceOperationsQuery, ServiceOperationsQuery>();
 
 builder.Services.AddDbContext<EmployeeContext>(opt => opt.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));
 builder.Services.AddDbContext<VehicleContext>(opt => opt.UseMySql(connStr, ServerVersion.AutoDetect(connStr)));

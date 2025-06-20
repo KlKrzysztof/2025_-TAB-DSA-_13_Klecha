@@ -4,6 +4,16 @@ namespace Shared.Contracts.Query;
 
 public interface IVehicleQuery
 {
+
+    //piotrek service begin
+    public Task<List<Vehicle>> GetVehiclesInServiceAsync();
+    public Task<List<Vehicle>> GetVehiclesNotInServiceAsync();
+    public Task UpdateSendToService(int id);
+    public Task UpdateReturnFromService(int id);
+
+
+    //piotrek service end
+
     public Task<List<Vehicle>> GetVehiclesAsync();
 
     public Task<Vehicle?> GetVehicleByIdAsync(int id);
