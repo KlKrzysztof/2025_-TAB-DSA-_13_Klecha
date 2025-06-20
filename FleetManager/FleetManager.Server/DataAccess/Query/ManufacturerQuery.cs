@@ -7,22 +7,22 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class ManufacturerQuery(VehicleContext db) : IManufacturerQuery
 {
-    public async Task<List<Manufacturer>> GetManufacturersAsync()
+    public async Task<List<ManufacturerModel>> GetManufacturersAsync()
     {
         return await db.Manufacturers.ToListAsync();
     }
 
-    public async Task<Manufacturer?> GetManufacturerByIdAsync(int id)
+    public async Task<ManufacturerModel?> GetManufacturerByIdAsync(int id)
     {
         return await db.Manufacturers.SingleOrDefaultAsync(o => o.ManufacturerId == id);
     }
 
-    public async Task<Manufacturer?> GetManufacturerByNameAsync(string name)
+    public async Task<ManufacturerModel?> GetManufacturerByNameAsync(string name)
     {
         return await db.Manufacturers.SingleOrDefaultAsync(o => o.Name == name);
     }
 
-    public async Task CreateManufacturerAsync(Manufacturer manufacturer)
+    public async Task CreateManufacturerAsync(ManufacturerModel manufacturer)
     {
         var v = await db.Manufacturers.SingleOrDefaultAsync(opt => opt.ManufacturerId == manufacturer.ManufacturerId);
         if (v == null)
@@ -32,7 +32,7 @@ public class ManufacturerQuery(VehicleContext db) : IManufacturerQuery
         }
     }
 
-    public async Task UpdateManufacturerAsync(Manufacturer manufacturer)
+    public async Task UpdateManufacturerAsync(ManufacturerModel manufacturer)
     {
         var v = await db.Manufacturers.AsNoTracking().SingleOrDefaultAsync(opt => opt.ManufacturerId == manufacturer.ManufacturerId);
         if (v != null)

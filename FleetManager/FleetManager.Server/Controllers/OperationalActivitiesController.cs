@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/operationalactivity")]
 public class OperationalActivitiesController(IOperationalActivityQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<Operationalactivity> exCreator = new();
+    private readonly ErrorStringsCreator<OperationalActivityModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -35,7 +35,7 @@ public class OperationalActivitiesController(IOperationalActivityQuery query) : 
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateOperationalActivityAsync(Operationalactivity model)
+    public async Task<IActionResult> CreateOperationalActivityAsync(OperationalActivityModel model)
     {
         try
         {
@@ -51,7 +51,7 @@ public class OperationalActivitiesController(IOperationalActivityQuery query) : 
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateOperationalActivityAsync(Operationalactivity model)
+    public async Task<IActionResult> UpdateOperationalActivityAsync(OperationalActivityModel model)
     {
         try
         {

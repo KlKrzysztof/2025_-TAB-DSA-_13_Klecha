@@ -2,7 +2,7 @@
 
 namespace Shared.Models.Caretake;
 
-public class Caretake
+public class CaretakeModel
 {
     [Key]
     public uint CaretakeId { get; set; }

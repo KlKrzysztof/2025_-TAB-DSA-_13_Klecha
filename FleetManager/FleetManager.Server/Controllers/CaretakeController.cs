@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/caretake")]
 public class CaretakeController(ICaretakeQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<Caretake> exCreator = new();
+    private readonly ErrorStringsCreator<CaretakeModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -42,7 +42,7 @@ public class CaretakeController(ICaretakeQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateCaretakeAsync(Caretake model)
+    public async Task<IActionResult> CreateCaretakeAsync(CaretakeModel model)
     {
         try
         {
@@ -58,7 +58,7 @@ public class CaretakeController(ICaretakeQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateCaretakeAsync(Caretake model)
+    public async Task<IActionResult> UpdateCaretakeAsync(CaretakeModel model)
     {
         try
         {

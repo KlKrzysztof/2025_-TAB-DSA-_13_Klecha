@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/user")]
 public class UserController(IUserQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<User> exCreator = new();
+    private readonly ErrorStringsCreator<UserModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -35,7 +35,7 @@ public class UserController(IUserQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateUserAsync(User model)
+    public async Task<IActionResult> CreateUserAsync(UserModel model)
     {
         try
         {
@@ -51,7 +51,7 @@ public class UserController(IUserQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateUserAsync(User model)
+    public async Task<IActionResult> UpdateUserAsync(UserModel model)
     {
         try
         {

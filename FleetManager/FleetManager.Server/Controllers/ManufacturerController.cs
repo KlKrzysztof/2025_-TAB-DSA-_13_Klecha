@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/vehicle/manufacturer")]
 public class ManufacturerController(IManufacturerQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<Manufacturer> exCreator = new();
+    private readonly ErrorStringsCreator<ManufacturerModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -35,7 +35,7 @@ public class ManufacturerController(IManufacturerQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateManufacturerAsync(Manufacturer model)
+    public async Task<IActionResult> CreateManufacturerAsync(ManufacturerModel model)
     {
         try
         {
@@ -51,7 +51,7 @@ public class ManufacturerController(IManufacturerQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateManufacturerAsync(Manufacturer model)
+    public async Task<IActionResult> UpdateManufacturerAsync(ManufacturerModel model)
     {
         try
         {

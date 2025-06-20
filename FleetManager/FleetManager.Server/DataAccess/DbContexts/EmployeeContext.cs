@@ -8,22 +8,22 @@ namespace FleetManager.Server.DataAccess.DbContexts;
 
 public class EmployeeContext(DbContextOptions<EmployeeContext> opt) : DbContext(opt)
 {
-    public virtual DbSet<Employee> Employees { get; set; }
+    public virtual DbSet<EmployeeModel> Employees { get; set; }
 
-    public DbSet<User> UsersInfo { get; set; }
+    public DbSet<UserModel> UsersInfo { get; set; }
 
-    public DbSet<Address> Addresses { get; set; }
+    public DbSet<AddressModel> Addresses { get; set; }
 
-    public DbSet<ContactInfo> ContactInfos { get; set; }
+    public DbSet<ContactInfoModel> ContactInfos { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Employee>().ToTable("Employee");
+        modelBuilder.Entity<EmployeeModel>().ToTable("Employee");
 
-        modelBuilder.Entity<User>().ToTable("user");
+        modelBuilder.Entity<UserModel>().ToTable("user");
 
-        modelBuilder.Entity<Address>().ToTable("address");
+        modelBuilder.Entity<AddressModel>().ToTable("address");
 
-        modelBuilder.Entity<ContactInfo>().ToTable("contactinfo");
+        modelBuilder.Entity<ContactInfoModel>().ToTable("contactinfo");
     }
 }

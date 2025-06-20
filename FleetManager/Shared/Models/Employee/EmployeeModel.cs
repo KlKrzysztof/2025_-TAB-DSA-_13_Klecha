@@ -2,7 +2,7 @@
 
 namespace Shared.Models.Employee;
 
-public class Employee
+public class EmployeeModel
 {
     [Key]
     public uint EmployeeId { get; set; }
