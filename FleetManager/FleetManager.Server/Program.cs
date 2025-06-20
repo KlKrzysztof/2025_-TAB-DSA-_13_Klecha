@@ -5,8 +5,17 @@ using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Shared.Contracts.Query;
+//piotrek begin
+using System.Text.Json.Serialization;
+//piotrek end
 
 var builder = WebApplication.CreateBuilder(args);
+//piotrek begin
+builder.Services.AddControllers().AddJsonOptions(x =>
+        x.JsonSerializerOptions.ReferenceHandler = ReferenceHandler.IgnoreCycles);
+//piotrek end
+
+
 
 // Add services to the container.
 
