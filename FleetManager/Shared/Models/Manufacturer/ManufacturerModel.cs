@@ -2,7 +2,7 @@
 
 namespace Shared.Models.Manufacturer;
 
-public class Manufacturer
+public class ManufacturerModel
 {
     [Key]
     public uint ManufacturerId { get; set; }

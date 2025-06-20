@@ -4,15 +4,15 @@ namespace Shared.Contracts.Query;
 
 public interface IManufacturerQuery
 {
-    public Task<List<Manufacturer>> GetManufacturersAsync();
+    public Task<List<ManufacturerModel>> GetManufacturersAsync();
 
-    public Task<Manufacturer?> GetManufacturerByIdAsync(int id);
+    public Task<ManufacturerModel?> GetManufacturerByIdAsync(int id);
 
-    public Task<Manufacturer?> GetManufacturerByNameAsync(string name);
+    public Task<ManufacturerModel?> GetManufacturerByNameAsync(string name);
 
-    public Task CreateManufacturerAsync(Manufacturer manufacturer);
+    public Task CreateManufacturerAsync(ManufacturerModel manufacturer);
 
-    public Task UpdateManufacturerAsync(Manufacturer manufacturer);
+    public Task UpdateManufacturerAsync(ManufacturerModel manufacturer);
 
     public Task DeleteManufacturerAsync(int id);
 }

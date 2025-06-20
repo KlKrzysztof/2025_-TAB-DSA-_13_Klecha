@@ -2,7 +2,7 @@
 
 namespace Shared.Models.Reservation;
 
-public class Reservation
+public class ReservationModel
 {
     [Key]
     public uint ReservationId { get; set; }

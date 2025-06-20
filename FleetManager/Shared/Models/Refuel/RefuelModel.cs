@@ -2,7 +2,7 @@
 
 namespace Shared.Models.Refuel;
 
-public class Refuel
+public class RefuelModel
 {
     [Key]
     public uint RefuelId { get; set; }
