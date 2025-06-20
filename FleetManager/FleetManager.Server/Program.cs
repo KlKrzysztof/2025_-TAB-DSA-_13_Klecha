@@ -6,6 +6,9 @@ using Microsoft.Extensions.Configuration;
 using MySqlConnector;
 using Pomelo.EntityFrameworkCore.MySql.Infrastructure;
 using Shared.Contracts.Query;
+//piotrek begin
+using System.Text.Json.Serialization;
+//piotrek end
 using Microsoft.Extensions.DependencyInjection.Extensions;
 //piotrek begin
 using System.Text.Json.Serialization;
