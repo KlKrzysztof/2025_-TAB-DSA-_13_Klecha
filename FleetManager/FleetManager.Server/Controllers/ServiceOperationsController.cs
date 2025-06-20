@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/serviceoperation")]
 public class ServiceOperationsController(IServiceOperationsQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<ServiceOperation> exCreator = new();
+    private readonly ErrorStringsCreator<ServiceOperationModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -35,7 +35,7 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateServiceOperationAsync(ServiceOperation model)
+    public async Task<IActionResult> CreateServiceOperationAsync(ServiceOperationModel model)
     {
         try
         {
@@ -51,7 +51,7 @@ public class ServiceOperationsController(IServiceOperationsQuery query) : Contro
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateServiceOperationAsync(ServiceOperation model)
+    public async Task<IActionResult> UpdateServiceOperationAsync(ServiceOperationModel model)
     {
         try
         {

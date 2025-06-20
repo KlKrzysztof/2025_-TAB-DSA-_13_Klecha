@@ -2,7 +2,7 @@
 
 namespace Shared.Models.ServiceOperation;
 
-public class ServiceOperation
+public class ServiceOperationModel
 {
     [Key]
     public uint ServiceOperationsId { get; set; }

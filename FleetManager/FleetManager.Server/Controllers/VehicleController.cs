@@ -41,6 +41,13 @@ public class VehicleController(IVehicleQuery query) : ControllerBase
         return res != null ? Ok(res) : BadRequest();
     }
 
+    [HttpGet("details/id/{id}")]
+    public async Task<IActionResult> GetVehicleDetailsByIdAsync(int id)
+    {
+        var res = await query.GetVehicleDetailsByIdAsync(id);
+        return res != null ? Ok(res) : BadRequest();
+    }
+
     [HttpPut("create")]
     public async Task<IActionResult> CreateVehicleAsync(Vehicle model)
     {

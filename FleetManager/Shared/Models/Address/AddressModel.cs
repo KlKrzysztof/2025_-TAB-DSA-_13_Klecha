@@ -2,13 +2,13 @@
 
 namespace Shared.Models.Address;
 
-public class Address
+public class AddressModel
 {
-    public Address()
+    public AddressModel()
     {
     }
 
-    public Address(Address other)
+    public AddressModel(AddressModel other)
     {
         AddressId = other.AddressId;
         City = other.City;

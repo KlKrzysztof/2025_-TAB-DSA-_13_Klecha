@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/refuel")]
 public class RefuelController(IRefuelQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<Refuel> exCreator = new();
+    private readonly ErrorStringsCreator<RefuelModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -35,7 +35,7 @@ public class RefuelController(IRefuelQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateRefuelAsync(Refuel model)
+    public async Task<IActionResult> CreateRefuelAsync(RefuelModel model)
     {
         try
         {
@@ -51,7 +51,7 @@ public class RefuelController(IRefuelQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateRefuelAsync(Refuel model)
+    public async Task<IActionResult> UpdateRefuelAsync(RefuelModel model)
     {
         try
         {

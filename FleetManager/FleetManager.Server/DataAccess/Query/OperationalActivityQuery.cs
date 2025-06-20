@@ -7,12 +7,12 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class OperationalActivityQuery(VehicleContext db) : IOperationalActivityQuery
 {
-    public async Task<List<Operationalactivity>> GetOperationalActivitiesAsync()
+    public async Task<List<OperationalActivityModel>> GetOperationalActivitiesAsync()
     {
         return await db.Operationalactivities.ToListAsync();
     }
 
-    public async Task<List<Operationalactivity>?> GetOperationalActivitiesForVehicle(int id)
+    public async Task<List<OperationalActivityModel>?> GetOperationalActivitiesForVehicle(int id)
     {
         var caretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == id);
         if (caretake == null)
@@ -25,12 +25,12 @@ public class OperationalActivityQuery(VehicleContext db) : IOperationalActivityQ
         }
     }
 
-    public async Task<Operationalactivity?> GetOperationalActivityByIdAsync(int id)
+    public async Task<OperationalActivityModel?> GetOperationalActivityByIdAsync(int id)
     {
         return await db.Operationalactivities.SingleOrDefaultAsync(o => o.ActivityId == id);
     }
 
-    public async Task CreateOperationalActivityAsync(Operationalactivity model)
+    public async Task CreateOperationalActivityAsync(OperationalActivityModel model)
     {
         var o = await db.Operationalactivities.SingleOrDefaultAsync(o => o.ActivityId == model.ActivityId);
         if (o == null)
@@ -40,7 +40,7 @@ public class OperationalActivityQuery(VehicleContext db) : IOperationalActivityQ
         }
     }
 
-    public async Task UpdateOperationalActivityAsync(Operationalactivity model)
+    public async Task UpdateOperationalActivityAsync(OperationalActivityModel model)
     {
         var o = await db.Operationalactivities.AsNoTracking().SingleOrDefaultAsync(o => o.ActivityId == model.ActivityId);
         if (o != null)

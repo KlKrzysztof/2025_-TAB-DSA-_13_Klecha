@@ -4,17 +4,17 @@ namespace Shared.Contracts.Query;
 
 public interface IReservationQuery
 {
-    public Task<List<Reservation>> GetReservationsAsync();
+    public Task<List<ReservationModel>> GetReservationsAsync();
 
-    public Task<Reservation?> GetReservationByIdAsync(int id);
+    public Task<ReservationModel?> GetReservationByIdAsync(int id);
 
-    public Task<Reservation?> GetReservationByVehicleId(int id);
+    public Task<ReservationModel?> GetReservationByVehicleId(int id);
 
-    public Task<Reservation?> GetReservationByEmployeeId(int id);
+    public Task<ReservationModel?> GetReservationByEmployeeId(int id);
 
-    public Task CreateReservationAsync(Reservation model);
+    public Task CreateReservationAsync(ReservationModel model);
 
-    public Task UpdateReservationAsync(Reservation model);
+    public Task UpdateReservationAsync(ReservationModel model);
 
     public Task DeleteReservationAsync(int id);
 }

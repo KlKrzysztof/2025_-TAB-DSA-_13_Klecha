@@ -4,15 +4,15 @@ namespace Shared.Contracts.Query;
 
 public interface IUserQuery
 {
-    public Task<List<User>> GetUsersAsync();
+    public Task<List<UserModel>> GetUsersAsync();
 
-    public Task<User?> GetUserByIdAsync(int id);
+    public Task<UserModel?> GetUserByIdAsync(int id);
 
-    public Task<User?> GetUserByEmployeeIdAsync(int id);
+    public Task<UserModel?> GetUserByEmployeeIdAsync(int id);
 
-    public Task CreateUserAsync(User user);
+    public Task CreateUserAsync(UserModel user);
 
-    public Task UpdateUserAsync(User user);
+    public Task UpdateUserAsync(UserModel user);
 
     public Task DeleteUserAsync(int id);
 }
