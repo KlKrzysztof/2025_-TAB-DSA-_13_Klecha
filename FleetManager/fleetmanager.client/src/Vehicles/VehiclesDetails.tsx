@@ -5,8 +5,13 @@ interface getVehicle {
     id: Number | null | undefined
 }
 
+function VehiclesDetails({ id }: getVehicle) { 
+
     var [MouseAddButton, setMouseAddButton] = useState(false)
     var [MouseDelButton, setMouseDelButton] = useState(false)
+    var [MouseModButton, setMouseModButton] = useState(false)
+
+    var [canModify, setCanModify] = useState(false)
 
     var [PlateNr, setPlateNr] = useState("")
     var [Purpose, setPurpose] = useState("")
@@ -16,10 +21,32 @@ interface getVehicle {
     var [Serviced, setServiced] = useState(false)
     var [Vehicle, setVehicle] = useState("")
 
-    const handleAddVehicle = async () => {
-        //const data = new FormData()
+    const handleModifyVehicle = async (id: number | null) => {
 
-        //data.append("")
+        if (canModify) {
+            fetch(`/api/vehicle/vehicle/update/`, {
+                method: "POST",
+                headers: {
+                    'Content-type': 'application/json'
+                },
+                body: JSON.stringify({
+                    vehicleId: Number(id),
+                    totalMileage: Number(TotalMileage),
+                    isInService: Boolean(Serviced),
+                    vehiclePurposeId: 1,//Purpose,
+                    plateNumber: PlateNr,
+                    modelId: 1,
+                    vin: "420"
+                })
+            })
+
+            window.location.reload()
+        }
+
+        setCanModify(!canModify)
+    }
+
+    const handleAddVehicle = async () => {
         await fetch("/api/vehicle/vehicle/create", {
             method: "PUT",
             headers: {
@@ -35,12 +62,28 @@ interface getVehicle {
                 vin: "string"
             })
         })
+
+        window.location.reload()
     }
 
-    const handleDeleteVehicle = async (id: number) => {
-        await fetch(`/api/vehicle/vehicle/delete/id/${id}`, {
-            method: "DELETE"
-        })
+    const handleDeleteVehicle = async (id: number | null) => {
+        if (id == null) {
+            window.alert("Choose vehicle you want to delete!")
+            return
+        } 
+        if (window.confirm("Do you want to delete a vehicle?")) { 
+            const response = await fetch(`/api/vehicle/vehicle/delete/id/${id}`, {
+                method: "DELETE"
+            })
+
+            if (response.ok) {
+                window.alert("Vehicle deleted")
+            } else {
+                console.error('Cannot delete vehicle', response.status);
+            }
+        }
+
+        window.location.reload();
     }
 
     useEffect(() => {
@@ -193,31 +236,49 @@ interface getVehicle {
         cursor: "pointer"
     }
 
+    const modifyButtonStyle: React.CSSProperties = {
+        ...inputStyle,
+        backgroundColor: '#F8B117',
+        color: '#FFF',
+        border: 'none',
+        cursor: "pointer",
+        fontSize: '20px'
+    }
+
+    const modifyButtonStyleHover: React.CSSProperties = {
+        ...inputStyle,
+        backgroundColor: '#D79C1E',
+        color: '#FFF',
+        border: 'none',
+        cursor: "pointer",
+        fontSize: '20px'
+    }
+
     return <div style={panelStyle} >
-        <input style={nameInputStyle} type="text" value={Vehicle}></input>
+        <input style={nameInputStyle} type="text" value={Vehicle} onChange={canModify ? (e) => setVehicle(e.target.value) : undefined}></input>
         <div style={wraperStyle }>
             <div style={rowStyle}>
                 <div style={inputWraperStyle}>
                     Plate number
-                    <input type="text" style={inputStyle} value={PlateNr}></input>
+                    <input type="text" style={inputStyle} value={PlateNr} onChange={canModify ? (e) => setPlateNr(e.target.value) : undefined} />
                 </div>
                 <div style={inputWraperStyle}>
                     Puropse
-                    <input type="text" style={inputStyle} value={Purpose}></input>
+                    <input type="text" style={inputStyle} value={Purpose} onChange={canModify ? (e) => setPurpose(e.target.value) : undefined}></input>
                 </div>
                 <div style={inputWraperStyle}>
                     Total mileage
-                    <input type="text" style={inputStyle} value={TotalMileage}></input>
+                    <input type="text" style={inputStyle} value={TotalMileage} onChange={canModify ? (e) => setTotalMileage(e.target.value) : undefined}></input>
                 </div>
             </div>
             <div style={rowStyle}>
                 <div style={inputWraperStyle}>
                     Outfit
-                    <input type="text" style={inputStyle} value={Outfit}></input>
+                    <input type="text" style={inputStyle} value={Outfit} onChange={canModify ? (e) => setOutfit(e.target.value) : undefined}></input>
                 </div>
                 <div style={inputWraperStyle}>
                     Overseerer
-                    <input type="text" style={inputStyle} value={Overseerer}></input>
+                    <input type="text" style={inputStyle} value={Overseerer} onChange={canModify ? (e) => setOverseerer(e.target.value) : undefined}></input>
                 </div>
                 <div style={inputWraperStyle}>
                     Serviced
@@ -227,7 +288,8 @@ interface getVehicle {
         </div>
         <div style={{ ...wraperStyle, justifyContent: 'space-around' }}>
             <input type="button" value="Add Vehicle" style={MouseAddButton ? addButtonStyleHover : addButtonStyle} onMouseEnter={() => setMouseAddButton(true)} onMouseLeave={() => setMouseAddButton(false)} onClick={ () => handleAddVehicle()} />
-            <input type="button" value="Delete Vehicle" style={MouseDelButton ? deleteButtonStyleHover : deleteButtonStyle} onMouseEnter={() => setMouseDelButton(true)} onMouseLeave={() => setMouseDelButton(false)} onClick={() => handleDeleteVehicle(0)} />
+            <input type="button" value="Delete Vehicle" style={MouseDelButton ? deleteButtonStyleHover : deleteButtonStyle} onMouseEnter={() => setMouseDelButton(true)} onMouseLeave={() => setMouseDelButton(false)} onClick={() => handleDeleteVehicle(id)} />
+            <input type="button" value={canModify ? "Save changes" : "Modify Vehicle"} style={MouseModButton ? modifyButtonStyleHover : modifyButtonStyle} onMouseEnter={() => setMouseModButton(true)} onMouseLeave={() => setMouseModButton(false)} onClick={() => handleModifyVehicle(id)} />
         </div>
     </div>
 }
