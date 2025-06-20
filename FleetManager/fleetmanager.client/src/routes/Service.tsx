@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 function Service() {
     const navigate = useNavigate();
 
+
     const ContentStyle: React.CSSProperties = {
         marginTop: '3vh',
         display: 'flex',
@@ -101,7 +102,7 @@ function Service() {
             alert("Please select a vehicle first.");
         }
     };
-
+ 
     const fetchCaretakeId = () => {
         if (!selectedId) return Promise.reject("No selectedId");
 
@@ -142,7 +143,7 @@ function Service() {
                 cost: Number(cost),
                 caretakeId: id,
                 reservationId: null
-            };
+    };
 
             await fetch(`/api/refuel/create`, {
                 method: 'PUT',
@@ -182,7 +183,7 @@ function Service() {
                 cost: Number(cost),
                 caretakeId: id,
                 reservationId: null
-            };
+    };
 
             await fetch(`/api/serviceOperation/create`, {
                 method: 'PUT',
@@ -202,8 +203,11 @@ function Service() {
 
     return (
         <main style={ContentStyle}>
+
+
             <div style={PanelStyles}>
                 <h2>Not in service</h2>
+                { }
                 <SortableTable
                     key={`notInService-${refreshKey}`}
                     fetchURL="/api/vehicle/vehicle/notInService"
@@ -222,6 +226,7 @@ function Service() {
 
             <div style={PanelStyles}>
                 <h2>In service</h2>
+                { }
                 <SortableTable
                     key={`inService-${refreshKey}`}
                     fetchURL="/api/vehicle/vehicle/inService"
@@ -257,7 +262,7 @@ function Service() {
                             <button style={{ ...ButtonStyle, backgroundColor: '#aaa' }} onClick={() => setShowRefuelModal(false)}>Cancel</button>
                         </div>
                     </div>
-                </div>
+            </div>
             )}
 
             {showServiceModal && (
