@@ -12,7 +12,7 @@ public class VehicleDetailsModel
 
     public ManufacturerModel? VehicleManufacturer { get; set; }
 
-    public VehicleOutfitting? VehicleOutfitting { get; set; }
+    public List<VehicleOutfitting> VehicleOutfitting { get; set; } = [];
 
     public VehiclePurpose? VehiclePurpose { get; set; }
 
