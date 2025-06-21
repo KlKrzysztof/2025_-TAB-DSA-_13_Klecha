@@ -68,7 +68,7 @@ public class VehicleQuery(VehicleContext db) : IVehicleQuery
         var version = await db.VehicleVersions.SingleOrDefaultAsync(o => o.VersionId == model.VehicleVersionId);
         if (version == null) { return null; }
 
-        var outfitting = await db.VehicleOutfittings.SingleOrDefaultAsync(o => o.VersionId == version.VersionId);
+        var outfitting = await db.VehicleOutfittings.Where(o => o.VersionId == version.VersionId).ToListAsync();
         if (outfitting == null) { return null; }
 
         VehicleDetailsModel m = new()
