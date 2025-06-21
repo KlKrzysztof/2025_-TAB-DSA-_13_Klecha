@@ -10,12 +10,19 @@ interface Refuel {
     reservationId: number;
 }
 
+interface Properties {
+    requestURL: string;
+    cost: number;
+}
+
 const Refuel: React.FC = () => {
     const [selectedRefuel, setSelectedRefuel] = useState<Refuel>();
     const [, setSelectedId] = useState<number | string | null>(null);
-    const handleRefuelSelect = (id: number | string) => {
+    const [url, setUrl] = useState<string | null>(null);
+    const handleRefuelSelect = (id: number | URL | Request) => {
         setRefuel(id);
     };
+
     async function setRefuel(id: number | string) {
         setSelectedId(id);
         console.log(`Employee with ID: ${id} selected`);
@@ -27,16 +34,16 @@ const Refuel: React.FC = () => {
     };
 
     return (
-        <div className="container">
-            <div className="card">
+        <div className="uncenteredContainer">
+            <div className="fullscreenCard">
                 {/* Employee Details Panel */}
                 {/*<div className="details-panel">*/}
                 {/*    <input type="text" value={selectedRefuel?.refuelId + " "} readOnly className="name-heading" />*/}
 
                 {/*</div>*/}
                 {/* Employees List Panel */}
-                <div className="list-panel">
-                    <h1 className="title">Refuel List</h1>
+                <div className="data-panel">
+                    {/*<h1 className="title">Refuel List</h1>*/}
                     <div className="employee-list" style={{ maxHeight: "300px" }}>
                         <SortableTable fetchURL="api/refuel/get/all" idColumn="refuelId" onRowSelect={handleRefuelSelect}
                             visibleColumns=
@@ -47,7 +54,18 @@ const Refuel: React.FC = () => {
                             ]} />
                     </div>
                 </div>
+                <div className="stack">
+                    <div className="data-panel">
+                        <h1 className="title">Podsumowanie</h1>
+                        <h2>Wydatki za kategorie: </h2>
+
+                    </div>
+                    <div className="data-panel">
+                        <h1 className="title">Operacje</h1>
+                    </div>
+                </div>
             </div>
+
         </div>
     );
 };
