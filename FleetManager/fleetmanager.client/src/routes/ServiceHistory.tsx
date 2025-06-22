@@ -58,7 +58,7 @@ function ServiceHistory() {
 
 
             <div style={PanelStyles}>
-                <h2>service history of vehicle</h2>
+                <h2>Service history of vehicle {vehicleId}</h2>
                 { }
                 <SortableTable
                     fetchURL={`/api/serviceoperation/get/vehicle/id/${vehicleId}`}
