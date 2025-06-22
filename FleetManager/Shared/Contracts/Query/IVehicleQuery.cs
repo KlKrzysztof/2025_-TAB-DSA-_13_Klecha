@@ -14,6 +14,8 @@ public interface IVehicleQuery
 
     public Task<VehicleDetailsModel?> GetVehicleDetailsByIdAsync(int id);
 
+    public Task<VehicleCaretakerModel?> GetVehicleAndCaretakerByIdAsync(int id);
+
     public Task CreateVehicleAsync(Vehicle model);
 
     public Task UpdateVehicleAsync(Vehicle model);

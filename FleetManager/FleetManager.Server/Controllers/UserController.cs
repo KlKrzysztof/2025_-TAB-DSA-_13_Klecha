@@ -50,6 +50,15 @@ public class UserController(IUserQuery query) : ControllerBase
         }
     }
 
+    [HttpGet("authenticate")]
+    public async Task<IActionResult> Authenticate(
+        [FromHeader(Name = "login")]string login, 
+        [FromHeader(Name = "password")] string password)
+    {
+        var res = await query.Authenticate(login, password);
+        return Ok(res);
+    }
+
     [HttpPost("update")]
     public async Task<IActionResult> UpdateUserAsync(UserModel model)
     {

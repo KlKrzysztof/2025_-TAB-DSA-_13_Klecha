@@ -5,7 +5,7 @@ using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.DataAccess.Query;
 
-public class VehicleQuery(VehicleContext db) : IVehicleQuery
+public class VehicleQuery(VehicleContext db, EmployeeContext employeeDb) : IVehicleQuery
 {
     public async Task<List<Vehicle>> GetVehiclesAsync()
     {
@@ -56,6 +56,26 @@ public class VehicleQuery(VehicleContext db) : IVehicleQuery
         };
 
         return m ?? null;
+    }
+
+    public async Task<VehicleCaretakerModel?> GetVehicleAndCaretakerByIdAsync(int id)
+    {
+        var vehicle = await db.Vehicles.SingleOrDefaultAsync(o => o.VehicleId == id);
+        if (vehicle == null) { return null; }
+
+        var caretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == id);
+        if (caretake == null) { return null; }
+
+        var caretaker = await employeeDb.Employees.SingleOrDefaultAsync(o => o.EmployeeId == caretake.EmployeeId);
+        if (caretaker == null) { return null; }
+
+        VehicleCaretakerModel model = new()
+        {
+            VehicleId = id,
+            Vehicle = vehicle,
+            Caretaker = caretaker
+        };
+        return model;
     }
 
     public async Task CreateVehicleAsync(Vehicle model)

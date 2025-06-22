@@ -30,15 +30,43 @@ public class CaretakeController(ICaretakeQuery query) : ControllerBase
     [HttpGet("get/vehicle/id/{id}")]
     public async Task<IActionResult> GetCaretakeByVehicleId(int id)
     {
-        var res = await query.GetCaretakeByVehicleId(id);
+        var res = await query.GetCaretakeByVehicleIdAsync(id);
         return Ok(res);
     }
     
     [HttpGet("get/employee/id/{id}")]
     public async Task<IActionResult> GetCaretakeByEmployeeId(int id)
     {
-        var res = await query.GetCaretakeByEmployeeId(id);
+        var res = await query.GetCaretakeByEmployeeIdAsync(id);
         return Ok(res);
+    }
+
+    [HttpGet("get/details/id/{id:int}")]
+    public async Task<IActionResult> GetCaretakeDetailsByIdAsync(int id)
+    {
+        var res = await query.GetCaretakeDetailsByIdAsync(id);
+        return res != null ? Ok(res) : BadRequest();
+    }
+
+    [HttpGet("get/finished")]
+    public async Task<IActionResult> GetFinishedCaretakesAsync()
+    {
+        var res = await query.GetFinishedCaretakesAsync();
+        return Ok(res);
+    }
+
+    [HttpPatch("patch/employee/id/{employeeId}/vehicle/id/{vehicleId:int}")]
+    public async Task<IActionResult> PatchVehicleCaretaker(uint employeeId, int vehicleId)
+    {
+        try
+        {
+            await query.PatchVehicleCaretakerAsync(employeeId, vehicleId);
+            return Ok();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
     [HttpPut("create")]
