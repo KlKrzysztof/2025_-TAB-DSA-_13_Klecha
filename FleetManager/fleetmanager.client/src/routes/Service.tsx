@@ -1,18 +1,17 @@
 import React from 'react';
-import { SortableTable } from '../SortableTable'
-import { useState } from 'react'
+import { SortableTable } from '../SortableTable';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Service() {
     const navigate = useNavigate();
-
 
     const ContentStyle: React.CSSProperties = {
         marginTop: '3vh',
         display: 'flex',
         justifyContent: 'center',
         flexDirection: 'row'
-    }
+    };
     const PanelStyles: React.CSSProperties = {
         height: '60vh',
         width: '35vw',
@@ -23,7 +22,7 @@ function Service() {
         alignItems: 'center',
         flexDirection: 'column',
         padding: '10px'
-    }
+    };
     const visibleColumns = [
         { key: 'vehicleId', label: 'Vehicle ID' },
         { key: 'plateNumber', label: 'Plate Number' },
@@ -74,43 +73,33 @@ function Service() {
     const [selectedId1, setSelectedId1] = useState<number | string | null>(null);
     const [caretakeId, setCaretakeId] = useState<number | null>(null);
     const [showRefuelModal, setShowRefuelModal] = useState(false);
-    const [refuelData, setRefuelData] = useState({mileage: '', date: '', cost: ''});
+    const [refuelData, setRefuelData] = useState({ mileage: '', date: '', cost: '' });
+
+    //service operation modal
+    const [showServiceModal, setShowServiceModal] = useState(false);
+    const [serviceData, setServiceData] = useState({ name: '', date: '', cost: '' });
 
     const handleVehicleSelect = (id: number | string) => {
         setSelectedId(id);
     };
     const handleVehicleSelect1 = (id: number | string) => {
+        setSelectedId(id);
         setSelectedId1(id);
-    };
-    const handleSendToService = () => {
-        if (!selectedId) {
-            alert("Please select a vehicle first.");
-            return;
-        }
-        const serviceReason = window.prompt("sending placeholder:");
-        if (!serviceReason) return;
-
-        fetch(`/api/vehicle/vehicle/sendToService/${selectedId}`, { method: 'POST' })
-            .then(() => setRefreshKey(prev => prev + 1));
- 
     };
     const handleReturnFromService = () => {
         if (!selectedId1) {
             alert("Please select a vehicle first.");
             return;
         }
-        const serviceReason = window.prompt("returning placeholder:");
-        if (!serviceReason) return;
-
         fetch(`/api/vehicle/vehicle/returnFromService/${selectedId1}`, { method: 'POST' })
             .then(() => setRefreshKey(prev => prev + 1));
     };
-    const handleRefuel = () => {
-        if (!selectedId) {
+    const handleHistory = () => {
+        if (selectedId) {
+            navigate(`/serviceHistory/${selectedId}`);
+        } else {
             alert("Please select a vehicle first.");
-            return;
         }
-        setShowRefuelModal(true);
     };
 
     const fetchCaretakeId = () => {
@@ -124,63 +113,108 @@ function Service() {
                 return id; // return the id for chaining
             });
     };
-
+    const handleRefuel = () => {
+        if (!selectedId) {
+            alert("Please select a vehicle first.");
+            return;
+        }
+        setShowRefuelModal(true);
+    };
     const handleRefuelSubmit = async () => {
         const { mileage, date, cost } = refuelData;
 
-        if (!mileage || !date || !cost) {alert("Please fill in all fields.");return;}
-        if (!selectedId) {alert("No vehicle selected.");return;}
-        //fetchCaretakeId();
-        const id = await fetchCaretakeId();
+        if (!mileage || !date || !cost) {
+            alert("Please fill in all fields.");
+            return;
+        }
+        if (!selectedId) {
+            alert("No vehicle selected.");
+            return;
+        }
 
-        const payload = {
-            refuelId: 0,
-            currentMileage: Number(mileage),
-            date: date,
-            cost: Number(cost),
-            caretakeId: id,
-            reservationId: null
-        };
+        try {
+            const id = await fetchCaretakeId();
 
+            const payload = {
+                refuelId: 0,
+                currentMileage: Number(mileage),
+                date: date,
+                cost: Number(cost),
+                caretakeId: id,
+                reservationId: null
+            };
 
-        fetch(`/api/refuel/create`, {
-            method: 'PUT',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(payload)
-        })
-            .then(() => {
-                setRefreshKey(prev => prev + 1);
-                setShowRefuelModal(false);
-                setRefuelData({ mileage: '', date: '', cost: '' });
-            })
+            await fetch(`/api/refuel/create`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            setRefreshKey(prev => prev + 1);
+            setShowRefuelModal(false);
+            setRefuelData({ mileage: '', date: '', cost: '' });
+
+        } catch (error) {
+            alert("Failed to submit refuel data: " + error);
+        }
     };
-    const handleHistory = () => {
-        if (selectedId) {
-            navigate(`/serviceHistory/${selectedId}`);
-        } else if (selectedId1) {
-            navigate(`/serviceHistory/${selectedId1}`);
-        } else {
+    const handleServiceSubmit = async () => {
+        const { name, date, cost } = serviceData;
+
+        if (!selectedId) {
             alert("Please select a vehicle first.");
+            return;
+        }
+        fetch(`/api/vehicle/vehicle/sendToService/${selectedId}`, { method: 'POST' })
+            .then(() => setRefreshKey(prev => prev + 1));
+        if (!name || !date || !cost) {
+            alert("Please fill in all fields.");
+            return;
+        }
+
+        try {
+            const id = await fetchCaretakeId();
+
+            const payload = {
+                serviceOperationsId: 0,
+                name: name,
+                date: date,
+                cost: Number(cost),
+                caretakeId: id,
+                reservationId: null
+            };
+
+            await fetch(`/api/serviceOperation/create`, {
+                method: 'PUT',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(payload)
+            });
+
+            setRefreshKey(prev => prev + 1);
+            setShowServiceModal(false);
+            setServiceData({ name: '', date: '', cost: '' });
+
+        } catch (error) {
+            alert("Failed to submit service operation: " + error);
         }
     };
 
+
     return (
         <main style={ContentStyle}>
-
-
             <div style={PanelStyles}>
                 <h2>Not in service</h2>
-                { }
                 <SortableTable
                     key={`notInService-${refreshKey}`}
                     fetchURL="/api/vehicle/vehicle/notInService"
                     idColumn="vehicleId"
                     onRowSelect={handleVehicleSelect}
-                    visibleColumns={visibleColumns} />
+                    visibleColumns={visibleColumns}
+                />
             </div>
 
             <div style={ButtonContainerStyle}>
-                <button style={ButtonStyle} onClick={handleSendToService}>Send to Service</button>
+                <button style={ButtonStyle} onClick={() => setShowServiceModal(true)}>Send to Service</button>
                 <button style={ButtonStyle} onClick={handleReturnFromService}>Return from Service</button>
                 <button style={ButtonStyle} onClick={handleRefuel}>Refuel</button>
                 <button style={ButtonStyle} onClick={handleHistory}>Service history</button>
@@ -188,14 +222,13 @@ function Service() {
 
             <div style={PanelStyles}>
                 <h2>In service</h2>
-                { }
                 <SortableTable
-                    key={`notInService-${refreshKey}`}
+                    key={`inService-${refreshKey}`}
                     fetchURL="/api/vehicle/vehicle/inService"
                     idColumn="vehicleId"
                     onRowSelect={handleVehicleSelect1}
-                    visibleColumns={visibleColumns} />
-
+                    visibleColumns={visibleColumns}
+                />
             </div>
 
             {showRefuelModal && (
@@ -227,9 +260,36 @@ function Service() {
                 </div>
             )}
 
-
+            {showServiceModal && (
+                <div style={RefuelMask}>
+                    <div style={RefuelStyle}>
+                        <h3>Add Service Operation</h3>
+                        <input
+                            type="text"
+                            placeholder="Service Name"
+                            value={serviceData.name}
+                            onChange={(e) => setServiceData({ ...serviceData, name: e.target.value })}
+                        />
+                        <input
+                            type="date"
+                            value={serviceData.date}
+                            onChange={(e) => setServiceData({ ...serviceData, date: e.target.value })}
+                        />
+                        <input
+                            type="number"
+                            placeholder="Cost"
+                            value={serviceData.cost}
+                            onChange={(e) => setServiceData({ ...serviceData, cost: e.target.value })}
+                        />
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <button style={ButtonStyle} onClick={handleServiceSubmit}>Submit</button>
+                            <button style={{ ...ButtonStyle, backgroundColor: '#aaa' }} onClick={() => setShowServiceModal(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
         </main>
     );
-};
+}
 
 export default Service;

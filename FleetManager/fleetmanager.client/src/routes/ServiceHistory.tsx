@@ -13,8 +13,8 @@ function ServiceHistory() {
         flexDirection: 'row'
     }
     const PanelStyles: React.CSSProperties = {
-        height: '60vh',
-        width: '35vw',
+        height: '80vh',
+        width: '60vw',
         backgroundColor: '#ffffff',
         borderRadius: '10px 10px 10px 10px',
         display: 'flex',
@@ -61,7 +61,7 @@ function ServiceHistory() {
                 <h2>service history of vehicle</h2>
                 { }
                 <SortableTable
-                    fetchURL={`/api/serviceoperations/get/vehicle/id/${vehicleId}`}
+                    fetchURL={`/api/serviceoperation/get/vehicle/id/${vehicleId}`}
                     //fetchURL={`/api/serviceoperations/get/all`}
                     idColumn="serviceOperationsId"
                     onRowSelect={handleVehicleSelect}
