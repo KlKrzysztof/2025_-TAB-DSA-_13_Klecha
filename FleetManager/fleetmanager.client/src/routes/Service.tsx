@@ -47,10 +47,34 @@ function Service() {
         color: '#ffffff',
         cursor: 'pointer'
     };
+    const RefuelMask: React.CSSProperties = {
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        height: '100vh',
+        width: '100vw',
+        backgroundColor: 'rgba(0, 0, 0, 0.4)',
+        display: 'flex',
+        justifyContent: 'center',
+        alignItems: 'center',
+        zIndex: 1000
+    };
+    const RefuelStyle: React.CSSProperties = {
+        backgroundColor: 'white',
+        padding: '2rem',
+        borderRadius: '10px',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        minWidth: '300px'
+    };
 
     const [refreshKey, setRefreshKey] = useState(0);
     const [selectedId, setSelectedId] = useState<number | string | null>(null);
     const [selectedId1, setSelectedId1] = useState<number | string | null>(null);
+
+    const [showRefuelModal, setShowRefuelModal] = useState(false);
+    const [refuelData, setRefuelData] = useState({mileage: '', date: '', cost: ''});
 
     const handleVehicleSelect = (id: number | string) => {
         setSelectedId(id);
@@ -86,11 +110,26 @@ function Service() {
             alert("Please select a vehicle first.");
             return;
         }
-        const fuelAmount = window.prompt("Enter the amount of fuel to add (in liters):");
-        if (fuelAmount) {
-            console.log(`Refueling vehicle ${selectedId} with ${fuelAmount} liters.`);
-            // Add API call or logic here
+        setShowRefuelModal(true);
+    };
+    const handleRefuelSubmit = () => {
+        const { mileage, date, cost } = refuelData;
+        if (!mileage || !date || !cost) {
+            alert("Please fill in all fields.");
+            return;
         }
+
+
+        // Example fetch
+        fetch(`/api/refuel/create`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ mileage, date, cost })
+        }).then(() => {
+            setRefreshKey(prev => prev + 1);
+            setShowRefuelModal(false);
+            setRefuelData({ mileage: '', date: '', cost: '' });
+        });
     };
     const handleHistory = () => {
         if (selectedId) {
@@ -104,7 +143,6 @@ function Service() {
 
     return (
         <main style={ContentStyle}>
-
 
             <div style={PanelStyles}>
                 <h2>Not in service</h2>
@@ -136,6 +174,34 @@ function Service() {
 
             </div>
 
+            {showRefuelModal && (
+                <div style={RefuelMask}>
+                    <div style={RefuelStyle}>
+                        <h3>Refuel Vehicle</h3>
+                        <input
+                            type="number"
+                            placeholder="Current Mileage"
+                            value={refuelData.mileage}
+                            onChange={(e) => setRefuelData({ ...refuelData, mileage: e.target.value })}
+                        />
+                        <input
+                            type="date"
+                            value={refuelData.date}
+                            onChange={(e) => setRefuelData({ ...refuelData, date: e.target.value })}
+                        />
+                        <input
+                            type="number"
+                            placeholder="Cost"
+                            value={refuelData.cost}
+                            onChange={(e) => setRefuelData({ ...refuelData, cost: e.target.value })}
+                        />
+                        <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <button style={ButtonStyle} onClick={handleRefuelSubmit}>Submit</button>
+                            <button style={{ ...ButtonStyle, backgroundColor: '#aaa' }} onClick={() => setShowRefuelModal(false)}>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            )}
 
 
         </main>
