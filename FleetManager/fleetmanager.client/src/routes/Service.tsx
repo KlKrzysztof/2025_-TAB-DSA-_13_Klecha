@@ -72,7 +72,7 @@ function Service() {
     const [refreshKey, setRefreshKey] = useState(0);
     const [selectedId, setSelectedId] = useState<number | string | null>(null);
     const [selectedId1, setSelectedId1] = useState<number | string | null>(null);
-
+    const [caretakeId, setCaretakeId] = useState<number | null>(null);
     const [showRefuelModal, setShowRefuelModal] = useState(false);
     const [refuelData, setRefuelData] = useState({mileage: '', date: '', cost: ''});
 
@@ -112,24 +112,47 @@ function Service() {
         }
         setShowRefuelModal(true);
     };
-    const handleRefuelSubmit = () => {
+
+    const fetchCaretakeId = () => {
+        if (!selectedId) return Promise.reject("No selectedId");
+
+        return fetch(`/api/caretake/get/vehicle/id/${selectedId}`)
+            .then(res => res.json())
+            .then(data => {
+                const id = typeof data === 'number' ? data : data.caretakeId;
+                setCaretakeId(id);
+                return id; // return the id for chaining
+            });
+    };
+
+    const handleRefuelSubmit = async () => {
         const { mileage, date, cost } = refuelData;
-        if (!mileage || !date || !cost) {
-            alert("Please fill in all fields.");
-            return;
-        }
+
+        if (!mileage || !date || !cost) {alert("Please fill in all fields.");return;}
+        if (!selectedId) {alert("No vehicle selected.");return;}
+        //fetchCaretakeId();
+        const id = await fetchCaretakeId();
+
+        const payload = {
+            refuelId: 0,
+            currentMileage: Number(mileage),
+            date: date,
+            cost: Number(cost),
+            caretakeId: id,
+            reservationId: null
+        };
 
 
-        // Example fetch
         fetch(`/api/refuel/create`, {
-            method: 'POST',
+            method: 'PUT',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ mileage, date, cost })
-        }).then(() => {
-            setRefreshKey(prev => prev + 1);
-            setShowRefuelModal(false);
-            setRefuelData({ mileage: '', date: '', cost: '' });
-        });
+            body: JSON.stringify(payload)
+        })
+            .then(() => {
+                setRefreshKey(prev => prev + 1);
+                setShowRefuelModal(false);
+                setRefuelData({ mileage: '', date: '', cost: '' });
+            })
     };
     const handleHistory = () => {
         if (selectedId) {
