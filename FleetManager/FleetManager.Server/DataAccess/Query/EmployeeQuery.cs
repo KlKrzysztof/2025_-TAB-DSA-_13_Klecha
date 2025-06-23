@@ -25,7 +25,7 @@ public class EmployeeQuery(EmployeeContext db) : IEmployeeQuery
         {
             await db.Employees.AddAsync(model);
             await db.SaveChangesAsync();
-        }\
+        }
 
     }
 
