@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import './Employees.css'; // Import the CSS
-import { SortableTable } from '../SortableTable';
+import { Table } from '../Table';
 import { Addresses } from '../Addresses';
 import { ContactInfo } from '../ContactInfo';
 
@@ -9,7 +9,7 @@ const StyleContainer: React.CSSProperties = {
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#f2f2f2',
-    minHeight: '100vh'
+    height: '89vh'
 }
 
 const StyleCard: React.CSSProperties = {
@@ -29,7 +29,8 @@ const StyleListPanel: React.CSSProperties = {
     marginRight: '20px',
     display: 'flex',
     flexDirection: 'column',
-    minWidth: 'auto'
+    minWidth: 'auto',
+    
 }
 
 const StyleTitle: React.CSSProperties = {
@@ -45,8 +46,9 @@ const StyleDetailsTop: React.CSSProperties = {
 
 const StyleEmployeeList: React.CSSProperties = {
     flexGrow: '1',
-    backgroundColor: '#dcdcdc',
-    borderRadius: '6px'
+    backgroundColor: 'white',
+    borderRadius: '6px',
+    height: '40vh'
 }
 
 const StyleDetailsPanel: React.CSSProperties = {
@@ -268,7 +270,7 @@ export const Employees: React.FC = () => {
             surname: "surname",
             pesel: "00000000000"
         };
-        fetch(`api/employee/create`, {
+        fetch(`api/employee/create/contact/123456789/123456789`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json',
@@ -344,7 +346,7 @@ export const Employees: React.FC = () => {
         // Implement the logic to delete the selected employee
         if (selectedEmployee) {
             console.log(`Delete Employee with ID: ${selectedEmployee.employeeId}`);
-            fetch(`api/employee/delet/${selectedEmployee.employeeId}`, {
+            fetch(`api/employee/delete/${selectedEmployee.employeeId}`, {
                 method: 'DELETE',
             })
             .then(response => {
@@ -415,7 +417,7 @@ export const Employees: React.FC = () => {
                 <div style={StyleListPanel}>
                     <h1 style={StyleTitle}>Employees List</h1>
                     <div style={StyleEmployeeList}>
-                        <SortableTable fetchURL="api/employee/get/all" idColumn = "employeeId" onRowSelect = { handleEmployeeSelect } refreshOnChange = { forceRefresh } visibleColumns = { [{ key: "employeeId", label: "ID" }, { key: "firstName", label: "First name" }, { key: "secondName", label: "Second name" }, { key: "surname", label: "Surname" }, { key: "pesel", label: "PESEL" }]} />
+                        <Table fetchURL="api/employee/get/all" idColumn = "employeeId" onRowSelect = { handleEmployeeSelect } refreshOnChange = { forceRefresh } visibleColumns = { [{ key: "employeeId", label: "ID" }, { key: "firstName", label: "First name" }, { key: "secondName", label: "Second name" }, { key: "surname", label: "Surname" }, { key: "pesel", label: "PESEL" }]} />
                     </div>
                 </div>
             </div>
@@ -433,7 +435,8 @@ const modalBackdropStyle: React.CSSProperties = {
     backgroundColor: 'rgba(0,0,0,0.5)',
     display: 'flex',
     justifyContent: 'center',
-    alignItems: 'center'
+    alignItems: 'center',
+    zIndex: '1'
 };
 
 export default Employees;
