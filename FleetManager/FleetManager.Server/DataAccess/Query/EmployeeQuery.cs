@@ -25,7 +25,7 @@ public class EmployeeQuery(EmployeeContext db) : IEmployeeQuery
         {
             await db.Employees.AddAsync(model);
             await db.SaveChangesAsync();
-        }
+        }\
 
     }
 
@@ -35,6 +35,7 @@ public class EmployeeQuery(EmployeeContext db) : IEmployeeQuery
         if (emp == null)
         {
             await db.Employees.AddAsync(model);
+            await db.SaveChangesAsync();
             ContactInfoModel c1 = new() { EmployeeId = model.EmployeeId, TelNumber = contact1};
             ContactInfoModel c2 = new() { EmployeeId = model.EmployeeId, TelNumber = contact2};
             await db.ContactInfos.AddAsync(c1);
