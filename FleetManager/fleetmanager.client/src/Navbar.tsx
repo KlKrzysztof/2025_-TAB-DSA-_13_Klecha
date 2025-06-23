@@ -16,17 +16,18 @@ function Navbar() {
     const MenuStyles: React.CSSProperties = {
         listStyle: 'none',
         display: 'flex',
-        justifyContent: 'flex-end',
+        justifyContent: 'space-evenly',
         textDecoration: 'none',
         width: '100%',
         textAlign: 'center',
-        alignItems: 'center'
+        alignItems: 'center',
+        fontSize: '2vw'
     }
 
     const LiStyles: React.CSSProperties = {
-        width: '10vw',
+        //width: '10vw',
         height: '10vh',
-        fontSize: '30px',
+        //fontSize: '30px',
         color: 'black',
         display: 'flex',
         justifyContent: 'center',
@@ -54,7 +55,7 @@ function Navbar() {
                 <li style={LiStyles}> <Link to="/vehicles" style={LiStyles}>Vehicles</Link> </li>
                 <li style={LiStyles}> <Link to="/employees" style={LiStyles}>Employees</Link></li>
                 <li style={LiStyles}> <Link to="/#" style={LiStyles}>Service</Link> </li>
-                <li style={LiStyles}> <Link to="/#" style={LiStyles}>Reservation</Link> </li>
+                <li style={LiStyles}> <Link to="/reservation" style={LiStyles}>Reservation</Link> </li>
                 <li style={LiStyles}> <Link to="/#" style={LiStyles}>Costs</Link> </li>
             </ul>
         </nav>
