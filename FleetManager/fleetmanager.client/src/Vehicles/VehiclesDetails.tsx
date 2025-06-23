@@ -394,9 +394,6 @@ function VehiclesDetails({ id }: getVehicle) {
                             {PurposeOptions.map(p => (
                                 <li key={p.vehiclePurposeId} style={!purposeListHandler[p.vehiclePurposeId] ? { cursor: "pointer" } : { cursor: "pointer", backgroundColor: "#cacaca" }} onMouseEnter={() => setPurposeHover(p.vehiclePurposeId)} onClick={() => setOnCLickPurpose() }>{p.name}</li>
                             ))}
-                            {/*<li style={{ cursor: "pointer" }} >1</li>
-                            <li>2</li>
-                            <li>3</li>*/}
                         </ul>
                         : undefined
                     }
@@ -419,9 +416,6 @@ function VehiclesDetails({ id }: getVehicle) {
                             {OverseererOptions.map(o => (
                                 <li key={o.employeeId} style={!overseererListHandler[o.employeeId] ? { cursor: "pointer" } : { cursor: "pointer", backgroundColor: "#cacaca" }} onMouseEnter={() => setOverseererHover(o.employeeId)} onClick={() => setOnCLickPurpose()}>{`${o.firstName} ${o.surname}`}</li>
                             ))}
-                            {/*<li style={{ cursor: "pointer" }} >1</li>
-                            <li>2</li>
-                            <li>3</li>*/}
                         </ul>
                             : undefined
                     }
