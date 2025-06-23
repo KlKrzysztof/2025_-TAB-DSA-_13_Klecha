@@ -67,7 +67,7 @@ export const SortableTable: React.FC<TableProps> = ({ fetchURL, idColumn, onRowS
                                         cursor: 'pointer',
                                         borderBottom: '1px solid #ddd',
                                         padding: '8px',
-                                        textAlign: 'left',
+                                        textAlign: 'center',
                                         background: '#f2f2f2',
                                     }}
                                 >
