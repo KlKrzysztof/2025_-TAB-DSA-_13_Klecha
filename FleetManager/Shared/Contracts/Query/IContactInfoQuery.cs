@@ -4,15 +4,15 @@ namespace Shared.Contracts.Query;
 
 public interface IContactInfoQuery
 {
-    public Task<List<ContactInfo>> GetContactInfosAsync();
+    public Task<List<ContactInfoModel>> GetContactInfosAsync();
 
-    public Task<ContactInfo?> GetContactInfoByIdAsync(int id);
+    public Task<ContactInfoModel?> GetContactInfoByIdAsync(int id);
 
-    public Task<List<ContactInfo>?> GetEmployeesContactInfoAsync(int id);
+    public Task<List<ContactInfoModel>?> GetEmployeesContactInfoAsync(int id);
 
-    public Task CreateContactInfoAsync(ContactInfo contactinfo);
+    public Task CreateContactInfoAsync(ContactInfoModel contactinfo);
 
-    public Task UpdateContactInfoAsync(ContactInfo contactinfo);
+    public Task UpdateContactInfoAsync(ContactInfoModel contactinfo);
 
     public Task DeleteContactInfoAsync(int id);
 }

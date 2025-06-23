@@ -7,28 +7,28 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class ReservationQuery(VehicleContext db) : IReservationQuery
 {
-    public async Task<List<Reservation>> GetReservationsAsync()
+    public async Task<List<ReservationModel>> GetReservationsAsync()
     {
 
         return await db.Reservations.ToListAsync();
     }
 
-    public async Task<Reservation?> GetReservationByEmployeeId(int id)
+    public async Task<ReservationModel?> GetReservationByEmployeeId(int id)
     {
         return await db.Reservations.SingleOrDefaultAsync(o => o.EmployeeId == id);
     }
 
-    public async Task<Reservation?> GetReservationByIdAsync(int id)
+    public async Task<ReservationModel?> GetReservationByIdAsync(int id)
     {
         return await db.Reservations.SingleOrDefaultAsync(o => o.CaretakeId == id);
     }
 
-    public async Task<Reservation?> GetReservationByVehicleId(int id)
+    public async Task<ReservationModel?> GetReservationByVehicleId(int id)
     {
         return await db.Reservations.SingleOrDefaultAsync(o => o.VehicleId == id);
     }
 
-    public async Task CreateReservationAsync(Reservation model)
+    public async Task CreateReservationAsync(ReservationModel model)
     {
         var r = await db.Reservations.SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
         if (r == null)
@@ -38,7 +38,7 @@ public class ReservationQuery(VehicleContext db) : IReservationQuery
         }
     }
 
-    public async Task UpdateReservationAsync(Reservation model)
+    public async Task UpdateReservationAsync(ReservationModel model)
     {
         var r = await db.Reservations.AsNoTracking().SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
         if(r != null)

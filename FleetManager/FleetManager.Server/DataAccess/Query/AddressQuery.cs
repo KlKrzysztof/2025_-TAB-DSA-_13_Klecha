@@ -8,22 +8,22 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class AddressQuery(EmployeeContext db) : IAddressQuery
 {
-    public async Task<List<Address>> GetAddressesAsync()
+    public async Task<List<AddressModel>> GetAddressesAsync()
     {
         return await db.Addresses.ToListAsync();
     }
 
-    public async Task<Address?> GetAddressByIdAsync(int id)
+    public async Task<AddressModel?> GetAddressByIdAsync(int id)
     {
         return await db.Addresses.SingleOrDefaultAsync(o => o.AddressId == id);
     }
 
-    public async Task<List<Address>?> GetAddressesByEmployeeIdAsync(int id)
+    public async Task<List<AddressModel>?> GetAddressesByEmployeeIdAsync(int id)
     {
         return await db.Addresses.Where(o => o.EmployeeId == id).ToListAsync();
     }
 
-    public async Task CreateAddressAsync(Address address)
+    public async Task CreateAddressAsync(AddressModel address)
     {
         var e = await db.Addresses.SingleOrDefaultAsync(opt => opt.AddressId == address.AddressId);
         if (e == null)
@@ -33,7 +33,7 @@ public class AddressQuery(EmployeeContext db) : IAddressQuery
         }
     }
 
-    public async Task UpdateAddressAsync(Address address)
+    public async Task UpdateAddressAsync(AddressModel address)
     {
         var e = await db.Addresses.AsNoTracking().SingleOrDefaultAsync(opt => opt.AddressId == address.AddressId);
         if (e != null)

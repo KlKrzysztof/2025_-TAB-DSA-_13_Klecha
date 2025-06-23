@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/technicaloverview")]
 public class TechnicalOverviewController(ITechnicalOverviewQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<TechnicalOverview> exCreator = new();
+    private readonly ErrorStringsCreator<TechnicalOverviewModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -35,7 +35,7 @@ public class TechnicalOverviewController(ITechnicalOverviewQuery query) : Contro
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateTechnicalOverviewAsync(TechnicalOverview model)
+    public async Task<IActionResult> CreateTechnicalOverviewAsync(TechnicalOverviewModel model)
     {
         try
         {
@@ -51,7 +51,7 @@ public class TechnicalOverviewController(ITechnicalOverviewQuery query) : Contro
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateTechnicalOverviewAsync(TechnicalOverview model)
+    public async Task<IActionResult> UpdateTechnicalOverviewAsync(TechnicalOverviewModel model)
     {
         try
         {

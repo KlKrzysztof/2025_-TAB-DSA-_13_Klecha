@@ -2,7 +2,7 @@
 
 namespace Shared.Models.User;
 
-public class User
+public class UserModel
 {
     [Key]
     public uint UserId { get; set; }

@@ -1,4 +1,5 @@
 ﻿using FleetManager.Server.DataAccess.DbContexts;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Shared.Contracts.Query;
 using Shared.Models.User;
@@ -8,31 +9,33 @@ namespace FleetManager.Server.DataAccess.Query;
 public class UserQuery(EmployeeContext db) : IUserQuery
 {
 
-    public async Task<List<User>> GetUsersAsync()
+    public async Task<List<UserModel>> GetUsersAsync()
     {
         return await db.UsersInfo.ToListAsync();
     }
 
-    public async Task<User?> GetUserByEmployeeIdAsync(int id)
+    public async Task<UserModel?> GetUserByEmployeeIdAsync(int id)
     {
         return await db.UsersInfo.SingleOrDefaultAsync(o => o.EmployeeId == id);
     }
 
-    public async Task<User?> GetUserByIdAsync(int id)
+    public async Task<UserModel?> GetUserByIdAsync(int id)
     {
         return await db.UsersInfo.SingleOrDefaultAsync(o => o.UserId == id);
     }
 
-    public async Task CreateUserAsync(User user)
+    public async Task CreateUserAsync(UserModel user)
     {
         var u = await db.UsersInfo.SingleOrDefaultAsync(o => o.UserId == user.UserId);
         if (u == null)
-        {
+        { 
+            PasswordHasher<string> hasher = new();
+            user.Password = hasher.HashPassword(user.Username, user.Password);
             await db.UsersInfo.AddAsync(user);
             await db.SaveChangesAsync();
         }
     }
-    public async Task UpdateUserAsync(User user)
+    public async Task UpdateUserAsync(UserModel user)
     {
         var u = await db.UsersInfo.AsNoTracking().SingleOrDefaultAsync(o => o.UserId == user.UserId);
         if (u != null)
@@ -50,5 +53,30 @@ public class UserQuery(EmployeeContext db) : IUserQuery
             db.UsersInfo.Remove(u);
             await db.SaveChangesAsync();
         }
+    }
+
+    public async Task<bool> Authenticate(string login, string password)
+    {
+        PasswordHasher<string> hasher = new();
+
+        var users = await GetUsersAsync();
+        if (users == null || users.Count == 0)
+        {
+            return await Task.FromResult(false);
+        }
+        
+        foreach(var user in users)
+        {
+            if(login == user.Username)
+            {
+                var res = hasher.VerifyHashedPassword(login, user.Password, password);
+                if (res == PasswordVerificationResult.Success)
+                {
+                    return await Task.FromResult(true);
+                }
+            }
+        }
+
+        return await Task.FromResult(false);
     }
 }

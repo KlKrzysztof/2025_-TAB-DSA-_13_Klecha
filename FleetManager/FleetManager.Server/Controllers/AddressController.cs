@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/address")]
 public class AddressController(IAddressQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<Address> exCreator = new();
+    private readonly ErrorStringsCreator<AddressModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -35,7 +35,7 @@ public class AddressController(IAddressQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateAddressAsync(Address model)
+    public async Task<IActionResult> CreateAddressAsync(AddressModel model)
     {
         try
         {
@@ -51,7 +51,7 @@ public class AddressController(IAddressQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateAddressAsync(Address model)
+    public async Task<IActionResult> UpdateAddressAsync(AddressModel model)
     {
         try
         {

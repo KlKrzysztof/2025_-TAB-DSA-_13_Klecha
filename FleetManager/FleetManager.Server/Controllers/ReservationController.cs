@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/reservation")]
 public class ReservationController(IReservationQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<Reservation> exCreator = new();
+    private readonly ErrorStringsCreator<ReservationModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -42,7 +42,7 @@ public class ReservationController(IReservationQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateReservationAsync(Reservation model)
+    public async Task<IActionResult> CreateReservationAsync(ReservationModel model)
     {
         try
         {
@@ -58,7 +58,7 @@ public class ReservationController(IReservationQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateReservationAsync(Reservation model)
+    public async Task<IActionResult> UpdateReservationAsync(ReservationModel model)
     {
         try
         {

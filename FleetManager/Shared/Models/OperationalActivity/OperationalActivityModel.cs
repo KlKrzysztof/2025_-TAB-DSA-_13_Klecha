@@ -2,7 +2,7 @@
 
 namespace Shared.Models.OperationalActivity;
 
-public class Operationalactivity
+public class OperationalActivityModel
 {
     [Key]
     public uint ActivityId { get; set; }

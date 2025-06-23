@@ -1,8 +1,9 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Shared.Models.Employee;
+using System.ComponentModel.DataAnnotations;
 
 namespace Shared.Models.ContactInfo;
 
-public class ContactInfo
+public class ContactInfoModel
 {
     [Key]
     public uint ContactId { get; set; }

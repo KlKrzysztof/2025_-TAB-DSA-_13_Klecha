@@ -7,22 +7,22 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class ContactInfoQuery(EmployeeContext db) : IContactInfoQuery
 {
-    public async Task<List<ContactInfo>> GetContactInfosAsync()
+    public async Task<List<ContactInfoModel>> GetContactInfosAsync()
     {
         return await db.ContactInfos.ToListAsync();
     }
 
-    public async Task<ContactInfo?> GetContactInfoByIdAsync(int id)
+    public async Task<ContactInfoModel?> GetContactInfoByIdAsync(int id)
     {
         return await db.ContactInfos.SingleOrDefaultAsync(opt => opt.ContactId == id);
     }
 
-    public async Task<List<ContactInfo>?> GetEmployeesContactInfoAsync(int id)
+    public async Task<List<ContactInfoModel>?> GetEmployeesContactInfoAsync(int id)
     {
         return await db.ContactInfos.Where(opt => opt.EmployeeId == id).ToListAsync();
     }
    
-    public async Task CreateContactInfoAsync(ContactInfo contactinfo)
+    public async Task CreateContactInfoAsync(ContactInfoModel contactinfo)
     {
         var c = await db.ContactInfos.SingleOrDefaultAsync(opt => opt.ContactId == contactinfo.ContactId);
         if(c == null)
@@ -31,7 +31,7 @@ public class ContactInfoQuery(EmployeeContext db) : IContactInfoQuery
             await db.SaveChangesAsync();
         }
     }
-    public async Task UpdateContactInfoAsync(ContactInfo contactinfo)
+    public async Task UpdateContactInfoAsync(ContactInfoModel contactinfo)
     {
         var c = await db.ContactInfos.AsNoTracking().SingleOrDefaultAsync(opt => opt.ContactId == contactinfo.ContactId);
         if (c != null)
