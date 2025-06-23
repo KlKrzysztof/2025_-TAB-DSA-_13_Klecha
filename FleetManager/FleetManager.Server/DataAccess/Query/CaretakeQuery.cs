@@ -66,18 +66,22 @@ public class CaretakeQuery(VehicleContext db, EmployeeContext employeeDb) : ICar
     {
         DateOnly currentDate = new(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
         var currentCaretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == vehicleId);
-        if (currentCaretake == null) { return; }
-
-        CaretakeModel newCaretake = new(currentCaretake);
+        //if (currentCaretake == null) { return; }
+        CaretakeModel newCaretake = new();
+        if (currentCaretake != null)
+        {
+            newCaretake = new(currentCaretake);
+        }
         newCaretake.CaretakeId = 0;
         newCaretake.StartDate = currentDate;
         newCaretake.EndDate = null;
         newCaretake.EmployeeId = employeeId;
 
-        currentCaretake.EndDate = currentDate;
-
-
-        db.Caretakes.Update(currentCaretake);
+        if (currentCaretake != null)
+        {
+            currentCaretake.EndDate = currentDate;
+            db.Caretakes.Update(currentCaretake);
+        }
         await db.AddAsync(newCaretake);
         await db.SaveChangesAsync();
     }

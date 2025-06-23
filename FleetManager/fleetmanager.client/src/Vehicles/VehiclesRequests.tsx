@@ -1,11 +1,16 @@
 import React, { CSSProperties, useState } from "react"
+import { SortableTable } from "../SortableTable"
 
 
 function VehiclesRequests() {
 
-    var [MouseAddButton, setMouseAddButton] = useState(false)
-    var [MouseDelButton, setMouseDelButton] = useState(false)
-    var [text, setText] = useState("")
+    const [MouseAddButton, setMouseAddButton] = useState(false)
+    const [MouseDelButton, setMouseDelButton] = useState(false)
+    const [text, setText] = useState("")
+    const [employee, setEmployee] = useState("")
+    const [purpose, setPurpose] = useState("")
+    const [planed, setPlaned] = useState("")
+    const [factual, setFactual] = useState("")
 
     const panelStyle: React.CSSProperties = {
         height: '30vh',
@@ -20,8 +25,8 @@ function VehiclesRequests() {
     }
 
     const ListStyles: React.CSSProperties = {
-        backgroundColor: '#dadada',
-        width: '10vw',
+        
+        width: '20vw',
         height: '25vh',
     }
 
@@ -101,12 +106,42 @@ function VehiclesRequests() {
         fontSize: '20px'
     }
 
+    const onSelect = async (id: Number | string) => {
+        const result = await fetch(`/api/reservation/get/id/${id}`)
+        const json: JSON = await result.json()
+
+        const {
+            reservationId,
+            factualBeginDate,
+            factualEndDate,
+            employeeId,
+            privateUse,
+            vehicleId,
+            returned,
+            plannedEndDate,
+            plannedBeginDate,
+            vehicleNoteBeforeReservation,
+            vehicleNoteAfterReservation,
+            caretakeId
+        } = json;
+
+        try {
+            const employee = await fetch(`/api/employee/get/id/${employeeId}`).then(res => res.json()).then(data => setEmployee(data.firstName + data.surname))
+        }
+        catch (ex) {
+            setEmployee("NotAvailable")
+        }
+
+        setText(vehicleNoteBeforeReservation)
+        setPlaned(plannedBeginDate + " - " + plannedEndDate)
+        setFactual(factualBeginDate + " - " + factualEndDate)
+    }
 
     return <div style={panelStyle}>
         <h2 style={{ margin: '0' } as React.CSSProperties}>Reservations</h2>
         <div style={ReservationStyle}>
             <div style={ListStyles}>
-
+                <SortableTable fetchURL="/api/reservation/get/all" idColumn="reservationId" onRowSelect={onSelect} visibleColumns={[{ key: "employeeId", label: "Employee" }, { key: "vehicleId", label: "Vehicle" }]} />
             </div>
             <div>
                 <h4 style={{ margin: '0' } as React.CSSProperties}>Description</h4>
