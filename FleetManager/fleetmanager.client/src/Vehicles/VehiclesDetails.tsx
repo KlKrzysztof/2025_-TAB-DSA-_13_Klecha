@@ -22,6 +22,8 @@ function VehiclesDetails({ id }: getVehicle) {
     var [Vehicle, setVehicle] = useState("")
     var [Vin, setVin] = useState("")
     var [vehiclePurposeId, setVehiclePurposeId] = useState(0)
+    var [employeeId, setEmployeeId] = useState(0)
+    var [newEmployee, setNewEmployee] = useState(0)
     var [modelId, setModelId] = useState(0)
 
     var [OutfittingOptions, setOutfittingOption] = useState([])
@@ -38,6 +40,7 @@ function VehiclesDetails({ id }: getVehicle) {
 
     var [PurposeOptionsHover, setPurposeOptionsHover] = useState(false)
     var [overseererOptionsHover, setOvereererOptionsHover] = useState(false)
+
 
     const handleModifyVehicle = async (id: number | null) => {
 
@@ -62,7 +65,16 @@ function VehiclesDetails({ id }: getVehicle) {
                 puprId = PurposeOptions.length + 1
             }
 
-            const z = await fetch(`/api/vehicle/vehicle/update/`, {
+            if (employeeId != newEmployee) {
+                const z = await fetch(`/api/caretake/patch/employee/id/${newEmployee}/vehicle/id/${id}/`, {
+                    method: "PATCH",
+                    headers: {
+                        'Content-type': 'application/json'
+                    }
+                })
+            }
+
+            await fetch(`/api/vehicle/vehicle/update/`, {
                 method: "POST",
                 headers: {
                     'Content-type': 'application/json'
@@ -78,7 +90,7 @@ function VehiclesDetails({ id }: getVehicle) {
                 })
             })
 
-            window.location.reload()
+            //window.location.reload()
         }
 
         setCanModify(!canModify)
@@ -176,6 +188,8 @@ function VehiclesDetails({ id }: getVehicle) {
                 const overseerer = await fetch("api/employee/get/id/" + overseererCareTake.employeeId).then(res => res.json())
 
                 setOverseerer(`${overseerer.firstName} ${overseerer.surname}`)
+                setEmployeeId(overseerer.employeeId)
+                setNewEmployee(overseerer.employeeId)
             }
             catch (ex) {
                 setOverseerer("Not available")
@@ -206,10 +220,6 @@ function VehiclesDetails({ id }: getVehicle) {
 
     }, [id])
 
-    useEffect(() => {
-        
-    }, [])
-
     const setPurposeHover = (id: number) => {
         var arr = Array(purposeListHandler.length).fill(false)
 
@@ -221,8 +231,8 @@ function VehiclesDetails({ id }: getVehicle) {
     const setOnCLickPurpose = () => {
         for (let i = 0; i < purposeListHandler.length; i++) {
             if (purposeListHandler[i] == true) {
-                setVehiclePurposeId(PurposeOptions[i].vehiclePurposeId)
-                setPurpose(PurposeOptions[i].name)
+                setVehiclePurposeId(PurposeOptions[i-1].vehiclePurposeId)
+                setPurpose(PurposeOptions[i-1].name)
             }
         }
     }
@@ -235,11 +245,11 @@ function VehiclesDetails({ id }: getVehicle) {
         setOverseererListHandler(arr)
     }
 
-    const setOnCLickOvereerer = () => {
-        for (let i = 0; i < overseererListHandler.length; i++) {
+    const setOnCLickOverseerer = () => {
+        for (let i = 1; i <= overseererListHandler.length; i++) {
             if (overseererListHandler[i] == true) {
-                setVehiclePurposeId(OverseererOptions[i].vehiclePurposeId)
-                setPurpose(PurposeOptions[i].name)
+                setNewEmployee(OverseererOptions[i-1].employeeId)
+                setOverseerer(`${OverseererOptions[i-1].firstName} ${OverseererOptions[i-1].surname}`)
             }
         }
     }
@@ -410,11 +420,11 @@ function VehiclesDetails({ id }: getVehicle) {
                 </div>
                 <div style={inputWraperStyle}>
                     Overseerer
-                    <input type="text" style={inputStyle} value={Overseerer} onChange={canModify ? (e) => setOverseerer(e.target.value) : undefined}></input>
+                    <input type="text" style={inputStyle} value={Overseerer} onChange={canModify ? (e) => setOverseerer(e.target.value) : undefined} onClick={canModify ? () => setshowOverseererOptions(true) : undefined} onBlur={canModify ? () => setshowOverseererOptions(false) : undefined}></input>
                     {
                         showOverseererOptions || overseererOptionsHover ? <ul style={listStyle} onMouseEnter={() => { setOvereererOptionsHover(true) }} onMouseLeave={() => { setOvereererOptionsHover(false) }}>
                             {OverseererOptions.map(o => (
-                                <li key={o.employeeId} style={!overseererListHandler[o.employeeId] ? { cursor: "pointer" } : { cursor: "pointer", backgroundColor: "#cacaca" }} onMouseEnter={() => setOverseererHover(o.employeeId)} onClick={() => setOnCLickPurpose()}>{`${o.firstName} ${o.surname}`}</li>
+                                <li key={o.employeeId} style={!overseererListHandler[o.employeeId] ? { cursor: "pointer" } : { cursor: "pointer", backgroundColor: "#cacaca" }} onMouseEnter={() => setOverseererHover(o.employeeId)} onClick={() => setOnCLickOverseerer()}>{`${o.firstName} ${o.surname}`}</li>
                             ))}
                         </ul>
                             : undefined
