@@ -13,9 +13,9 @@ public class CaretakeQuery(VehicleContext db, EmployeeContext employeeDb) : ICar
         return await db.Caretakes.ToListAsync();
     }
 
-    public async Task<CaretakeModel?> GetCaretakeByEmployeeIdAsync(int id)
+    public async Task<List<CaretakeModel>> GetCaretakeByEmployeeIdAsync(int id)
     {
-        return await db.Caretakes.SingleOrDefaultAsync(o => o.EmployeeId == id);
+        return await db.Caretakes.Where(o => o.EmployeeId == id && o.EndDate == null).ToListAsync();
     }
 
     public async Task<CaretakeModel?> GetCaretakeByIdAsync(int id)
@@ -25,10 +25,8 @@ public class CaretakeQuery(VehicleContext db, EmployeeContext employeeDb) : ICar
 
     public async Task<CaretakeModel?> GetCaretakeByVehicleIdAsync(int id)
     {
-        return await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == id);
+        return await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == id && o.EndDate == null);
     }
-
-
 
     public async Task<CaretakeDetailsModel?> GetCaretakeDetailsByIdAsync(int id)
     {

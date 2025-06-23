@@ -10,7 +10,7 @@ public interface ICaretakeQuery
 
     public Task<CaretakeModel?> GetCaretakeByVehicleIdAsync(int id);
 
-    public Task<CaretakeModel?> GetCaretakeByEmployeeIdAsync(int id);
+    public Task<List<CaretakeModel>> GetCaretakeByEmployeeIdAsync(int id);
 
     public Task<CaretakeDetailsModel?> GetCaretakeDetailsByIdAsync(int id);
 
