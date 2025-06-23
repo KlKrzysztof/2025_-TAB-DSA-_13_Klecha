@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { SortableTable } from './SortableTable';
+import { Table } from './Table';
 
 interface CompProps {
     linkEmployeeId: number;
@@ -185,7 +185,7 @@ export const Addresses: React.FC<CompProps> = ({ linkEmployeeId, onClose }) => {
             <div className="list-panel" >
                 <h1 className="title" > Address List </h1>
                 < div className = "employee-list" >
-    <SortableTable fetchURL="api/address/get/all" idColumn = "addressId" onRowSelect = { handleAddressSelect } refreshOnChange = { forceRefresh } visibleColumns = { [{ key: "addressId", label: "ID" }, { key: "city", label: "City" }, { key: "street", label: "Street" }, { key: "postalCode", label: "ZIP" }, { key: "houseNumber", label: "No." }, { key: "accommodationNumber", label: "Acc. No." }, { key: "employeeId", label: "Emp. ID" },]} />
+    <Table fetchURL="api/address/get/all" idColumn = "addressId" onRowSelect = { handleAddressSelect } refreshOnChange = { forceRefresh } visibleColumns = { [{ key: "addressId", label: "ID" }, { key: "city", label: "City" }, { key: "street", label: "Street" }, { key: "postalCode", label: "ZIP" }, { key: "houseNumber", label: "No." }, { key: "accommodationNumber", label: "Acc. No." }, { key: "employeeId", label: "Emp. ID" },]} />
                 </div>
             </div>
 

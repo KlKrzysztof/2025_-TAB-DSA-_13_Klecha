@@ -11,5 +11,6 @@
     "paths": {
       "*": [ "node_modules/*" ]
     }
-  }
+  },
+  "tsdk": "./node_modules/typescript/lib"
 }
