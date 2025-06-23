@@ -4,18 +4,23 @@ namespace Shared.Contracts.Query;
 
 public interface ICaretakeQuery
 {
+    public Task<List<CaretakeModel>> GetCaretakesAsync();
 
-    public Task<List<Caretake>> GetCaretakesAsync();
+    public Task<CaretakeModel?> GetCaretakeByIdAsync(int id);
 
-    public Task<Caretake?> GetCaretakeByIdAsync(int id);
+    public Task<CaretakeModel?> GetCaretakeByVehicleIdAsync(int id);
 
-    public Task<Caretake?> GetCaretakeByVehicleId(int id);
+    public Task<CaretakeModel?> GetCaretakeByEmployeeIdAsync(int id);
 
-    public Task<Caretake?> GetCaretakeByEmployeeId(int id);
+    public Task<CaretakeDetailsModel?> GetCaretakeDetailsByIdAsync(int id);
 
-    public Task CreateCaretakeAsync(Caretake model);
+    public Task<List<CaretakeModel>> GetFinishedCaretakesAsync();
 
-    public Task UpdateCaretakeAsync(Caretake model);
+    public Task CreateCaretakeAsync(CaretakeModel model);
+
+    public Task PatchVehicleCaretakerAsync(uint employeeId, int vehicleId);
+
+    public Task UpdateCaretakeAsync(CaretakeModel model);
 
     public Task DeleteCaretakeAsync(int id);
 }

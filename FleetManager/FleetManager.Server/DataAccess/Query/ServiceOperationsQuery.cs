@@ -7,17 +7,17 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class ServiceOperationsQuery(VehicleContext db) : IServiceOperationsQuery
 {
-    public async Task<List<ServiceOperation>> GetServiceOperationsAsync()
+    public async Task<List<ServiceOperationModel>> GetServiceOperationsAsync()
     {
         return await db.Serviceoperations.ToListAsync();
     }
 
-    public async Task<ServiceOperation?> GetServiceOperationByIdAsync(int id)
+    public async Task<ServiceOperationModel?> GetServiceOperationByIdAsync(int id)
     {
         return await db.Serviceoperations.SingleOrDefaultAsync(o => o.ServiceOperationsId == id);
     }
 
-    public async Task<List<ServiceOperation>?> GetServiceOperationsForVehicleAsync(int id)
+    public async Task<List<ServiceOperationModel>?> GetServiceOperationsForVehicleAsync(int id)
     {
         var caretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == id);
         if (caretake == null)
@@ -30,7 +30,7 @@ public class ServiceOperationsQuery(VehicleContext db) : IServiceOperationsQuery
         }
     }
 
-    public async Task CreateServiceOperationAsync(ServiceOperation model)
+    public async Task CreateServiceOperationAsync(ServiceOperationModel model)
     {
         var s = await db.Serviceoperations.SingleOrDefaultAsync(o => o.ServiceOperationsId == model.ServiceOperationsId);
         if (s == null)
@@ -40,7 +40,7 @@ public class ServiceOperationsQuery(VehicleContext db) : IServiceOperationsQuery
         }
     }
 
-    public async Task UpdateServiceOperationAsync(ServiceOperation model)
+    public async Task UpdateServiceOperationAsync(ServiceOperationModel model)
     {
         var s = await db.Serviceoperations.AsNoTracking().SingleOrDefaultAsync(o => o.ServiceOperationsId == model.ServiceOperationsId);
         if (s != null)

@@ -5,7 +5,7 @@ using Shared.Models.Vehicle;
 
 namespace FleetManager.Server.DataAccess.Query;
 
-public class VehicleQuery(VehicleContext db) : IVehicleQuery
+public class VehicleQuery(VehicleContext db, EmployeeContext employeeDb) : IVehicleQuery
 {
     public async Task<List<Vehicle>> GetVehiclesAsync()
     {
@@ -25,6 +25,57 @@ public class VehicleQuery(VehicleContext db) : IVehicleQuery
     public async Task<Vehicle?> GetVehicleByVinAsync(string vin)
     {
         return await db.Vehicles.SingleOrDefaultAsync(opt => opt.Vin == vin);
+    }
+
+    public async Task<VehicleDetailsModel?> GetVehicleDetailsByIdAsync(int id)
+    {
+        var vehicle = await GetVehicleByIdAsync(id);
+        if (vehicle == null) { return null; }
+
+        var model = await db.VehicleModels.SingleOrDefaultAsync(o => o.ModelId == vehicle.ModelId);
+        if (model == null) { return null; }
+
+        var manufacturer = await db.Manufacturers.SingleOrDefaultAsync(o => o.ManufacturerId == model.ManufacturerId);
+        if (manufacturer == null) { return null; }
+
+        var version = await db.VehicleVersions.SingleOrDefaultAsync(o => o.VersionId == model.VehicleVersionId);
+        if (version == null) { return null; }
+
+        var outfitting = await db.VehicleOutfittings.Where(o => o.VersionId == version.VersionId).ToListAsync();
+        if (outfitting == null) { return null; }
+
+        VehicleDetailsModel m = new()
+        {
+            VehicleId = id,
+            Vehicle = vehicle,
+            VehicleModel = model,
+            VehicleManufacturer = manufacturer,
+            VehicleOutfitting = outfitting,
+            VehiclePurpose = await db.VehiclePurposes.SingleOrDefaultAsync(o => o.VehiclePurposeId == vehicle.VehiclePurposeId),
+            VehicleVersion = version
+        };
+
+        return m ?? null;
+    }
+
+    public async Task<VehicleCaretakerModel?> GetVehicleAndCaretakerByIdAsync(int id)
+    {
+        var vehicle = await db.Vehicles.SingleOrDefaultAsync(o => o.VehicleId == id);
+        if (vehicle == null) { return null; }
+
+        var caretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == id);
+        if (caretake == null) { return null; }
+
+        var caretaker = await employeeDb.Employees.SingleOrDefaultAsync(o => o.EmployeeId == caretake.EmployeeId);
+        if (caretaker == null) { return null; }
+
+        VehicleCaretakerModel model = new()
+        {
+            VehicleId = id,
+            Vehicle = vehicle,
+            Caretaker = caretaker
+        };
+        return model;
     }
 
     public async Task CreateVehicleAsync(Vehicle model)

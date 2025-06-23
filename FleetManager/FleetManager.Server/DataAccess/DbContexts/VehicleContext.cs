@@ -20,21 +20,21 @@ public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(op
 
     public DbSet<VehicleOutfitting> VehicleOutfittings { get; set; }
 
-    public DbSet<Manufacturer> Manufacturers { get; set; }
+    public DbSet<ManufacturerModel> Manufacturers { get; set; }
 
     public DbSet<Vehicle> Vehicles { get; set; }
 
-    public DbSet<TechnicalOverview> Technicaloverviews { get; set; }
+    public DbSet<TechnicalOverviewModel> Technicaloverviews { get; set; }
 
-    public DbSet<ServiceOperation> Serviceoperations { get; set; }
+    public DbSet<ServiceOperationModel> Serviceoperations { get; set; }
 
-    public DbSet<Refuel> Refuels { get; set; }
+    public DbSet<RefuelModel> Refuels { get; set; }
 
-    public DbSet<Operationalactivity> Operationalactivities { get; set; }
+    public DbSet<OperationalActivityModel> Operationalactivities { get; set; }
 
-    public DbSet<Reservation> Reservations { get; set; }
+    public DbSet<ReservationModel> Reservations { get; set; }
 
-    public DbSet<Caretake> Caretakes { get; set; }
+    public DbSet<CaretakeModel> Caretakes { get; set; }
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
@@ -48,18 +48,18 @@ public class VehicleContext(DbContextOptions<VehicleContext> opt) : DbContext(op
 
         modelBuilder.Entity<Vehicle>().ToTable("vehicle");
 
-        modelBuilder.Entity<Manufacturer>().ToTable("manufacturer");
+        modelBuilder.Entity<ManufacturerModel>().ToTable("manufacturer");
 
-        modelBuilder.Entity<TechnicalOverview>().ToTable("technicaloverview");
+        modelBuilder.Entity<TechnicalOverviewModel>().ToTable("technicaloverview");
 
-        modelBuilder.Entity<ServiceOperation>().ToTable("serviceoperations");
+        modelBuilder.Entity<ServiceOperationModel>().ToTable("serviceoperation");
 
-        modelBuilder.Entity<Refuel>().ToTable("refuel");
+        modelBuilder.Entity<RefuelModel>().ToTable("refuel");
 
-        modelBuilder.Entity<Operationalactivity>().ToTable("operationalactivities");
+        modelBuilder.Entity<OperationalActivityModel>().ToTable("operationalactivities");
 
-        modelBuilder.Entity<Reservation>().ToTable("reservations");
+        modelBuilder.Entity<ReservationModel>().ToTable("reservations");
 
-        modelBuilder.Entity<Caretake>().ToTable("caretake");
+        modelBuilder.Entity<CaretakeModel>().ToTable("caretake");
     }
 }

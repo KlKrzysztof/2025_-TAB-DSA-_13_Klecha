@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/employee")]
 public class EmployeeController(IEmployeeQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<Employee> exCreator = new();
+    private readonly ErrorStringsCreator<EmployeeModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -28,7 +28,7 @@ public class EmployeeController(IEmployeeQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateEmployee(Employee model)
+    public async Task<IActionResult> CreateEmployee(EmployeeModel model)
     {
         try
         {
@@ -43,8 +43,24 @@ public class EmployeeController(IEmployeeQuery query) : ControllerBase
         }
     }
 
+    [HttpPut("create/contact/{c1}/{c2}")]
+    public async Task<IActionResult> CreateEmployeeWithContactInfos(EmployeeModel model, string c1, string c2)
+    {
+        try
+        {
+            await query.CreateEmployeeWithContactInfo(model, c1, c2);
+            return Ok();
+        }
+        catch (Exception ex)
+        {
+            var msg = exCreator.ConstructErrorMessage("put", model, ex);
+            return StatusCode(500, msg);
+            throw;
+        }
+    }
+
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateEmployee(Employee model)
+    public async Task<IActionResult> UpdateEmployee(EmployeeModel model)
     {
         try
         {
@@ -59,7 +75,7 @@ public class EmployeeController(IEmployeeQuery query) : ControllerBase
         }
     }
 
-    [HttpDelete("delet/{id:int}")]
+    [HttpDelete("delete/{id:int}")]
     public async Task<IActionResult> DeleteEmployee(int id)
     {
         try

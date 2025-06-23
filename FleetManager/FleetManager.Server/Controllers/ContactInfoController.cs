@@ -9,7 +9,7 @@ namespace FleetManager.Server.Controllers;
 [Route("api/contact")]
 public class ContactInfoController(IContactInfoQuery query) : ControllerBase
 {
-    private readonly ErrorStringsCreator<ContactInfo> exCreator = new();
+    private readonly ErrorStringsCreator<ContactInfoModel> exCreator = new();
 
     private readonly ErrorStringsCreator<int> exCreatorInt = new();
 
@@ -35,7 +35,7 @@ public class ContactInfoController(IContactInfoQuery query) : ControllerBase
     }
 
     [HttpPut("create")]
-    public async Task<IActionResult> CreateContactInfoAsync(ContactInfo model)
+    public async Task<IActionResult> CreateContactInfoAsync(ContactInfoModel model)
     {
         try
         {
@@ -51,7 +51,7 @@ public class ContactInfoController(IContactInfoQuery query) : ControllerBase
     }
 
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateContactInfoAsync(ContactInfo model)
+    public async Task<IActionResult> UpdateContactInfoAsync(ContactInfoModel model)
     {
         try
         {

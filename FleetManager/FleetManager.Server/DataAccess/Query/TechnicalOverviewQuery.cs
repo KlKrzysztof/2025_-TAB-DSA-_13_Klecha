@@ -7,17 +7,17 @@ namespace FleetManager.Server.DataAccess.Query;
 
 public class TechnicalOverviewQuery(VehicleContext db) : ITechnicalOverviewQuery
 {
-    public async Task<List<TechnicalOverview>> GetTechnicalOverviewsAsync()
+    public async Task<List<TechnicalOverviewModel>> GetTechnicalOverviewsAsync()
     {
         return await db.Technicaloverviews.ToListAsync();
     }
 
-    public async Task<TechnicalOverview?> GetTechnicalOverviewByIdAsync(int id)
+    public async Task<TechnicalOverviewModel?> GetTechnicalOverviewByIdAsync(int id)
     {
         return await db.Technicaloverviews.SingleOrDefaultAsync(o => o.OverviewId == id);
     }
 
-    public async Task<List<TechnicalOverview>?> GetTechnicalOverviewsForVehicleAsync(int id)
+    public async Task<List<TechnicalOverviewModel>?> GetTechnicalOverviewsForVehicleAsync(int id)
     {
         var caretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == id);
         if (caretake == null)
@@ -30,7 +30,7 @@ public class TechnicalOverviewQuery(VehicleContext db) : ITechnicalOverviewQuery
         }
     }
 
-    public async Task CreateTechnicalOverviewAsync(TechnicalOverview model)
+    public async Task CreateTechnicalOverviewAsync(TechnicalOverviewModel model)
     {
         var t = await db.Technicaloverviews.SingleOrDefaultAsync(o => o.OverviewId == model.OverviewId);
         if (t == null)
@@ -40,7 +40,7 @@ public class TechnicalOverviewQuery(VehicleContext db) : ITechnicalOverviewQuery
         }
     }
 
-    public async Task UpdateTechnicalOverviewAsync(TechnicalOverview model)
+    public async Task UpdateTechnicalOverviewAsync(TechnicalOverviewModel model)
     {
         var t = await db.Technicaloverviews.AsNoTracking().SingleOrDefaultAsync(o => o.OverviewId == model.OverviewId);
         if (t != null)

@@ -2,7 +2,7 @@
 
 namespace Shared.Models.TechnicalOverview;
 
-public class TechnicalOverview
+public class TechnicalOverviewModel
 {
     [Key]
     public uint OverviewId { get; set; }
