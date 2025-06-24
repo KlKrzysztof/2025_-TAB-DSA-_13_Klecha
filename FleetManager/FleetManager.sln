@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FleetManager.Server", "Flee
 EndProject
 Project("{54A90642-561A-4BB1-A94E-469ADEE60C69}") = "fleetmanager.client", "fleetmanager.client\fleetmanager.client.esproj", "{FFF018C7-A4E2-48A6-9F27-3CF6DE1C3BD0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Shared", "Shared\Shared.csproj", "{360F3EE6-5E59-492D-B5FF-2E05CAD15D8C}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Shared", "Shared\Shared.csproj", "{360F3EE6-5E59-492D-B5FF-2E05CAD15D8C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
