@@ -55,7 +55,7 @@ function Navbar() {
                 <li style={LiStyles}> <Link to="/vehicles" style={LiStyles}>Vehicles</Link> </li>
                 <li style={LiStyles}> <Link to="/employees" style={LiStyles}>Employees</Link></li>
                 <li style={LiStyles}> <Link to="/#" style={LiStyles}>Service</Link> </li>
-                <li style={LiStyles}> <Link to="/#" style={LiStyles}>Reservation</Link> </li>
+                <li style={LiStyles}> <Link to="/reservation" style={LiStyles}>Reservation</Link> </li>
                 <li style={LiStyles}> <Link to="/costs" style={LiStyles}>Costs</Link> </li>
             </ul>
         </nav>
