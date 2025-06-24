@@ -7,9 +7,9 @@ public class ReservationModel
     [Key]
     public uint ReservationId { get; set; }
 
-    public DateOnly FactualBeginDate { get; set; }
+    public DateOnly? FactualBeginDate { get; set; }
 
-    public DateOnly FactualEndDate { get; set; }
+    public DateOnly? FactualEndDate { get; set; }
 
     public uint EmployeeId { get; set; }
 
@@ -27,5 +27,5 @@ public class ReservationModel
 
     public string? VehicleNoteAfterReservation { get; set; }
 
-    public uint CaretakeId { get; set; }
+    //public uint CaretakeId { get; set; }
 }

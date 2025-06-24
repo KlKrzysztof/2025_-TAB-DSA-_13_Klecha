@@ -28,16 +28,16 @@ public class ReservationController(IReservationQuery query) : ControllerBase
     }
 
     [HttpGet("get/vehicle/id/{id}")]
-    public async Task<IActionResult> GetReservationByVehicleId(int id)
+    public async Task<IActionResult> GetReservationsByVehicleId(int id)
     {
-        var res = await query.GetReservationByVehicleId(id);
+        var res = await query.GetReservationsByVehicleId(id);
         return Ok(res);
     }
     
     [HttpGet("get/employee/id/{id}")]
-    public async Task<IActionResult> GetReservationByEmployeeId(int id)
+    public async Task<IActionResult> GetReservationsByEmployeeId(int id)
     {
-        var res = await query.GetReservationByEmployeeId(id);
+        var res = await query.GetReservationsByEmployeeId(id);
         return Ok(res);
     }
 

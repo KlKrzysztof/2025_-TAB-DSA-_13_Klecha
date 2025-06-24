@@ -8,9 +8,9 @@ public interface IReservationQuery
 
     public Task<ReservationModel?> GetReservationByIdAsync(int id);
 
-    public Task<ReservationModel?> GetReservationByVehicleId(int id);
+    public Task<List<ReservationModel>> GetReservationsByVehicleId(int id);
 
-    public Task<ReservationModel?> GetReservationByEmployeeId(int id);
+    public Task<List<ReservationModel>> GetReservationsByEmployeeId(int id);
 
     public Task CreateReservationAsync(ReservationModel model);
 
