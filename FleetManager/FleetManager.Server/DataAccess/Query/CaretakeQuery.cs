@@ -65,7 +65,7 @@ public class CaretakeQuery(VehicleContext db, EmployeeContext employeeDb) : ICar
     public async Task PatchVehicleCaretakerAsync(uint employeeId, int vehicleId)
     {
         DateOnly currentDate = new(DateTime.Now.Year, DateTime.Now.Month, DateTime.Now.Day);
-        var currentCaretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == vehicleId);
+        var currentCaretake = await db.Caretakes.SingleOrDefaultAsync(o => o.VehicleId == vehicleId && o.EndDate == null);
         //if (currentCaretake == null) { return; }
         CaretakeModel newCaretake = new();
         if (currentCaretake != null)

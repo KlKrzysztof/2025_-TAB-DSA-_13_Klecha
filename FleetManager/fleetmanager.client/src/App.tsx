@@ -20,7 +20,8 @@ function App() {
                     <Route path="/" element={<Home />} />
                     {empIdNumber === 3 && (<Route path="/employees" element={<Employees />} />)}
                     <Route path="/vehicles" element={<Vehicles />} />
-                    <Route path="/costs" element={<CostsList /> } />
+                    <Route path="/costs" element={<CostsList />} />
+                    <Route path="/reservation" element={<Reservation />} />
                 </Routes>
             </div>
         </>
