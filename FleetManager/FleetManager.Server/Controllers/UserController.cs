@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Shared.Contracts.Query;
 using Shared.Models.User;
+using System.Formats.Asn1;
 
 namespace FleetManager.Server.Controllers;
 
@@ -34,6 +35,13 @@ public class UserController(IUserQuery query) : ControllerBase
         return Ok(res);
     }
 
+    [HttpGet("get/login/{login}")]
+    public async Task<IActionResult> GetUserByLoginAsync(string login)
+    {
+        var res = await query.GetUserByLoginAsync(login);
+        return res != null ? Ok(res) : BadRequest();
+    }
+
     [HttpPut("create")]
     public async Task<IActionResult> CreateUserAsync(UserModel model)
     {
@@ -49,6 +57,21 @@ public class UserController(IUserQuery query) : ControllerBase
             throw;
         }
     }
+
+    [HttpPatch("patch/lastlogin/id/{id}")]
+    public async Task<IActionResult> PatchLastLogin(int id)
+    {
+        try
+        {
+            await query.PatchLastLogin(id);
+            return Ok();
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
 
     [HttpGet("authenticate")]
     public async Task<IActionResult> Authenticate(

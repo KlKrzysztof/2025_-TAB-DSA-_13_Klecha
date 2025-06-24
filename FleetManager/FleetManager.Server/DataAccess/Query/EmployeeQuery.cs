@@ -26,7 +26,6 @@ public class EmployeeQuery(EmployeeContext db) : IEmployeeQuery
             await db.Employees.AddAsync(model);
             await db.SaveChangesAsync();
         }
-
     }
 
     public async Task CreateEmployeeWithContactInfo(EmployeeModel model, string contact1, string contact2)

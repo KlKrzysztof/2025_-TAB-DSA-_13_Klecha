@@ -10,9 +10,13 @@ public interface IUserQuery
 
     public Task<UserModel?> GetUserByEmployeeIdAsync(int id);
 
+    public Task<UserModel?> GetUserByLoginAsync(string login);
+
     public Task<bool> Authenticate(string login, string password);
 
     public Task CreateUserAsync(UserModel user);
+
+    public Task PatchLastLogin(int id);
 
     public Task UpdateUserAsync(UserModel user);
 

@@ -1,11 +1,12 @@
 
-import React from 'react'
-import VehiclesDetails from '../Vehicles/VehiclesDetails'
+import { useState } from 'react'
 import VehiclesList from '../Vehicles/VehiclesList'
 import VehiclesHistory from '../Vehicles/vehiclesHistory'
 import VehiclesRequests from '../Vehicles/VehiclesRequests'
 
 function Vehicles() {
+
+    const [id, setId] = useState < number | null>(null)
 
     const ContentStyle: React.CSSProperties = {
         marginTop: '3vh', 
@@ -26,16 +27,20 @@ function Vehicles() {
         flexDirection: 'row'
     }
 
+    const SelectVehicle = (id: number) => {
+        setId(id)
+    }
+
     return (
         <main style={ContentStyle}>
             <div style={ContentColumn}>
                 <div style={VehiclesRow}>
-                    <VehiclesList />
-                    <VehiclesDetails />
+                    <VehiclesList onSelect={SelectVehicle} />
+                    
                 </div>
                 <VehiclesRequests />
             </div>
-            <VehiclesHistory/>
+            <VehiclesHistory id={id} />
         </main>
     )
 }
