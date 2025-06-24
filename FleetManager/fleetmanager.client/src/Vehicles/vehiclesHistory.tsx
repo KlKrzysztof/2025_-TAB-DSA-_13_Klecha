@@ -1,6 +1,10 @@
+import { SortableTable } from "../SortableTable"
 
+interface props {
+    id: number | null
+}
 
-function VehiclesHistory() {
+function VehiclesHistory({ id }: props) {
     const panelStyle: React.CSSProperties = {
         height: '80vh',
         width: '30vw',
@@ -19,11 +23,16 @@ function VehiclesHistory() {
         height: '70vh',
     }
 
+    const onSelect = (id: number | String) => {
+
+    }
+
     return <div style={panelStyle}>
         <h2>Vehicle history</h2>
-        <div style={ListStyles}>
-            
-        </div>
+        {id != null ?
+            <SortableTable fetchURL={`/api/reservation/get/vehicle/id/${id}`} idColumn="reservationId" onRowSelect={onSelect} visibleColumns={[{ key: "factualBeginDate", label: "Begin" }, { key: "factualEndDate", label: "End" }, { key: "privateUse", label: "Private use" }]} />
+            : null
+        }
     </div>
 }
 
