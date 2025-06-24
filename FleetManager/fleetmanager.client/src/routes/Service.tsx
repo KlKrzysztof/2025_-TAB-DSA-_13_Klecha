@@ -26,8 +26,8 @@ function Service() {
     const visibleColumns = [
         { key: 'vehicleId', label: 'Vehicle ID' },
         { key: 'plateNumber', label: 'Plate Number' },
-        { key: 'modelId', label: 'Model ID' },
-        { key: 'model', label: 'Model' }
+        { key: 'modelId', label: 'Model ID' }
+       // { key: 'VIN', label: 'VIN' }
     ];
     const ButtonContainerStyle: React.CSSProperties = {
         display: 'flex',
