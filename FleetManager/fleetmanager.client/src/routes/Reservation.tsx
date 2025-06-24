@@ -27,7 +27,11 @@ interface DataItem {
 }
 
 function Reservation() {
-    const [employeeId, setEmployeeId] = useState<number | null>(2);//simulated login, should be replaced with real user data
+    //get employeeId from local storage as number
+    const empId = localStorage.getItem('empId');
+    const empIdNumber = empId ? parseInt(empId, 10) : 2;
+
+    const [employeeId, setEmployeeId] = useState<number | null>(empIdNumber);//simulated login, should be replaced with real user data
 
     const [selectedVehicle, setSelectedVehicle] = useState<DataItem | null>(null); //selected vehicle for reservation
     const [vehicles, setVehicles] = useState<DataItem[]>([]);
