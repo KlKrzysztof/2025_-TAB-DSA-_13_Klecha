@@ -225,6 +225,11 @@ export const Employees: React.FC = () => {
     };
 
     async function setEmployeeAddresses(id: number | string) {
+        //check if id is null or undefined
+        if (id === null || id === undefined) {
+            //setAddresses([]);
+            return;
+        }
         const response = await fetch(`api/address/get/employee/id/${id}`);
         const data = await response.json();
         setAddresses(data);
