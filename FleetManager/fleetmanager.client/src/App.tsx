@@ -3,6 +3,7 @@ import { Routes, Route } from "react-router";
 import Navbar from './Navbar';
 import Home from './routes/Home';
 import Employees from './routes/Employees';
+import Reservation from './routes/Reservation';
 import Vehicles from './routes/Vehicles';
 import CostsList from './Costs/CostsList';
 
