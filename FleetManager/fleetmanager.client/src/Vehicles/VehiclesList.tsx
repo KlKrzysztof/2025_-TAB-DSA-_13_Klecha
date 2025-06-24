@@ -39,7 +39,7 @@ function VehiclesList({ onSelect } : props) {
 
     return <><div style={PanelStyles}>
         <h2>My Vehicles</h2>
-        <SortableTable fetchURL="/api/vehicle/vehicle/all" idColumn="vehicleId" onRowSelect={handleVehicleSelect} visibleColumns={[{ key: "model", label: "Model" }, { key: "plateNumber", label: "Plate Number" }, { key: "vin", label: "VIN" }, { key: "vehiclePurpose", label: "Purpose" }]} />
+        <SortableTable fetchURL="/api/vehicle/vehicle/all" idColumn="vehicleId" onRowSelect={handleVehicleSelect} visibleColumns={[{ key: "vehicleId", label: "Vehicle identification"}, { key: "plateNumber", label: "Plate Number" }, { key: "vin", label: "VIN" }]} />
     </div>
         <VehiclesDetails id={selectedId} />
     </>

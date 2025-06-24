@@ -90,7 +90,7 @@ function VehiclesDetails({ id }: getVehicle) {
                 })
             })
 
-            //window.location.reload()
+            window.location.reload()
         }
 
         setCanModify(!canModify)

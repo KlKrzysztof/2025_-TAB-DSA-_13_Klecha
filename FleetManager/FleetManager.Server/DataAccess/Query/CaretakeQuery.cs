@@ -72,6 +72,10 @@ public class CaretakeQuery(VehicleContext db, EmployeeContext employeeDb) : ICar
         {
             newCaretake = new(currentCaretake);
         }
+        else
+        {
+            newCaretake.VehicleId = (uint) vehicleId;
+        }
         newCaretake.CaretakeId = 0;
         newCaretake.StartDate = currentDate;
         newCaretake.EndDate = null;
