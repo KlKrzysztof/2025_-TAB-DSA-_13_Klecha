@@ -79,7 +79,7 @@ export const SortableTable: React.FC<TableProps> = ({ fetchURL, idColumn, onRowS
 
 
     return (
-        <div style={{ height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', border: '1px solid #ccc' }}>
+        <div style= {{ maxHeight: "300px", height: '100%', overflow: 'hidden', display: 'flex', flexDirection: 'column', border: '1px solid #ccc' }}>
             <div style={{ flex: '0 0 auto' }}>
                 <table style={{ width: '100%', borderCollapse: 'collapse', tableLayout: 'fixed' }}>
                     <thead style={{ backgroundColor: '#f2f2f2' }}>

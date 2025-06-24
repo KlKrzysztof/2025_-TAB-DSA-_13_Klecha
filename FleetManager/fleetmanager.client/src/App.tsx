@@ -8,14 +8,17 @@ import Vehicles from './routes/Vehicles';
 import CostsList from './Costs/CostsList';
 
 function App() {
+    //get employeeId from local storage as number
+    const empId = localStorage.getItem('empId');
+    const empIdNumber = empId ? parseInt(empId, 10) : 3;
+
     return (
         <>
             <Navbar />
             <div >
                 <Routes>
                     <Route path="/" element={<Home />} />
-                    <Route path="/employees" element={<Employees />} />
-                    <Route path="/reservation" element={<Reservation />} />
+                    {empIdNumber === 3 && (<Route path="/employees" element={<Employees />} />)}
                     <Route path="/vehicles" element={<Vehicles />} />
                     <Route path="/costs" element={<CostsList /> } />
                 </Routes>
