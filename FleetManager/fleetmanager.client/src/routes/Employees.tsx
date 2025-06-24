@@ -87,7 +87,7 @@ const Employees: React.FC = () => {
                 <div className="list-panel">
                     <h1 className="title">Employees List</h1>
                     <div className="employee-list" style={{maxHeight: "300px"} }>
-                    <SortableTable fetchURL="api/employees/get/all" idColumn = "employeeId" onRowSelect = { handleEmplyeeSelect } visibleColumns = { [{ key: "firstName", label: "First name" }, { key: "secondName", label: "Second name" }, { key: "surname", label: "Surname" }, { key: "pesel", label: "PESEL" }]} />
+                    <SortableTable fetchURL="api/employee/get/all" idColumn = "employeeId" onRowSelect = { handleEmplyeeSelect } visibleColumns = { [{ key: "firstName", label: "First name" }, { key: "secondName", label: "Second name" }, { key: "surname", label: "Surname" }, { key: "pesel", label: "PESEL" }]} />
                     </div>
                 </div>
 

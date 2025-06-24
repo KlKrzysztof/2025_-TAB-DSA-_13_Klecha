@@ -103,7 +103,7 @@ function VehiclesDetails({ id }: getVehicle) {
                 'Content-type': 'application/json'
             },
             body: JSON.stringify({
-                vehicleId: 10,
+                vehicleId: 0,
                 totalMileage: 0,
                 isInService: false,
                 vehiclePurposeId: 1,
