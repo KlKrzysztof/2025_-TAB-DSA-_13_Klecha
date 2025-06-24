@@ -9,28 +9,27 @@ public class ReservationQuery(VehicleContext db) : IReservationQuery
 {
     public async Task<List<ReservationModel>> GetReservationsAsync()
     {
-
         return await db.Reservations.ToListAsync();
     }
 
-    public async Task<ReservationModel?> GetReservationByEmployeeId(int id)
+    public async Task<List<ReservationModel>> GetReservationsByEmployeeId(int id)
     {
-        return await db.Reservations.SingleOrDefaultAsync(o => o.EmployeeId == id);
+        return await db.Reservations.Where(o => o.EmployeeId == id).ToListAsync();
     }
 
     public async Task<ReservationModel?> GetReservationByIdAsync(int id)
     {
-        return await db.Reservations.SingleOrDefaultAsync(o => o.CaretakeId == id);
+        return await db.Reservations.SingleOrDefaultAsync(o => o.ReservationId == id);
     }
 
-    public async Task<ReservationModel?> GetReservationByVehicleId(int id)
+    public async Task<List<ReservationModel>> GetReservationsByVehicleId(int id)
     {
-        return await db.Reservations.SingleOrDefaultAsync(o => o.VehicleId == id);
+        return await db.Reservations.Where(o => o.VehicleId == id).ToListAsync();
     }
 
     public async Task CreateReservationAsync(ReservationModel model)
     {
-        var r = await db.Reservations.SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
+        var r = await db.Reservations.SingleOrDefaultAsync(o => o.ReservationId == model.ReservationId);
         if (r == null)
         {
             await db.Reservations.AddAsync(model);
@@ -40,7 +39,7 @@ public class ReservationQuery(VehicleContext db) : IReservationQuery
 
     public async Task UpdateReservationAsync(ReservationModel model)
     {
-        var r = await db.Reservations.AsNoTracking().SingleOrDefaultAsync(o => o.CaretakeId == model.CaretakeId);
+        var r = await db.Reservations.AsNoTracking().SingleOrDefaultAsync(o => o.ReservationId == model.ReservationId);
         if(r != null)
         {
             db.Reservations.Update(r);
@@ -50,7 +49,7 @@ public class ReservationQuery(VehicleContext db) : IReservationQuery
 
     public async Task DeleteReservationAsync(int id)
     {
-        var r = await db.Reservations.SingleOrDefaultAsync(o => o.CaretakeId == id);
+        var r = await db.Reservations.SingleOrDefaultAsync(o => o.ReservationId == id);
         if (r != null)
         {
             db.Reservations.Remove(r);
